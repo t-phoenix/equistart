@@ -1,7 +1,20 @@
 import {StyleSheet} from 'react-native';
 import {COLORS} from './colors';
+import { Dimensions } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export default StyleSheet.create({
+  singleButton: {
+    margin: 2,
+    width: windowWidth/2,
+    marginLeft: windowWidth/4
+  },
+  doubleButton: {
+    margin: 5,
+    width: windowWidth / 2.2
+  },
   backSection: {
     height: '4%',
     width: '90%',
@@ -17,13 +30,8 @@ export default StyleSheet.create({
     shadowRadius: 4,
   },
   pageView: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#8E8E8E'
+    height: windowHeight - 80,
+    justifyContent: 'space-between',
   },
   pageViewWithPadding: {
     height: '100%',
@@ -108,6 +116,12 @@ export default StyleSheet.create({
     marginVertical: 4,
     color: '#000',
   },
+  secondaryTextGrey: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginVertical: 4,
+    color: '#757575',
+  },
   tertiaryText: {
     fontSize: 14,
     fontWeight: '500',
@@ -130,4 +144,10 @@ export default StyleSheet.create({
     height: 1,
     backgroundColor: '#fff',
   },
+  primaryOrange: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 4,
+    color: '#E75F00',
+  }
 });

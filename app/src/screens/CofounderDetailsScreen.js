@@ -1,14 +1,10 @@
 import React from 'react';
 import {
   View,
-  Text,
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Modal,
-  Pressable,
-  TextInput,
-  Divider,
+  Pressable
 } from 'react-native';
 import commonStyles from '../commonStyles';
 import {
@@ -20,10 +16,12 @@ import {
   Cols,
   Cell,
 } from 'react-native-table-component';
+import { Button, Text, Modal, Input, Card } from '@ui-kitten/components';
+import { Dimensions } from 'react-native';
 
-export default function CofounderDetailsScreen({navigation}) {
+export default function CofounderDetailsScreen({ navigation }) {
   const [modalVisible, setModalVisible] = React.useState(false);
-  const tableHeader = ['phone', 'Address', 'Token(21000000)', 'Amount(2100)'];
+  const tableHeader = ['phone', 'Address', 'Token', 'Amount'];
   const [tableData, setTableData] = React.useState([
     [
       '7676676766',
@@ -59,98 +57,125 @@ export default function CofounderDetailsScreen({navigation}) {
   return (
     <View style={commonStyles.pageView}>
       <Modal
-        animationType="slide"
-        transparent={true}
+        backdropStyle={styles.backdrop}
         visible={modalVisible}
         onRequestClose={() => {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
-        <View style={styles.centeredView}>
-          
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Phone:</Text>
-            <TextInput
-              value={phone}
-              onChangeText={input => setPhone(input)}
-              style={commonStyles.inputStyle}
-              placeholder="9999-999-999"
-            />
-            <Text style={styles.modalText}>Address:</Text>
-            <TextInput
-              value={address}
-              onChangeText={input => setAddress(input)}
-              style={commonStyles.inputStyle}
-              placeholder="0x12uwidhiu2eh3e3dh239dh3dd3"
-            />
-            <Text style={styles.modalText}>Token:</Text>
-            <TextInput
-              value={token}
-              onChangeText={input => setToken(input)}
-              style={commonStyles.inputStyle}
-              placeholder="7000000"
-            />
-            <Text style={styles.modalText}>Deposit:</Text>
-            <TextInput
-              value={amount}
-              onChangeText={input => setAmount(input)}
-              style={commonStyles.inputStyle}
-              placeholder="700"
-            />
-            <Pressable
-              style={[commonStyles.primaryButton]}
-              onPress={addFounder}>
-              <Text style={styles.textStyle}>Add member</Text>
-            </Pressable>
-            <Pressable
-              style={[commonStyles.primaryButton]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>back</Text>
-            </Pressable>
+        <Card>
+          <View>
+            <View>
+            <Text style={commonStyles.secondaryTextGrey}>New Member Details</Text>
+              <Input
+                value={phone}
+                onChangeText={input => setPhone(input)}
+                placeholder="9999-999-999"
+                label="Phone"
+              />
+              <Input
+                value={address}
+                onChangeText={input => setAddress(input)}
+                label="Address"
+                placeholder="0x12uwidhiu2eh3e3dh239dh3dd3"
+              />
+              <Input
+                value={token}
+                onChangeText={input => setToken(input)}
+                label="Token"
+                placeholder="7000000"
+              />
+              <Input
+                value={amount}
+                onChangeText={input => setAmount(input)}
+                label="Deposit"
+                placeholder="700"
+              />
+              <View style={styles.bottomSection}>
+                <Button
+                  style={styles.modelButtonGroup}
+                  onPress={() => setModalVisible(!modalVisible)}>
+                  BACK
+                </Button>
+                <Button
+                  style={styles.modelButtonGroup}
+                  onPress={addFounder}
+                  appearance='outline'>
+                  Add member
+                </Button>
+              </View>
+            </View>
           </View>
-        </View>
+        </Card>
       </Modal>
 
-      <View style={commonStyles.backSection}>
-        <TouchableOpacity onPress={() => navigation.navigate('CreateDao')}>
-          <Text> Back </Text>
-        </TouchableOpacity>
-      </View>
-      <ScrollView style={styles.FormBox}>
-        <View style={styles.phoneBox}>
-          <Text>Total token to mint: </Text>
-        </View>
-        <View style={styles.phoneBox}>
-          <Text>Total amount to deposit: </Text>
-        </View>
+      <View style={styles.page}>
+        <Button
+          style={styles.button}
+          onPress={() => setModalVisible(true)}
+          size='small'
+          appearance='outline' >
+          Add a Co-founder
+        </Button>
+        <Text style={commonStyles.secondaryTextGrey}>Total token to mint: {<Text style={commonStyles.primaryOrange}> 210000 </Text>} </Text>
+        <Text style={commonStyles.secondaryTextGrey}>Total amount to deposit: {<Text style={commonStyles.primaryOrange}> 7000 </Text>}</Text>
 
         <View style={styles.tableBox}>
-          <Text style={{marginVertical: 8}}>Co founder Details</Text>
-          <Table borderStyle={{borderWidth: 2, borderColor: '#000'}}>
-            <Row data={tableHeader} style={styles.tableHeader} />
-            <Rows data={tableData} style={styles.tableRow} />
+          <Text style={commonStyles.secondaryTextGrey}>Co-founder Details</Text>
+          <Table borderStyle={{ borderWidth: 1, borderColor: '#333333', borderRadius: 10 }}>
+            <Row data={tableHeader} style={styles.tableHeader} textStyle={styles.HeaderTableText} />
+            <Rows data={tableData} style={styles.tableRow} textStyle={styles.TableText} />
           </Table>
-
-          <TouchableOpacity
-            style={commonStyles.primaryButton}
-            onPress={() => setModalVisible(true)}>
-            <Text>Add a Co-founder</Text>
-          </TouchableOpacity>
-
-          <View style={{height: '20%'}} />
-
-          <TouchableOpacity
-            style={commonStyles.primaryButton}
-            onPress={() => navigation.navigate('Review')}>
-            <Text>Review</Text>
-          </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
+
+
+      <View style={styles.bottomSection}>
+        <Button
+          style={styles.buttonGroup}
+          onPress={() => navigation.navigate('CreateDao')}>
+          BACK
+        </Button>
+        <Button
+          style={styles.buttonGroup}
+          onPress={() => navigation.navigate('Review')}
+          appearance='outline'>
+          Review
+        </Button>
+      </View>
     </View>
   );
 }
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
+  button: {
+    margin: 2,
+    width: windowWidth / 3,
+    marginLeft: 'auto'
+  },
+  buttonGroup: {
+    margin: 5,
+    width: windowWidth / 2.2
+  },
+  modelButtonGroup: {
+    margin: 5,
+    width: windowWidth / 3
+  },
+  bottomSection: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  page: {
+    marginHorizontal: 10,
+    marginVertical: 5
+  },
+  bottomSection: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
   FormBox: {
     height: '80%',
     width: '90%',
@@ -167,41 +192,27 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   tableHeader: {
     height: 40,
     width: '100%',
-    backgroundColor: '#f1f8',
+    backgroundColor: '#e67425',
+    alignContent: "center",
+  },
+  TableText: {
+    margin: 5
+  },
+  HeaderTableText: {
+    textAlign: 'center',
+    color: '#FFFFFF'
   },
   tableRow: {
     // height: 36,
     width: '100%',
-    backgroundColor: '#3a7b',
+    backgroundColor: 'rgba(51, 102, 255, 0.08)'
   },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  modalText: {
-    marginTop: 16,
-    marginBottom: 8,
+  backdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
   },
 });
