@@ -35,7 +35,7 @@ const CustomSidebarMenu = props => {
       /> */}
       <View style={styles.logoBox}>
         {/* <HarmonyLogo width={30} height={30} style={styles.logoStyle} /> */}
-        <Text style={commonStyles.primaryOrange}>equistart</Text>
+        <Text style={commonStyles.primaryTextOrange}>equistart</Text>
       </View>
       <View style={commonStyles.dividerStyle} />
       <DrawerContentScrollView {...props}>

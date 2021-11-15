@@ -66,7 +66,7 @@ export default function CofounderDetailsScreen({ navigation }) {
         <Card>
           <View>
             <View>
-            <Text style={commonStyles.secondaryTextGrey}>New Member Details</Text>
+              <Text style={commonStyles.secondaryTextGrey}>New Member Details</Text>
               <Input
                 value={phone}
                 onChangeText={input => setPhone(input)}
@@ -117,8 +117,8 @@ export default function CofounderDetailsScreen({ navigation }) {
           appearance='outline' >
           Add a Co-founder
         </Button>
-        <Text style={commonStyles.secondaryTextGrey}>Total token to mint: {<Text style={commonStyles.primaryOrange}> 210000 </Text>} </Text>
-        <Text style={commonStyles.secondaryTextGrey}>Total amount to deposit: {<Text style={commonStyles.primaryOrange}> 7000 </Text>}</Text>
+        <Text style={commonStyles.secondaryTextGrey}>Total token to mint: {<Text style={commonStyles.primaryTextOrange}> 210000 </Text>} </Text>
+        <Text style={commonStyles.secondaryTextGrey}>Total amount to deposit: {<Text style={commonStyles.primaryTextOrange}> 7000 </Text>}</Text>
 
         <View style={styles.tableBox}>
           <Text style={commonStyles.secondaryTextGrey}>Co-founder Details</Text>
@@ -175,17 +175,6 @@ const styles = StyleSheet.create({
   bottomSection: {
     flexDirection: 'row',
     justifyContent: 'center'
-  },
-  FormBox: {
-    height: '80%',
-    width: '90%',
-    marginVertical: '2%',
-    backgroundColor: '#E8954B',
-  },
-  phoneBox: {
-    margin: 4,
-    display: 'flex',
-    flexDirection: 'row',
   },
   tableBox: {
     marginVertical: 4,

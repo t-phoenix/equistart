@@ -2,27 +2,27 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Button, Text, Layout, Card } from '@ui-kitten/components'
 
-const DaoCard = ({daoData, navigation, withButton = true}) => {
+const DaoCardSummary = ({cardData, navigation, withButton = true}) => {
 
     function openProject(data) {
         navigation.navigate('DaoHomeScreen', { data: data })
     }
 
-    const Header = (daoData) => (
+    const Header = (cardData) => (
         <View>
-            <Text category='h6'>{daoData.title}</Text>
-            <Text category='s1'>{daoData.token}</Text>
+            <Text category='h6'>{cardData.title}</Text>
+            <Text category='s1'>{cardData.token}</Text>
         </View>
     );
 
     return (
-        <Card style={styles.card} header={Header(daoData)}>
-            <Text>Total Project Token: {daoData.amount} </Text>
-            <Text>Value ($): {daoData.value}</Text>
+        <Card style={styles.card} header={Header(cardData)}>
+            <Text>Total Project Token: {cardData.amount} </Text>
+            <Text>Value ($): {cardData.value}</Text>
             <View style={styles.footerContainer}>
                 {withButton && <Button
                     style={styles.footerControl}
-                    onPress={() => openProject(daoData)}
+                    onPress={() => openProject(cardData)}
                     size='small'>
                     DETAILS
                 </Button>}
@@ -31,7 +31,7 @@ const DaoCard = ({daoData, navigation, withButton = true}) => {
     )
 }
 
-export default DaoCard;
+export default DaoCardSummary;
 
 const styles = StyleSheet.create({
     card: {

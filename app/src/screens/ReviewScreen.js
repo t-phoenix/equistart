@@ -1,14 +1,14 @@
 import React from 'react';
 import {
   View,
-  Text,
-  TouchableOpacity,
   StyleSheet,
-  ScrollView,
-  TextInput,
+  ScrollView
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import commonStyles from '../commonStyles';
+import { Button, Text, Modal, Input, Card } from '@ui-kitten/components';
+import { Dimensions } from 'react-native';
+import DaoCardSummary from '../components/DaoCardSummary';
 
 export default function ReviewScreen({navigation}) {
   const data = [
@@ -72,14 +72,9 @@ export default function ReviewScreen({navigation}) {
 
   return (
     <View style={commonStyles.pageView}>
-      <View style={commonStyles.backSection}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('cofounderDetails')}>
-          <Text> Back </Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.FormBox}>
-        <Text style={{fontWeight: 'bold'}}>Review Your Project Details</Text>
+      <View>
+        <Text style={commonStyles.secondaryTextGrey}>Review Your Project Details</Text>
+        {/* <DaoCardSummary daoData={data} navigation={navigation} withButton={false} /> */}
         <FlatList
           style={{padding: 4, height: '30%'}}
           data={data}
@@ -87,7 +82,7 @@ export default function ReviewScreen({navigation}) {
           keyExtractor={item => item.key}
           scrollEnabled={false}
         />
-        <Text style={{fontWeight: 'bold'}}>Your core Team Details</Text>
+        <Text style={commonStyles.secondaryTextGrey}>Your core Team Details</Text>
         <FlatList
           style={{padding: 4, height: '40%'}}
           data={teamData}
@@ -95,22 +90,36 @@ export default function ReviewScreen({navigation}) {
           keyExtractor={item => item.key}
           scrollEnabled={false}
         />
-        <View style={{padding:4, height: '30%', alignItems: 'center'}}>
-            <TouchableOpacity style={commonStyles.primaryButton} onPress={()=>handleInstall()}>
-                <Text>Install Project on Blockchain</Text>
-            </TouchableOpacity>
-        </View>
+      </View>
+      <View style={styles.bottomSection}>
+        <Button
+          style={styles.buttonGroup}
+          size="small"
+          onPress={() => navigation.navigate('cofounderDetails')}>
+          BACK
+        </Button>
+        <Button
+          style={styles.buttonGroup}
+          onPress={()=>handleInstall()}
+          size="small"
+          appearance='outline'>
+          Install Project on Blockchain
+        </Button>
       </View>
     </View>
   );
 }
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
-  FormBox: {
-    height: '90%',
-    width: '90%',
-    marginVertical: '2%',
-    backgroundColor: '#E8954B',
-    justifyContent: 'flex-start'
+  buttonGroup: {
+    margin: 5,
+    width: windowWidth / 2.2
+  },
+  bottomSection: {
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
 });

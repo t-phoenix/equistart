@@ -6,6 +6,8 @@ import ReviewScreen from '../screens/ReviewScreen';
 import DaoHomeScreen from '../screens/DaoScreens/DaoHomeScreen';
 import WalletHomeScreen from '../screens/WalletHomeScreen';
 import SendScreen from '../screens/SendScreen';
+import CreateProposal from '../screens/CreateProposal';
+import ProposalDetailsScreen from '../screens/ProposalDetailsScreen';
 // import RestoreScreen from '../screens/RestoreScreen';
 
 export const DaoScreens = [
@@ -34,6 +36,16 @@ export const DaoScreens = [
       title: 'Home',
       component: DaoHomeScreen
     },
+    {
+      name: 'CreateProposal',
+      title: 'Create Proposal',
+      component: CreateProposal
+    },
+    {
+      name: 'ProposalDetails',
+      title: 'Proposal Details',
+      component: ProposalDetailsScreen
+    }
   ];
 
   export const WalletScreens = [
