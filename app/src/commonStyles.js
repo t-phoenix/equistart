@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {COLORS} from './colors';
 import { Dimensions } from 'react-native';
+import {Platform} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -30,7 +31,14 @@ export default StyleSheet.create({
     shadowRadius: 4,
   },
   pageView: {
-    height: windowHeight - 80,
+    ...Platform.select({
+    ios: {
+      height: windowHeight - 120,
+    },
+    android: {
+      height: windowHeight - 80,
+    },
+  }),
     justifyContent: 'space-between',
   },
   pageViewWithPadding: {
