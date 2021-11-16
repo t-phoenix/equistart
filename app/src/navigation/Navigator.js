@@ -19,7 +19,7 @@ export default function Navigator({ screens, navigation }) {
           name={screen.name}
           component={screen.component}
           options={{
-            headerTitle: () => (<Text style={commonStyles.primaryOrange}>{screen.title}</Text>),
+            headerTitle: () => (<Text style={commonStyles.primaryTextOrange}>{screen.title}</Text>),
             headerLeft: MenuAction,
             headerStyle: commonStyles.headerBarStyle,
           }}

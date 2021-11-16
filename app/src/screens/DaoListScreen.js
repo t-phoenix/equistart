@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { Button, Text, Layout, Card } from '@ui-kitten/components';
 // import LinearGradient from 'react-native-linear-gradient';
-import DaoList from '../components/DaoList';
+import CardList from '../components/CardList';
 
 import commonStyles from '../commonStyles';
 import { COLORS } from '../colors';
+import DaoCardSummary from '../components/DaoCardSummary';
 
 export default function DaoListScreen({ navigation }) {
 
@@ -14,7 +15,7 @@ export default function DaoListScreen({ navigation }) {
   return (
     <View style={commonStyles.pageView}>
       <View style={styles.daoListBox}>
-        <DaoList data={data} navigation={navigation}/>
+        <CardList cardListData={data} card={DaoCardSummary} navigation={navigation}/>
       </View>
       <View>
         <Button style={commonStyles.singleButton} appearance='outline' status='primary' onPress={() => { navigation.navigate('CreateDao') }}>

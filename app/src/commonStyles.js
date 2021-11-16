@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {COLORS} from './colors';
 import { Dimensions } from 'react-native';
+import {Platform} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -8,12 +9,12 @@ const windowHeight = Dimensions.get('window').height;
 export default StyleSheet.create({
   singleButton: {
     margin: 2,
-    width: windowWidth/2,
-    marginLeft: windowWidth/4
+    width: '50%',
+    marginLeft: '25%'
   },
   doubleButton: {
     margin: 5,
-    width: windowWidth / 2.2
+    width: '45.45%'
   },
   backSection: {
     height: '4%',
@@ -30,7 +31,14 @@ export default StyleSheet.create({
     shadowRadius: 4,
   },
   pageView: {
-    height: windowHeight - 80,
+    ...Platform.select({
+    ios: {
+      height: windowHeight - 120,
+    },
+    android: {
+      height: windowHeight - 80,
+    },
+  }),
     justifyContent: 'space-between',
   },
   pageViewWithPadding: {
@@ -144,10 +152,34 @@ export default StyleSheet.create({
     height: 1,
     backgroundColor: '#fff',
   },
-  primaryOrange: {
+  primaryTextOrange: {
     fontSize: 20,
     fontWeight: 'bold',
     marginVertical: 4,
     color: '#E75F00',
-  }
+  },
+  tertiaryTextGreen: {
+    color: '#00d142'
+  },
+  tertiaryTextRed: {
+    color: '#d10000'
+  },
+  primaryTextGreen: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 4,
+    color: '#00d142',
+  },
+  primaryTextRed: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 4,
+    color: '#d10000',
+  },
+  smallTextRed: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    marginHorizontal: 2,
+    color: '#d10000',
+  },
 });
