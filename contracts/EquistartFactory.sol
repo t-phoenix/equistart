@@ -10,8 +10,8 @@ import "./EquistartProject.sol";
 contract EquistartFactory {
     address[] public deployedProjects;
     
-    function createProject(string memory name, string memory symbol, string memory description, uint totalSupply) public {
-        address newProject = address(new EquistartProject(name, symbol, description, totalSupply, msg.sender));
+    function createProject(string memory name, string memory symbol, uint initialSupply) public {
+        address newProject = address(new EquistartProject(name, symbol, initialSupply,  msg.sender));
         deployedProjects.push(newProject);
     }
     
