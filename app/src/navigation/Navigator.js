@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 export default function Navigator({ screens, navigation }) {
 
   const MenuAction = () => (
-    <Button accessoryLeft={<Icon name='menu-outline' />} onPress={() => navigation.openDrawer()} />
+    <Button style={commonStyles.buttonGrey} accessoryLeft={<Icon name='menu-outline' />} onPress={() => navigation.openDrawer()} />
   );
 
   return (

@@ -5,10 +5,10 @@ import {
   ScrollView
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import commonStyles from '../commonStyles';
+import commonStyles from '../../commonStyles';
 import { Button, Text, Modal, Input, Card } from '@ui-kitten/components';
 import { Dimensions } from 'react-native';
-import DaoCardSummary from '../components/DaoCardSummary';
+import DaoCardSummary from '../../components/DaoCardSummary';
 
 export default function ReviewScreen({navigation}) {
   const data = [
@@ -72,7 +72,7 @@ export default function ReviewScreen({navigation}) {
 
   return (
     <View style={commonStyles.pageView}>
-      <View>
+      <View style={commonStyles.pageContent}>
         <Text style={commonStyles.secondaryTextGrey}>Review Your Project Details</Text>
         {/* <DaoCardSummary daoData={data} navigation={navigation} withButton={false} /> */}
         <FlatList
@@ -91,18 +91,19 @@ export default function ReviewScreen({navigation}) {
           scrollEnabled={false}
         />
       </View>
-      <View style={styles.bottomSection}>
+      <View style={commonStyles.rowButtonContainer}>
         <Button
-          style={styles.buttonGroup}
+          style={commonStyles.doubleButton}
           size="small"
-          onPress={() => navigation.navigate('cofounderDetails')}>
-          BACK
+          onPress={() => navigation.navigate('cofounderDetails')}
+          status='warning'>
+          Back
         </Button>
         <Button
-          style={styles.buttonGroup}
+          style={commonStyles.doubleButton}
           onPress={()=>handleInstall()}
           size="small"
-          appearance='outline'>
+          >
           Install Project on Blockchain
         </Button>
       </View>

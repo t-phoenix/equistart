@@ -2,40 +2,37 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Button, Text, Layout, Card } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
+import { backgrounds } from '../colors'
 
 const DaoCardDetail = ({ cardData, navigation }) => {
     return (
-        <Card style={styles.card} >
-            <View style={styles.nameContainer}>
-                <Text category='h3'>{cardData.title}</Text>
-                <Text category='s1'>({cardData.token})</Text>
-            </View>
-            <Text style={commonStyles.primaryTextOrange}>About</Text>
-            <View style={styles.rowContainer}>
-                <View>
-                    <Text style={commonStyles.secondaryTextGrey}>Creator: {<Text> 8283944992 </Text>} </Text>
-                    <Text style={commonStyles.secondaryTextGrey}>Total token: {<Text> {cardData.amount} </Text>} </Text>
+        <Card style={{backgroundColor:'#F8F8F8', ...commonStyles.card}}>
+                <View style={styles.nameContainer}>
+                    <Text style={styles.headerText} category='h3'>{cardData.title}</Text>
+                    <Text style={styles.dynamicText} category='s1'>({cardData.token})</Text>
                 </View>
-                <View>
-                    <Text style={commonStyles.secondaryTextGrey}>Symbol: {<Text> {cardData.token} </Text>} </Text>
-                    <Text style={commonStyles.secondaryTextGrey}>Value ($): {<Text> {cardData.value} </Text>} </Text>
+                <Text style={commonStyles.primaryTextOrange}>About</Text>
+                <View style={styles.rowContainer}>
+                    <View>
+                        <Text style={commonStyles.secondaryTextGrey}>Creator: {<Text style={styles.dynamicText}> 8283944992 </Text>} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Total token: {<Text style={styles.dynamicText}> {cardData.amount/1000}K </Text>} </Text>
+                    </View>
+                    <View>
+                        <Text style={commonStyles.secondaryTextGrey}>Symbol: {<Text style={styles.dynamicText}> {cardData.token} </Text>} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Value ($): {<Text style={styles.dynamicText}> {cardData.value} </Text>} </Text>
+                    </View>
                 </View>
-            </View>
-            <Text style={commonStyles.primaryTextOrange}>Description</Text>
-            <Text>
-                This is the best company in the world.
-            </Text>
-        </Card>
+                <Text style={commonStyles.primaryTextOrange}>Description</Text>
+                <Text style={styles.dynamicText}>
+                    This is the best company in the world.
+                </Text>
+            </Card>
     )
 }
 
 export default DaoCardDetail;
 
 const styles = StyleSheet.create({
-    card: {
-        // flex: 1,
-        margin: 4,
-    },
     footerContainer: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
@@ -48,7 +45,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     rowContainer: {
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
         flexDirection: 'row'
+    },
+    dynamicText: {
+        color: '#9C9DA0'
+    },
+    headerText: {
+        color: '#404248'
     }
 })

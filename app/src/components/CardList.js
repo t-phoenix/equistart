@@ -1,14 +1,19 @@
 import React from 'react'
-import { StyleSheet, View, ScrollView } from 'react-native'
+import { StyleSheet, View, FlatList } from 'react-native'
 
 const CardList = ({ cardListData, card, navigation }) => {
     return (
         <View>
-            <ScrollView>
+            {/* <FlatList
+                data={cardListData}
+                renderItem={(item) => card({ cardData: item.item, navigation: navigation })}
+                keyExtractor={item => item.key}
+            /> */}
+            <View>
                 {cardListData.map((item) => (
-                    <View key={item.key}>{card({cardData: item, navigation: navigation})}</View>
+                    <View key={item.key}>{card({ cardData: item, navigation: navigation })}</View>
                 ))}
-            </ScrollView>
+            </View>
         </View>
     )
 }

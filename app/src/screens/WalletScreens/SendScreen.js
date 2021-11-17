@@ -9,8 +9,8 @@ import {
   FlatList,
 } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-import commonStyles from '../commonStyles';
-import {COLORS} from '../colors';
+import commonStyles from '../../commonStyles';
+import {COLORS} from '../../colors';
 
 export default function ({navigation}) {
   const tokenData = [

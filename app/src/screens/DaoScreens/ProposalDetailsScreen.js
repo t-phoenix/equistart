@@ -1,19 +1,21 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import commonStyles from '../commonStyles'
-import ProposalCardDetail from '../components/ProposalCardDetail'
+import commonStyles from '../../commonStyles'
+import ProposalCardDetail from '../../components/ProposalCardDetail'
 import { Button } from '@ui-kitten/components'
 
 const ProposalDetailsScreen = ({ route, navigation}) => {
 
     return (
         <View style={commonStyles.pageView}>
-            {console.log(route)}
-            <ProposalCardDetail cardData={route.params.cardData} />
+            <View style={commonStyles.pageContent}>
+                <ProposalCardDetail cardData={route.params.cardData} />
+            </View>
             <Button
                 style={commonStyles.singleButton}
-                onPress={() => navigation.goBack()}>
-                BACK
+                onPress={() => navigation.goBack()}
+                status='warning'>
+                Back
             </Button>
         </View>
     )

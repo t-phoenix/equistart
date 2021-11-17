@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Pressable
 } from 'react-native';
-import commonStyles from '../commonStyles';
+import commonStyles from '../../commonStyles';
 import {
   Table,
   TableWrapper,
@@ -18,6 +18,7 @@ import {
 } from 'react-native-table-component';
 import { Button, Text, Modal, Input, Card } from '@ui-kitten/components';
 import { Dimensions } from 'react-native';
+import EmptySpace from '../../components/EmptySpace';
 
 export default function CofounderDetailsScreen({ navigation }) {
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -63,58 +64,62 @@ export default function CofounderDetailsScreen({ navigation }) {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
-        <Card>
-          <View>
-            <View>
-              <Text style={commonStyles.secondaryTextGrey}>New Member Details</Text>
-              <Input
-                value={phone}
-                onChangeText={input => setPhone(input)}
-                placeholder="9999-999-999"
-                label="Phone"
-              />
-              <Input
-                value={address}
-                onChangeText={input => setAddress(input)}
-                label="Address"
-                placeholder="0x12uwidhiu2eh3e3dh239dh3dd3"
-              />
-              <Input
-                value={token}
-                onChangeText={input => setToken(input)}
-                label="Token"
-                placeholder="7000000"
-              />
-              <Input
-                value={amount}
-                onChangeText={input => setAmount(input)}
-                label="Deposit"
-                placeholder="700"
-              />
-              <View style={styles.bottomSection}>
-                <Button
-                  style={styles.modelButtonGroup}
-                  onPress={() => setModalVisible(!modalVisible)}>
-                  BACK
-                </Button>
-                <Button
-                  style={styles.modelButtonGroup}
-                  onPress={addFounder}
-                  appearance='outline'>
-                  Add member
-                </Button>
-              </View>
+          <View style={styles.modalView}>
+            <Text style={commonStyles.secondaryTextGrey}>New Member Details</Text>
+            <EmptySpace />
+            <Input
+              style={commonStyles.input}
+              value={phone}
+              onChangeText={input => setPhone(input)}
+              placeholder="9999-999-999"
+              label={() => <Text style={commonStyles.inputLabel}> Phone </Text>}
+            />
+            <Input
+              style={commonStyles.input}
+              value={address}
+              onChangeText={input => setAddress(input)}
+              label={() => <Text style={commonStyles.inputLabel}> Address </Text>}
+              placeholder="0x12uwidhiu2eh3e3dh239dh3dd3"
+            />
+            <Input
+              style={commonStyles.input}
+              value={token}
+              onChangeText={input => setToken(input)}
+              label={() => <Text style={commonStyles.inputLabel}> Token </Text>}
+              placeholder="7000000"
+            />
+            <Input
+              style={commonStyles.input}
+              value={amount}
+              onChangeText={input => setAmount(input)}
+              label={() => <Text style={commonStyles.inputLabel}> Deposit </Text>}
+              placeholder="700"
+            />
+            <EmptySpace space={30} />
+            <View style={commonStyles.rowButtonContainer}>
+              <Button
+                style={commonStyles.doubleButton}
+                onPress={() => setModalVisible(!modalVisible)}
+                status='warning'>
+                Back
+              </Button>
+              <Button
+                style={commonStyles.doubleButton}
+                onPress={addFounder}
+                >
+                Add member
+              </Button>
             </View>
           </View>
-        </Card>
       </Modal>
 
-      <View style={styles.page}>
+      <View style={commonStyles.pageContent}>
+        <EmptySpace />
         <Button
-          style={styles.button}
+          style={{marginLeft: 'auto', ...commonStyles.button}}
           onPress={() => setModalVisible(true)}
           size='small'
-          appearance='outline' >
+           >
           Add a Co-founder
         </Button>
         <Text style={commonStyles.secondaryTextGrey}>Total token to mint: {<Text style={commonStyles.primaryTextOrange}> 210000 </Text>} </Text>
@@ -130,16 +135,17 @@ export default function CofounderDetailsScreen({ navigation }) {
       </View>
 
 
-      <View style={styles.bottomSection}>
+      <View style={commonStyles.rowButtonContainer}>
         <Button
-          style={styles.buttonGroup}
-          onPress={() => navigation.navigate('CreateDao')}>
-          BACK
+          style={commonStyles.doubleButton}
+          onPress={() => navigation.navigate('CreateDao')}
+          status='warning'>
+          Back
         </Button>
         <Button
-          style={styles.buttonGroup}
+          style={commonStyles.doubleButton}
           onPress={() => navigation.navigate('Review')}
-          appearance='outline'>
+          >
           Review
         </Button>
       </View>
@@ -156,14 +162,6 @@ const styles = StyleSheet.create({
     width: windowWidth / 3,
     marginLeft: 'auto'
   },
-  buttonGroup: {
-    margin: 5,
-    width: windowWidth / 2.2
-  },
-  modelButtonGroup: {
-    margin: 5,
-    width: windowWidth / 3
-  },
   bottomSection: {
     flexDirection: 'row',
     justifyContent: 'center'
@@ -171,10 +169,6 @@ const styles = StyleSheet.create({
   page: {
     marginHorizontal: 10,
     marginVertical: 5
-  },
-  bottomSection: {
-    flexDirection: 'row',
-    justifyContent: 'center'
   },
   tableBox: {
     marginVertical: 4,
@@ -204,4 +198,10 @@ const styles = StyleSheet.create({
   backdrop: {
     backgroundColor: 'rgba(0, 0, 0, 0.85)',
   },
+  modalView: {
+    borderRadius: 20,
+    backgroundColor: '#212427',
+    paddingHorizontal: '3%',
+    paddingVertical: '5%'
+  }
 });

@@ -1,13 +1,13 @@
 //Navigation Screens Import
-import DaoListScreen from '../screens/DaoListScreen';
-import CreateDaoScreen from '../screens/CreateDaoScreen';
-import CofounderDetailsScreen from '../screens/CofounderDetailsScreen';
-import ReviewScreen from '../screens/ReviewScreen';
+import DaoListScreen from '../screens/DaoScreens/DaoListScreen';
+import CreateDaoScreen from '../screens/DaoScreens/CreateDaoScreen';
+import CofounderDetailsScreen from '../screens/DaoScreens/CofounderDetailsScreen';
+import ReviewScreen from '../screens/DaoScreens/ReviewScreen';
 import DaoHomeScreen from '../screens/DaoScreens/DaoHomeScreen';
-import WalletHomeScreen from '../screens/WalletHomeScreen';
-import SendScreen from '../screens/SendScreen';
-import CreateProposal from '../screens/CreateProposal';
-import ProposalDetailsScreen from '../screens/ProposalDetailsScreen';
+import WalletHomeScreen from '../screens/WalletScreens/WalletHomeScreen';
+import SendScreen from '../screens/WalletScreens/SendScreen';
+import CreateProposal from '../screens/DaoScreens/CreateProposal';
+import ProposalDetailsScreen from '../screens/DaoScreens/ProposalDetailsScreen';
 // import RestoreScreen from '../screens/RestoreScreen';
 
 export const DaoScreens = [

@@ -10,7 +10,7 @@ const ProposalCardDetail = ({ cardData }) => {
     const [votingStatus, setVotingStatus] = React.useState(false);
     return (
         <View>
-            <Card style={styles.card} >
+            <Card style={{...commonStyles.card}} >
                 <View>
 
                 </View>
@@ -49,14 +49,14 @@ const ProposalCardDetail = ({ cardData }) => {
                         style={commonStyles.doubleButton}
                         onPress={() => {setYesCount(yesCount + 1); setVotingStatus(true)}}
                         status='success'
-                        appearance='outline'
+                        
                         disabled={votingStatus}>
                         YES
                     </Button>
                     <Button
                         style={commonStyles.doubleButton}
                         onPress={() => {setNoCount(noCount + 1); setVotingStatus(true)}}
-                        appearance='outline'
+                        
                         status='danger'
                         disabled={votingStatus}>
                         NO

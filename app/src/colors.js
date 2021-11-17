@@ -9,27 +9,38 @@ export const COLORS = {
   robinsEggBlue: '#00C8BA',
 };
 
-// '#7F8489',
-// '#FFFFFF',
-// '#131417',
-// '#2C3036',
-// '#2C3036',
-// '#2F353A',
-// '#41BBFF',
-// '#005EA3',
-// '#016BB8',
-// '#0172BE',
-// '#058DD9',
-// '#11A8FD',
-// '#11A8FD',
-// '#131517',
-// '#17181C',
-// '#1B2125',
-// '#424750',
-// '#030303',
-// '#03050C',
-// '#353A40',
-// '#353A40',
-// '#7F8489',
-// '#FDFDFD',
-// '#FFFFFF',
+export const backgrounds = [
+  '#FFEECE',
+  '#73B3DF',
+  '#F8F8F8',
+  '#FECBBB',
+  '#EACBD1',
+  '#efd6e3',
+];
+
+export const colorPairs = [
+  {
+    background: '#B8E4EA',
+    text: '#4E87A8'
+  },
+  {
+    background: '#1D1309',
+    text: '#906C54'
+  },
+  {
+    background: '#FFB298',
+    text: '#BE7155'
+  },
+  {
+    background: '#FFC75A',
+    text: '#9E7018'
+  },
+  {
+    background: '#FFCACB',
+    text: '#C27273'
+  },
+  {
+    background: '#E9E9EB',
+    text: '#6F569D'
+  },
+];

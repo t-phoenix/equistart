@@ -1,6 +1,6 @@
 import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import commonStyles from '../commonStyles'
+import commonStyles from '../../commonStyles'
 import { Button, Text, Layout, Card, Icon, Input, Datepicker, PopoverPlacements } from '@ui-kitten/components'
 
 const CreateProposal = ({navigation}) => {
@@ -16,7 +16,7 @@ const CreateProposal = ({navigation}) => {
 
     return (
         <View style={commonStyles.pageView}>
-            <View style={styles.formView}>
+            <View style={commonStyles.pageContent}>
                 <Text style={commonStyles.secondaryTextGrey}>Enter Proposal Details</Text>
                 <Input
                     style={styles.input}
@@ -57,13 +57,14 @@ const CreateProposal = ({navigation}) => {
             <View style={styles.rowContainer}>
                 <Button
                     style={commonStyles.doubleButton}
-                    onPress={() => navigation.goBack(null)}>
-                    BACK
+                    onPress={() => navigation.goBack(null)}
+                    status='warning'>
+                    Back
                 </Button>
                 <Button
                     style={commonStyles.doubleButton}
                     // onPress={addFounder}
-                    appearance='outline'>
+                    >
                     Publish
                 </Button>
             </View>
