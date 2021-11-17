@@ -18,13 +18,8 @@
 						"type": "string"
 					},
 					{
-						"internalType": "string",
-						"name": "description",
-						"type": "string"
-					},
-					{
 						"internalType": "uint256",
-						"name": "totalSupply",
+						"name": "initialSupply",
 						"type": "uint256"
 					}
 				],
@@ -173,6 +168,14 @@
 				"dweb:/ipfs/QmSim72e3ZVsfgZt8UceCvbiSuMRHR6WDsiamqNzZahGSY"
 			]
 		},
+		"@openzeppelin/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol": {
+			"keccak256": "0x5f7388d6c413c6f1faece48438f21d296296140d8a421c62515613d1e84804ca",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://28cd14a7bf75540b17a95d8d58fbbbbfaf776d615997d873397d3f459583c9c4",
+				"dweb:/ipfs/QmQREJ53or1amn79THELJZBGAWx9M4e6ZVUXZiczCKksfw"
+			]
+		},
 		"@openzeppelin/contracts/token/ERC20/presets/ERC20PresetMinterPauser.sol": {
 			"keccak256": "0x6118ad6468d16e315f563a4e63072290e726fdc75586b587c93d259678815f91",
 			"license": "MIT",
@@ -222,19 +225,19 @@
 			]
 		},
 		"contracts/EquistartFactory.sol": {
-			"keccak256": "0x7dd03fe9379bd03db397c5b4647e7b15b128d5d971d24fc3d74937b2a8d95bf0",
+			"keccak256": "0xb578b3685f3345e76df41405fec0a7cc3624e9fb2776003b15a71de993a67c75",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://49aaadaa384fd65281b990a46cf0763bd8a311482f2abc1b2ccdee71848bea36",
-				"dweb:/ipfs/QmcsMwu1PwQDvUKpsqLxtn5Q752LCZgwpSEKbgemax68D2"
+				"bzz-raw://df80181bd465f77f2824ef611b656c5c7cef14fb2d02eda3782b44adf48c60ce",
+				"dweb:/ipfs/QmYd2S4NFafCstHNoZRee8wRw9NFM6UcoqRuzyhjiaCLug"
 			]
 		},
 		"contracts/EquistartProject.sol": {
-			"keccak256": "0x99a18d1b5a84fc64c6b45654bea55116722bbb4827cdc857dd2a2690cae036a7",
+			"keccak256": "0x4db83850ce0ae6dd696d255d1633d9ea909aebd5984d2a0f4228b3408eb22f40",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://40ba31ee86a28f671180f0c1a57e3bccd7aa40fe4149126ef007df5213e91aea",
-				"dweb:/ipfs/QmbpSxqNcbfN6hG87BJFWLbMHHE3WzCDgvkTCRu1wc2KWM"
+				"bzz-raw://7209ff42f2c2f128f3ee55b19186762cf42caf7b26abbc54a5aa84bd739a3006",
+				"dweb:/ipfs/QmXxYzbT1snGevCQn7aAe6qsUJcmYa29ALPiqD8eVBS7Xp"
 			]
 		}
 	},
