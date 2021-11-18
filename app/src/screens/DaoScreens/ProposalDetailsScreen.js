@@ -12,7 +12,7 @@ const ProposalDetailsScreen = ({ route, navigation}) => {
                 <ProposalCardDetail cardData={route.params.cardData} />
             </View>
             <Button
-                style={commonStyles.singleButton}
+                style={commonStyles.rowButtonContainer}
                 onPress={() => navigation.goBack()}
                 status='warning'>
                 Back

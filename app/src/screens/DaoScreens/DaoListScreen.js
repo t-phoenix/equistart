@@ -25,7 +25,7 @@ export default function DaoListScreen({ navigation }) {
         <CardList cardListData={data} card={DaoCardSummary} navigation={navigation} />
         <EmptySpace space={40} />
       </ScrollView>
-      <View>
+      <View style={{paddingBottom:'8%', paddingTop: 4}}>
         <Button style={commonStyles.singleButton} onPress={() => { navigation.navigate('CreateDao') }}>
           Create New Project
         </Button>

@@ -47,7 +47,8 @@ export default StyleSheet.create({
   },
   rowButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    paddingBottom: '8%'
   },
   backSection: {
     height: '4%',
@@ -66,17 +67,18 @@ export default StyleSheet.create({
   pageView: {
     ...Platform.select({
       ios: {
-        height: windowHeight - 120,
+        height: windowHeight - 80,
       },
       android: {
         height: windowHeight - 80,
       },
     }),
     justifyContent: 'space-between',
-    backgroundColor: '#212427'
+    backgroundColor: '#212427',
   },
   pageContent: {
     marginHorizontal: '4%',
+    marginTop: '2%',
     ...Platform.select({
       ios: {
         height: windowHeight - 180,

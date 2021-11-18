@@ -54,7 +54,7 @@ const CreateProposal = ({navigation}) => {
                     />
                 </View>
             </View>
-            <View style={styles.rowContainer}>
+            <View style={commonStyles.rowButtonContainer}>
                 <Button
                     style={commonStyles.doubleButton}
                     onPress={() => navigation.goBack(null)}

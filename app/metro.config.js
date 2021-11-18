@@ -4,8 +4,11 @@
  *
  * @format
  */
-
+const extraNodeModules = require('node-libs-browser');
 module.exports = {
+  esolver: {
+    extraNodeModules,
+  },
   transformer: {
     getTransformOptions: async () => ({
       transform: {
