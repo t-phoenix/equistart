@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TouchableOpacity, ImageBackground } from 'react-native'
 import { Button, Text, Layout, Card } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
 import Badge from './Badge'
@@ -9,29 +9,31 @@ const ProposalCardSummary = ({ cardData, navigation }) => {
     let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
     return (
         <Card style={commonStyles.card}>
-            <Card style={{backgroundColor: colorPairs[num].background, ...styles.dynamicCard}}>
-                <View style={styles.rowContainer}>
-                    <Text style={commonStyles.secondaryTextGrey}>ID: {<Text style={{color: colorPairs[num].text}}> {cardData.id} </Text>} </Text>
-                    <Badge status={cardData.status} />
-                </View>
-                <Text style={commonStyles.secondaryTextGrey}>Header: {<Text style={{color: colorPairs[num].text}}> {cardData.header} </Text>} </Text>
-                <View style={styles.container}>
-                    <Text style={commonStyles.secondaryTextGrey}>Votes:</Text>
-                    <View style={styles.container}>
-                        <View style={{ marginLeft: '10%' }}></View>
-                        <Text style={commonStyles.primaryTextOrange}> Yes {<Text style={{color: colorPairs[num].text}}> {cardData.id} </Text>} </Text>
-                        <View style={{ marginLeft: '10%' }}></View>
-                        <Text style={commonStyles.primaryTextOrange}> No {<Text style={{color: colorPairs[num].text}}> {cardData.id} </Text>} </Text>
+            <Card style={{ backgroundColor: colorPairs[num].background, ...styles.dynamicCard }}>
+                <ImageBackground source={require('../../assets/images/proposal1.png')} style={{ height: 300, justifyContent: 'space-between' }}>
+                    <View style={styles.rowContainer}>
+                        <Text style={commonStyles.secondaryTextGrey}>ID: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.id} </Text>} </Text>
+                        <Badge status={cardData.status} />
                     </View>
-                    <View style={{ marginLeft: 'auto' }}></View>
-                    <Button
-                        style={commonStyles.button}
-                        onPress={() => navigation.navigate('ProposalDetails', { cardData })}
-                        size='small'
-                        status='info'>
-                        Details
-                    </Button>
-                </View>
+                    <View>
+                        <Text style={commonStyles.secondaryTextGrey}>Header: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.header} </Text>} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Votes:</Text>
+                        <View style={styles.container}>
+                            <View style={{ marginLeft: '10%' }}></View>
+                            <Text style={commonStyles.primaryTextGreen}> Yes {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.id} </Text>} </Text>
+                            <View style={{ marginLeft: '10%' }}></View>
+                            <Text style={commonStyles.primaryTextRed}> No {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.id} </Text>} </Text>
+                            <View style={{ marginLeft: 'auto' }}></View>
+                            <Button
+                                style={commonStyles.button}
+                                onPress={() => navigation.navigate('ProposalDetails', { cardData })}
+                                size='small'
+                                status='info'>
+                                Details
+                            </Button>
+                        </View>
+                    </View>
+                </ImageBackground>
             </Card>
         </Card>
     )

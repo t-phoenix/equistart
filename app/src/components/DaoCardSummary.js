@@ -15,20 +15,19 @@ const DaoCardSummary = ({ cardData, navigation, withButton = true }) => {
             <Card style={{ backgroundColor: backgrounds[(Math.floor((Math.random() * 100))) % backgrounds.length], ...styles.card }}>
                 <View>
                     <View>
-                        <ImageBackground source={require('../../assets/images/company.png')} style={{height: 100}}>
-                            <View style={styles.buttonContainer}>
+                        <ImageBackground source={require('../../assets/images/company.png')} style={{height: 100, justifyContent: 'space-between'}}>
+                            <View>
                                 <Text style={commonStyles.secondaryTextBlack}>{cardData.title}</Text>
-                                {withButton && <Button
-                                style={commonStyles.button}
+                                <Text style={commonStyles.tertiaryTextGrey}>{cardData.token}</Text>
+                            </View>
+                            {withButton && <Button
+                                style={{width: 75 ,...commonStyles.button}}
                                 onPress={() => openProject(cardData)}
                                 size='small'
                                 status='info'>
                                 Details
                             </Button>}
-                            </View>
-                            <Text style={commonStyles.tertiaryTextGrey}>{cardData.token}</Text>
                         </ImageBackground>
-
                     </View>
                 </View>
             </Card>
@@ -42,9 +41,9 @@ export default DaoCardSummary;
 
 const styles = StyleSheet.create({
     card: {
-        margin: 4,
         marginHorizontal: '-7.5%',
         marginTop: '-5.3%',
+        marginBottom: 5,
         borderRadius: 20
     },
     buttonContainer: {

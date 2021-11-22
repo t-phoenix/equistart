@@ -58,11 +58,7 @@ export default StyleSheet.create({
     backgroundColor: '#3EA0BD',
   },
   headerBarStyle: {
-    backgroundColor: '#1d2023',
-    shadowOpacity: 0.4,
-    shadowColor: COLORS.robinsEggBlue,
-    shadowOffset: { width: 2, height: 2 },
-    shadowRadius: 4,
+    backgroundColor: '#1d2023'
   },
   pageView: {
     ...Platform.select({
@@ -216,28 +212,28 @@ export default StyleSheet.create({
     color: '#E4C2A6',
   },
   tertiaryTextGreen: {
-    color: '#00d142'
+    color: '#609661'
   },
   tertiaryTextRed: {
-    color: '#cc2525'
+    color: '#C16068'
   },
   primaryTextGreen: {
     fontSize: 20,
     fontWeight: 'bold',
     marginVertical: 4,
-    color: '#00d142',
+    color: '#609661',
   },
   primaryTextRed: {
     fontSize: 20,
     fontWeight: 'bold',
     marginVertical: 4,
-    color: '#cc2525',
+    color: '#C16068',
   },
   smallTextRed: {
     fontSize: 10,
     fontWeight: 'bold',
     marginHorizontal: 2,
-    color: '#cc2525',
+    color: '#C16068',
   },
   primaryTextWhite: {
     fontSize: 23,

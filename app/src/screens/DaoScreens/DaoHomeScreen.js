@@ -9,12 +9,8 @@ import commonStyles from '../../commonStyles';
 import {Platform} from 'react-native';
 import EmptySpace from '../../components/EmptySpace';
 
-export default function DaoHomeScreen({route, navigation}) {
-  const data = [
-    {key: 0, id: 1, header: 'header', status: 0},
-    {key: 1, id: 2, header: 'header2', status: 1},
-    {key: 2, id: 3, header: 'header3', status: 1},
-  ];
+export default function DaoHomeScreen({ route, navigation }) {
+  const data = [{ key: 0, id: 1, header: 'header', status: 0 }, { key: 1, id: 2, header: 'header2', status: 1 }, { key: 2, id: 3, header: 'This is a very long header', status: 1 }]
   return (
     <View style={commonStyles.pageView}>
       <View style={commonStyles.pageContent}>

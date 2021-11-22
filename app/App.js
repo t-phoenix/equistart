@@ -21,6 +21,7 @@ import {
   WalletService,
 } from '@walletconnect/react-native-dapp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import commonStyles from './src/commonStyles';
 
 const Drawer = createDrawerNavigator();
 
@@ -45,10 +46,16 @@ const App = () => {
         <NavigationContainer>
           <Drawer.Navigator
             screenOptions={{
-              drawerActiveTintColor: '#E75F00',
-              drawerInactiveTintColor: '#FFFFFF',
+              drawerStyle: {
+                backgroundColor: '#1d2023',
+                width: 240,
+              },
+              drawerActiveTintColor: '#E4C2A6',
+              drawerInactiveTintColor: "#FFFFFF",
             }}
-            drawerContent={props => <CustomSideBarMenu {...props} />}>
+            
+            // drawerContent={props => <CustomSideBarMenu {...props} />}
+            >
             <Drawer.Screen
               name="Dao"
               component={DaoNavigator}

@@ -64,62 +64,62 @@ export default function CofounderDetailsScreen({ navigation }) {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
-          <View style={styles.modalView}>
-            <Text style={commonStyles.secondaryTextGrey}>New Member Details</Text>
-            <EmptySpace />
-            <Input
-              style={commonStyles.input}
-              value={phone}
-              onChangeText={input => setPhone(input)}
-              placeholder="9999-999-999"
-              label={() => <Text style={commonStyles.inputLabel}> Phone </Text>}
-            />
-            <Input
-              style={commonStyles.input}
-              value={address}
-              onChangeText={input => setAddress(input)}
-              label={() => <Text style={commonStyles.inputLabel}> Address </Text>}
-              placeholder="0x12uwidhiu2eh3e3dh239dh3dd3"
-            />
-            <Input
-              style={commonStyles.input}
-              value={token}
-              onChangeText={input => setToken(input)}
-              label={() => <Text style={commonStyles.inputLabel}> Token </Text>}
-              placeholder="7000000"
-            />
-            <Input
-              style={commonStyles.input}
-              value={amount}
-              onChangeText={input => setAmount(input)}
-              label={() => <Text style={commonStyles.inputLabel}> Deposit </Text>}
-              placeholder="700"
-            />
-            <EmptySpace space={30} />
-            <View style={commonStyles.rowButtonContainer}>
-              <Button
-                style={commonStyles.doubleButton}
-                onPress={() => setModalVisible(!modalVisible)}
-                status='warning'>
-                Back
-              </Button>
-              <Button
-                style={commonStyles.doubleButton}
-                onPress={addFounder}
-                >
-                Add member
-              </Button>
-            </View>
+        <View style={styles.modalView}>
+          <Text style={commonStyles.secondaryTextGrey}>New Member Details</Text>
+          <EmptySpace />
+          <Input
+            style={commonStyles.input}
+            value={phone}
+            onChangeText={input => setPhone(input)}
+            placeholder="9999-999-999"
+            label={() => <Text style={commonStyles.inputLabel}> Phone </Text>}
+          />
+          <Input
+            style={commonStyles.input}
+            value={address}
+            onChangeText={input => setAddress(input)}
+            label={() => <Text style={commonStyles.inputLabel}> Address </Text>}
+            placeholder="0x12uwidhiu2eh3e3dh239dh3dd3"
+          />
+          <Input
+            style={commonStyles.input}
+            value={token}
+            onChangeText={input => setToken(input)}
+            label={() => <Text style={commonStyles.inputLabel}> Token </Text>}
+            placeholder="7000000"
+          />
+          <Input
+            style={commonStyles.input}
+            value={amount}
+            onChangeText={input => setAmount(input)}
+            label={() => <Text style={commonStyles.inputLabel}> Deposit </Text>}
+            placeholder="700"
+          />
+          <EmptySpace space={30} />
+          <View style={commonStyles.rowButtonContainer}>
+            <Button
+              style={commonStyles.doubleButton}
+              onPress={() => setModalVisible(!modalVisible)}
+              status='warning'>
+              Back
+            </Button>
+            <Button
+              style={commonStyles.doubleButton}
+              onPress={addFounder}
+            >
+              Add member
+            </Button>
           </View>
+        </View>
       </Modal>
 
       <View style={commonStyles.pageContent}>
         <EmptySpace />
         <Button
-          style={{marginLeft: 'auto', ...commonStyles.button}}
+          style={{ marginLeft: 'auto', ...commonStyles.button }}
           onPress={() => setModalVisible(true)}
           size='small'
-           >
+        >
           Add a Co-founder
         </Button>
         <Text style={commonStyles.secondaryTextGrey}>Total token to mint: {<Text style={commonStyles.primaryTextOrange}> 210000 </Text>} </Text>
@@ -127,10 +127,12 @@ export default function CofounderDetailsScreen({ navigation }) {
 
         <View style={styles.tableBox}>
           <Text style={commonStyles.secondaryTextGrey}>Co-founder Details</Text>
-          <Table borderStyle={{ borderWidth: 1, borderColor: '#333333', borderRadius: 10 }}>
-            <Row data={tableHeader} style={styles.tableHeader} textStyle={styles.HeaderTableText} />
-            <Rows data={tableData} style={styles.tableRow} textStyle={styles.TableText} />
-          </Table>
+          <View style={{ borderWidth: 1, borderColor: '#333333', borderRadius: 20 }}>
+            <Table>
+              <Row data={tableHeader} style={styles.tableHeader} textStyle={styles.HeaderTableText} />
+              <Rows data={tableData} style={styles.tableRow} textStyle={styles.TableText} />
+            </Table>
+          </View>
         </View>
       </View>
 
@@ -145,7 +147,7 @@ export default function CofounderDetailsScreen({ navigation }) {
         <Button
           style={commonStyles.doubleButton}
           onPress={() => navigation.navigate('Review')}
-          >
+        >
           Review
         </Button>
       </View>

@@ -23,10 +23,10 @@ export const colorPairs = [
     background: '#B8E4EA',
     text: '#4E87A8'
   },
-  {
-    background: '#1D1309',
-    text: '#906C54'
-  },
+  // {
+  //   background: '#906C54',
+  //   text: '#1D1309'
+  // },
   {
     background: '#FFB298',
     text: '#BE7155'
