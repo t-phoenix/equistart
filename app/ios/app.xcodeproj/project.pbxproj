@@ -91,7 +91,6 @@
 				14850E706D488B2ED46EE510 /* Pods-app-appTests.debug.xcconfig */,
 				A1C0C2DA841FC3C754706743 /* Pods-app-appTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

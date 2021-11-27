@@ -13,15 +13,17 @@ import {default as theme} from './custom-theme.json';
 import {DaoScreens, WalletScreens} from './src/navigation/StackConfig';
 import Navigator from './src/navigation/Navigator';
 //web3 imports
-import Web3 from 'web3';
+// import Web3 from 'web3';
 import {
   withWalletConnect,
   useWalletConnect,
   RenderQrcodeModalProps,
-  WalletService,
+  WalletService
 } from '@walletconnect/react-native-dapp';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import commonStyles from './src/commonStyles';
+//import WalletConnectProvider from '@walletconnect/react-native-dapp';
 
 const Drawer = createDrawerNavigator();
 
@@ -29,7 +31,8 @@ const App = () => {
   // const web3 = new Web3('https://alfajores-forno.celo-testnet.org');
   // console.log("Web3 instance:", web3);
 
-  const connector = useWalletConnect();
+  // const connector = useWalletConnect();
+  // console.log('App connector:', connector);
 
   const DaoNavigator = ({navigation}) => (
     <Navigator screens={DaoScreens} navigation={navigation} />
@@ -40,6 +43,23 @@ const App = () => {
   );
 
   return (
+    // <WalletConnectProvider
+    //   storageOptions={{
+    //     asyncStorage: AsyncStorage,
+    //   }}
+
+    //   // bridge="https://bridge.walletconnect.org"
+    //   // clientMeta={{
+    //   //   description: 'Connect with WalletConnect',
+    //   //   url: 'https://www.google.com',
+    //   //   icons: ['https://walletconnect.org/walletconnect-logo.png'],
+    //   //   name: 'WalletConnect',
+    //   //   apiKey: '627f76522696909ec5ed72b3abad15b9'
+    //   // }}
+    //   // redirectUrl={Platform.OS === 'web' ? window.location.origin : 'equistart://'}
+
+    //   rpcUrl="https://alfajores-forno.celo-testnet.org"
+    //   >
     <>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={{...eva.dark, ...theme}}>
@@ -51,11 +71,11 @@ const App = () => {
                 width: 240,
               },
               drawerActiveTintColor: '#E4C2A6',
-              drawerInactiveTintColor: "#FFFFFF",
+              drawerInactiveTintColor: '#FFFFFF',
             }}
-            
+
             // drawerContent={props => <CustomSideBarMenu {...props} />}
-            >
+          >
             <Drawer.Screen
               name="Dao"
               component={DaoNavigator}
@@ -102,9 +122,16 @@ function CustomBottomSheet({
 }
 
 export default withWalletConnect(App, {
-  redirectUrl: Platform.OS === 'web' ? window.location.origin : 'equistart://',
+  redirectUrl:
+    Platform.OS === 'web' ? window.location.origin : 'app://WalletHomeScreen',
   storageOptions: {
     asyncStorage: AsyncStorage,
   },
-  renderQrcodeModal: props => <CustomBottomSheet {...props} />,
+  
+  //uri:"0e46b69-d0cc-4b3e-b6a2-cee442f97188@1?bridge=https%3A%2F%2Fbridge.walletconnect.org&key=627f76522696909ec5ed72b3abad15b9"
+  //bridge: "https://bridge.walletconnect.org/info"
+  //url: "wc:00e46b69-d0cc-4b3e-b6a2-cee442f97188@1?bridge=https%3A%2F%2Fbridge.walletconnect.org&key=627f76522696909ec5ed72b3abad15b9",
+  // apiKey: '627f76522696909ec5ed72b3abad15b9',
+  //rpcUrl: 'https://alfajores-forno.celo-testnet.org',
+  //renderQrcodeModal: RenderQrcodeModalProps => <CustomBottomSheet {...RenderQrcodeModalProps} />,
 });
