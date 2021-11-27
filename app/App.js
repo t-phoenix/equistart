@@ -2,9 +2,9 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
-import {StyleSheet, View, TouchableOpacity, Image, Text} from 'react-native';
-import Animated from 'react-native-reanimated';
-import BottomSheet from 'reanimated-bottom-sheet';
+import {StyleSheet, View, TouchableOpacity, Image, Text, LogBox} from 'react-native';
+// import Animated from 'react-native-reanimated';
+// import BottomSheet from 'reanimated-bottom-sheet';
 //import components
 import CustomSideBarMenu from './src/components/CustomSideBarMenu';
 import * as eva from '@eva-design/eva';
@@ -13,23 +13,24 @@ import {default as theme} from './custom-theme.json';
 import {DaoScreens, WalletScreens} from './src/navigation/StackConfig';
 import Navigator from './src/navigation/Navigator';
 //web3 imports
-import Web3 from 'web3';
-import {
-  withWalletConnect,
-  useWalletConnect,
-  RenderQrcodeModalProps,
-  WalletService,
-} from '@walletconnect/react-native-dapp';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import commonStyles from './src/commonStyles';
+// import Web3 from 'web3';
+// import {
+//   withWalletConnect,
+//   useWalletConnect,
+//   RenderQrcodeModalProps,
+//   WalletService,
+// } from '@walletconnect/react-native-dapp';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+import './global';
+
+LogBox.ignoreLogs([
+  "Warning: The provided value 'moz",
+  "Warning: The provided value 'ms-stream",
+])
 
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-  // const web3 = new Web3('https://alfajores-forno.celo-testnet.org');
-  // console.log("Web3 instance:", web3);
-
-  const connector = useWalletConnect();
 
   const DaoNavigator = ({navigation}) => (
     <Navigator screens={DaoScreens} navigation={navigation} />
@@ -73,38 +74,40 @@ const App = () => {
   );
 };
 
-function CustomBottomSheet({
-  walletServices,
-  visible,
-  connectToWalletService,
-  uri,
-}) {
-  const renderContent = React.useCallback(() => {
-  //   return <Text>Hello</Text>;
-  // });
+export default App;
 
-  return walletServices.map((walletService, i) => (
-      <TouchableOpacity style={{backgroundColor:"#fff"}} key={`i${i}`} onPress={() => connectToWalletService(walletService, uri)}>
-        <Image source={{ uri: walletService.logo }} />
-        <Text>{walletService.name}</Text>
-      </TouchableOpacity>
-    ));
-  }, [walletServices, uri]);
-  const sheetRef = React.useRef(null);
-  return (
-    <BottomSheet
-      ref={sheetRef}
-      snapPoints={[450, 300, 0]}
-      borderRadius={10}
-      renderContent={renderContent}
-    />
-  );
-}
+// function CustomBottomSheet({
+//   walletServices,
+//   visible,
+//   connectToWalletService,
+//   uri,
+// }) {
+//   const renderContent = React.useCallback(() => {
+//   //   return <Text>Hello</Text>;
+//   // });
 
-export default withWalletConnect(App, {
-  redirectUrl: Platform.OS === 'web' ? window.location.origin : 'equistart://',
-  storageOptions: {
-    asyncStorage: AsyncStorage,
-  },
-  renderQrcodeModal: props => <CustomBottomSheet {...props} />,
-});
+//   return walletServices.map((walletService, i) => (
+//       <TouchableOpacity style={{backgroundColor:"#fff"}} key={`i${i}`} onPress={() => connectToWalletService(walletService, uri)}>
+//         <Image source={{ uri: walletService.logo }} />
+//         <Text>{walletService.name}</Text>
+//       </TouchableOpacity>
+//     ));
+//   }, [walletServices, uri]);
+//   const sheetRef = React.useRef(null);
+//   return (
+//     <BottomSheet
+//       ref={sheetRef}
+//       snapPoints={[450, 300, 0]}
+//       borderRadius={10}
+//       renderContent={renderContent}
+//     />
+//   );
+// }
+
+// export default withWalletConnect(App, {
+//   redirectUrl: Platform.OS === 'web' ? window.location.origin : 'equistart://',
+//   storageOptions: {
+//     asyncStorage: AsyncStorage,
+//   },
+//   renderQrcodeModal: props => <CustomBottomSheet {...props} />,
+// });

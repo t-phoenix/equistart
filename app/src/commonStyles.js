@@ -16,13 +16,13 @@ export default StyleSheet.create({
     borderColor: '#27292A',
   },
   singleButton: {
-    margin: 2,
+    // margin: 2,
     width: '50%',
     marginLeft: '25%',
     borderRadius: 30
   },
   singleButtonGrey: {
-    margin: 2,
+    // margin: 2,
     width: '50%',
     marginLeft: '25%',
     borderRadius: 30,
@@ -66,7 +66,7 @@ export default StyleSheet.create({
         height: windowHeight - 80,
       },
       android: {
-        height: windowHeight - 80,
+        height: windowHeight - 50,
       },
     }),
     justifyContent: 'space-between',
