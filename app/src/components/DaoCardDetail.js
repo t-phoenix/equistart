@@ -42,14 +42,16 @@ const styles = StyleSheet.create({
     },
     nameContainer: {
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     rowContainer: {
         justifyContent: 'space-between',
         flexDirection: 'row'
     },
     dynamicText: {
-        color: '#9C9DA0'
+        color: '#9C9DA0',
+        paddingLeft: 6 
     },
     headerText: {
         color: '#404248'
