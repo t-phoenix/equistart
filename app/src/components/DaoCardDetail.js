@@ -19,7 +19,7 @@ const DaoCardDetail = ({ cardData, navigation }) => {
                     </View>
                     <View>
                         <Text style={commonStyles.secondaryTextGrey}>Symbol: {<Text style={styles.dynamicText}> {cardData.token} </Text>} </Text>
-                        <Text style={commonStyles.secondaryTextGrey}>Value ($): {<Text style={styles.dynamicText}> {cardData.value} </Text>} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Address: {<Text style={styles.dynamicText}> {cardData.address} </Text>} </Text>
                     </View>
                 </View>
                 <Text style={commonStyles.primaryTextOrange}>Description</Text>

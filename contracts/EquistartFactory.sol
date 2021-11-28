@@ -8,15 +8,44 @@ import "@openzeppelin/contracts/token/ERC20/presets/ERC20PresetMinterPauser.sol"
 import "./EquistartProject.sol";
 
 contract EquistartFactory {
-    address[] public deployedProjects;
+    
+
+    uint numOfProjects;
+
+    struct projectMeta{
+        uint256 id;
+        string projectName;
+        string symbol;
+        uint256 initialSupply;
+        address contractAddress;
+    }
+
+    // projectMeta[] public deployedProjects;
+    mapping(uint => projectMeta) private deployedProjects;
     
     function createProject(string memory name, string memory symbol, uint initialSupply) public {
-        address newProject = address(new EquistartProject(name, symbol, initialSupply,  msg.sender));
-        deployedProjects.push(newProject);
+        uint projectId = numOfProjects++;
+        projectMeta storage project = deployedProjects[projectId];
+        project.id = projectId;
+        project.projectName = name;
+        project.symbol = symbol;
+        project.initialSupply = initialSupply;
+        project.contractAddress = address(new EquistartProject(name, symbol, initialSupply,  msg.sender));
+
+        // deployedProjects.push(newProject);
     }
     
-    function getDeployedProjects () public view returns (address[] memory){
-        return deployedProjects;
+    function getAllDeployedProjects () public view returns (projectMeta[] memory props){
+        // return deployedProjects;
+        props = new projectMeta[](numOfProjects);
+        
+        for (uint256 index =0; index< numOfProjects; index++){
+            props[index] = deployedProjects[index];
+        }
+    }
+
+    function getDeployedProject(uint256 projectId) public view returns (projectMeta memory){
+        return deployedProjects[projectId];
     }
 }
 

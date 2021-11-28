@@ -7,10 +7,10 @@ import EmptySpace from '../../components/EmptySpace';
 
 export default function CreateDaoScreen({ navigation }) {
   const [projectTitle, setProjectTitle] = React.useState('');
-  const [description, setDescription] = React.useState('');
+  //const [description, setDescription] = React.useState('');
   const [symbol, setSymbol] = React.useState('');
   const [numOfToken, setNumOfToken] = React.useState();
-  const [initialDeposit, setInitialDeposit] = React.useState();
+  //const [initialDeposit, setInitialDeposit] = React.useState();
   let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
 
   return (
@@ -36,11 +36,11 @@ export default function CreateDaoScreen({ navigation }) {
           </View>
         </Card>
         <EmptySpace />
-        <Input
+        {/* <Input
           style={commonStyles.input}
           label={() => <Text style={commonStyles.inputLabel}> Creators Phone Number</Text>}
           placeholder='8107599599'
-        />
+        /> */}
         <Input
           style={commonStyles.input}
           onChangeText={setProjectTitle}
@@ -48,7 +48,7 @@ export default function CreateDaoScreen({ navigation }) {
           label={() => <Text style={commonStyles.inputLabel}> Project Title</Text>}
           placeholder={'Project Title'}
         />
-        <Input
+        {/* <Input
           style={commonStyles.input}
           onChangeText={setDescription}
           value={description}
@@ -56,7 +56,7 @@ export default function CreateDaoScreen({ navigation }) {
           placeholder={'Description'}
           multiline
           numberOfLines={4}
-        />
+        /> */}
         <Input
           style={commonStyles.input}
           value={symbol}
@@ -72,18 +72,19 @@ export default function CreateDaoScreen({ navigation }) {
           placeholder='21000000'
           keyboardType="numeric"
         />
-        <Input
+        {/* <Input
           style={commonStyles.input}
           value={initialDeposit}
           label={() => <Text style={commonStyles.inputLabel}> Total Initial Deposit $</Text>}
           placeholder='2100'
           onChangeText={setInitialDeposit}
-        />
+        /> */}
         <EmptySpace space={50} />
       </ScrollView>
       <View style={commonStyles.rowButtonContainer}>
         <Button
           style={commonStyles.doubleButton}
+          // onPress={() => navigation.navigate('DaoList')}
           onPress={() => navigation.navigate('DaoList')}
           status='warning'>
           Back
