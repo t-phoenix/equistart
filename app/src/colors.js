@@ -16,6 +16,9 @@ export const backgrounds = [
   '#FECBBB',
   '#EACBD1',
   '#efd6e3',
+  '#FECBBB',
+  '#A082EB',
+  '#CADEA3'
 ];
 
 export const colorPairs = [
@@ -23,10 +26,10 @@ export const colorPairs = [
     background: '#B8E4EA',
     text: '#4E87A8'
   },
-  // {
-  //   background: '#906C54',
-  //   text: '#1D1309'
-  // },
+  {
+    background: '#DEFFE7',
+    text: '#004D14'
+  },
   {
     background: '#FFB298',
     text: '#BE7155'
@@ -43,4 +46,8 @@ export const colorPairs = [
     background: '#E9E9EB',
     text: '#6F569D'
   },
+  {
+    background: '#F4E3D3',
+    text: '#8E673E'
+  }
 ];

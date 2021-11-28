@@ -26,20 +26,20 @@ const styles = StyleSheet.create({
         borderColor: '#00d142',
         backgroundColor: 'rgba(237, 255, 243, 0.2)',
         borderWidth: 1,
-        paddingLeft: 7,
-        paddingTop: 3,
         borderRadius: 20,
         height: 30,
-        width: 55
+        width: 55,
+        justifyContent:'center',
+        alignItems: 'center'
     },
     closedBadge: {
         borderColor: '#cc2525',
         backgroundColor: 'rgba(255, 191, 191, 0.2)',
         borderWidth: 1,
-        paddingLeft: 5,
-        paddingTop: 3,
         borderRadius: 20,
         height: 30,
-        width: 55
+        width: 55,
+        justifyContent:'center',
+        alignItems: 'center'
     }
 })

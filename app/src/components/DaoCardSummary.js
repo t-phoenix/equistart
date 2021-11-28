@@ -21,7 +21,7 @@ const DaoCardSummary = ({ cardData, navigation, withButton = true }) => {
                                 <Text style={commonStyles.tertiaryTextGrey}>{cardData.token}</Text>
                             </View>
                             {withButton && <Button
-                                style={{width: 75 ,...commonStyles.button}}
+                                style={{width: 72.5 ,...commonStyles.button}}
                                 onPress={() => openProject(cardData)}
                                 size='small'
                                 status='info'>

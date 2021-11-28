@@ -10,7 +10,7 @@ const ProposalCardSummary = ({ cardData, navigation }) => {
     return (
         <Card style={commonStyles.card}>
             <Card style={{ backgroundColor: colorPairs[num].background, ...styles.dynamicCard }}>
-                <ImageBackground source={require('../../assets/images/proposal.png')} style={{ height: 300, justifyContent: 'space-between' }}>
+                <ImageBackground source={require('../../assets/images/proposal.png')} style={{ height: 270, justifyContent: 'space-between' }}>
                     <View style={styles.rowContainer}>
                         <Text style={commonStyles.secondaryTextGrey}>ID: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.id} </Text>} </Text>
                         <Badge status={cardData.status} />

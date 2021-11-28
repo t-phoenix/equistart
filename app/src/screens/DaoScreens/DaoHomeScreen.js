@@ -32,7 +32,6 @@ export default function DaoHomeScreen({ route, navigation }) {
         <Button
           style={commonStyles.doubleButton}
           onPress={() => navigation.navigate('DaoList')}
-          size="small"
           status="warning">
           Back
         </Button>

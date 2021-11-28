@@ -16,30 +16,14 @@ export default StyleSheet.create({
     borderColor: '#27292A',
   },
   singleButton: {
-    // margin: 2,
+    marginVertical: 2,
     width: '50%',
-    marginLeft: '25%',
     borderRadius: 30
-  },
-  singleButtonGrey: {
-    // margin: 2,
-    width: '50%',
-    marginLeft: '25%',
-    borderRadius: 30,
-    backgroundColor: '#27292A',
-    borderColor: '#27292A',
   },
   doubleButton: {
-    margin: 5,
+    marginVertical: 2,
     width: '45.45%',
     borderRadius: 30
-  },
-  doubleButtonGrey: {
-    margin: 5,
-    width: '45.45%',
-    borderRadius: 30,
-    backgroundColor: '#27292A',
-    borderColor: '#27292A',
   },
   card: {
     borderRadius: 20,
@@ -47,8 +31,8 @@ export default StyleSheet.create({
   },
   rowButtonContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    paddingBottom: '8%'
+    justifyContent: 'space-evenly',
+    alignItems: 'center'
   },
   backSection: {
     height: '4%',
@@ -66,7 +50,7 @@ export default StyleSheet.create({
         height: windowHeight - 80,
       },
       android: {
-        height: windowHeight - 50,
+        height: windowHeight - 80,
       },
     }),
     justifyContent: 'space-between',

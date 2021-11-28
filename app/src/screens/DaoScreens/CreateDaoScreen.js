@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableWithoutFeedback, View, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { Button, Text, Layout, Card, Icon, Input } from '@ui-kitten/components';
-import { backgrounds } from '../../colors';
+import { backgrounds, colorPairs } from '../../colors';
 import commonStyles from '../../commonStyles';
 import EmptySpace from '../../components/EmptySpace';
 
@@ -11,28 +11,31 @@ export default function CreateDaoScreen({ navigation }) {
   const [symbol, setSymbol] = React.useState('');
   const [numOfToken, setNumOfToken] = React.useState();
   const [initialDeposit, setInitialDeposit] = React.useState();
-  let num = (Math.floor((Math.random() * 100))) % backgrounds.length;
+  let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
 
   return (
     <View style={commonStyles.pageView}>
       <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
         <EmptySpace />
-        <View style={{...styles.topCard, backgroundColor: backgrounds[num], ...commonStyles.card }}>
-          <View>
-            <Text style={commonStyles.secondaryTextBlack}> Add Project </Text>
-            <Text style={commonStyles.secondaryTextBlack}>  Details</Text>
+        <Card style={commonStyles.card}>
+          <View style={{ ...styles.topCard, backgroundColor: colorPairs[num].background }}>
+            <View>
+              <Text style={{ color: colorPairs[num].text, ...styles.heading }}> Add Project </Text>
+              <Text style={{ color: colorPairs[num].text, ...styles.heading }}>  Details</Text>
+            </View>
+            <View>
+              <Image
+                style={{
+                  width: 180,
+                  height: 100,
+                  resizeMode: 'contain'
+                }}
+                source={require('../../../assets/images/project_details.png')}
+              />
+            </View>
           </View>
-          <View>
-            <Image
-              style={{
-                width: 180,
-                height: 100,
-                resizeMode: 'contain'
-              }}
-              source={require('../../../assets/images/project.png')}
-            />
-          </View>
-        </View>
+        </Card>
+        <EmptySpace />
         <Input
           style={commonStyles.input}
           label={() => <Text style={commonStyles.inputLabel}> Creators Phone Number</Text>}
@@ -98,9 +101,15 @@ export default function CreateDaoScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   topCard: {
-    flexDirection: 'row', 
-    padding:'5%',
-    marginVertical: '4%',
-    justifyContent: 'space-between'
+    flexDirection: 'row',
+    padding: '5%',
+    justifyContent: 'space-between',
+    borderRadius: 15,
+    marginHorizontal: '-4%',
+    marginVertical: '-2%'
+  },
+  heading: {
+    fontSize: 25,
+    // fontWeight: 'bold',
   }
 });
