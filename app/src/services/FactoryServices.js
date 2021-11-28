@@ -13,5 +13,5 @@ console.log("Inside Factory Service:", FactoryContract);
 export async function getProjectList(){
     const projectList = await FactoryContract.methods.getAllDeployedProjects().call();
     console.log("Project List inside Services:", projectList);
-    return projectList
+    return projectList;
 }

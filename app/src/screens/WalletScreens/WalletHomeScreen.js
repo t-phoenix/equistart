@@ -9,6 +9,7 @@ import EmptySpace from '../../components/EmptySpace';
 import Web3 from 'web3';
 import { newKitFromWeb3 } from '@celo/contractkit';
 import { Factory_ABI, Project_ABI } from '../../ABI';
+import { getProjectList } from '../../services/FactoryServices';
 const contractAddress = "0x3c6A22D1ad76D38513C581B1cF2da8F247BeCdba";
 let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
 
@@ -36,23 +37,25 @@ export default function WalletHomeScreen({ navigation }) {
         { token: 'EQI', amount: '7000000', value: '0.0001' },
     ];
 
-    const loadProjects = async () => {
-        const contractList = await FactoryContract.methods.getDeployedProjects().call();
-        let bal = {};
-        for (var i = 0; i < contractList.length; i++) {
-            let contract = new kit.connection.web3.eth.Contract(Project_ABI, contractList[i]);
-            let syb = await contract.methods.symbol().call();
-            let val = await contract.methods.balanceOf(connector.accounts[0]).call();
-            bal[syb] = val + "000000000000000000";
-            console.log(contract.methods);
-        }
-        setBalance(bal);
-    }
+    // const loadProjects = async () => {
+    //     const projectList = await getProjectList();
+    //     console.log("contract List:", projectList);
+    //     let bal = {};
+    //     for (var i = 0; i < projectList.length; i++) {
+    //         console.log(projectList[i]);
+    //         let contract = new kit.connection.web3.eth.Contract(Project_ABI, projectList[i][4]);
+    //         let syb = await contract.methods.symbol().call();
+    //         let val = await contract.methods.balanceOf(connector.accounts[0]).call();
+    //         bal[syb] = val + "000000000000000000";
+    //         console.log(contract.methods);
+    //     }
+    //     setBalance(bal);
+    // }
 
     React.useEffect(() => {
         if (connector.connected) {
             setUserData((x) => ({ ...x, address: connector.accounts[0] }));
-            loadProjects();
+            // loadProjects();
             setConnected(true);
         }
     }, []);
@@ -96,11 +99,19 @@ export default function WalletHomeScreen({ navigation }) {
 
     const handleCheck = async () => {
         setFetching(true);
-        kit.getTotalBalance(userData.address).then((bal) => {
-            setBalance(bal);
-            setFetching(false);
-            console.log("User Balance", bal);
-        });
+        const projectList = await getProjectList();
+        console.log("contract List:", projectList);
+        let bal = {};
+        for (var i = 0; i < projectList.length; i++) {
+            console.log(projectList[i]);
+            let contract = new kit.connection.web3.eth.Contract(Project_ABI, projectList[i][4]);
+            let syb = await contract.methods.symbol().call();
+            let val = await contract.methods.balanceOf(connector.accounts[0]).call();
+            bal[syb] = val + "000000000000000000";
+            console.log(contract.methods);
+        }
+        setBalance(bal);
+        setFetching(false);
     }
 
     const LoadingIndicator = (props) => (
