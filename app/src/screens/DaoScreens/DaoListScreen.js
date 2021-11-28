@@ -8,7 +8,9 @@ import commonStyles from '../../commonStyles';
 import { COLORS } from '../../colors';
 import DaoCardSummary from '../../components/DaoCardSummary';
 import EmptySpace from '../../components/EmptySpace';
-
+import {useWalletConnect} from '@walletconnect/react-native-dapp';
+import Web3 from 'web3';
+import { newKitFromWeb3 } from '@celo/contractkit';
 
 import {Factory_ABI, Project_ABI} from '../../ABI';
 
