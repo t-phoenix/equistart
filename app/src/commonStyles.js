@@ -29,10 +29,21 @@ export default StyleSheet.create({
     borderRadius: 20,
     margin: 4
   },
+  innerCard: {
+      marginHorizontal: '-7.5%',
+      marginTop: '-5.3%',
+      marginBottom: 5,
+      borderRadius: 20,
+      padding: 10
+  },
   rowButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center'
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   backSection: {
     height: '4%',
@@ -168,13 +179,13 @@ export default StyleSheet.create({
     color: '#6B6E77',
   },
   tertiaryText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '500',
     marginVertical: 4,
     color: '#000',
   },
   tertiaryTextWhite: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '500',
     marginVertical: 4,
     color: '#fff',
@@ -231,7 +242,7 @@ export default StyleSheet.create({
     color: '#6B6E77',
   },
   tertiaryTextBlack: {
-    fontSize: 12,
+    fontSize: 15,
     marginVertical: 1,
     color: '#000000',
   },
@@ -240,5 +251,11 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 4,
     color: '#FFFFFF',
+  },
+  primaryTextBlack: {
+    fontSize: 23,
+    fontWeight: 'bold',
+    marginVertical: 2,
+    color: 'rgba(0,0,0,0.5)',
   }
 });
