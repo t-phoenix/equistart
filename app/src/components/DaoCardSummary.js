@@ -32,7 +32,7 @@ const DaoCardSummary = ({ cardData, navigation, withButton = true }) => {
                 </View>
             </Card>
             <Text style={commonStyles.tertiaryTextGrey}>Total Project Token: {cardData.amount} </Text>
-            <Text style={commonStyles.tertiaryTextGrey}>Value ($): {cardData.value}</Text>
+            <Text style={commonStyles.tertiaryTextGrey}>Address: {cardData.address}</Text>
         </Card>
     )
 }

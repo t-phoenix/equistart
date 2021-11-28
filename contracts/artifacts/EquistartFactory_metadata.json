@@ -29,32 +29,86 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"name": "deployedProjects",
+				"inputs": [],
+				"name": "getAllDeployedProjects",
 				"outputs": [
 					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "projectName",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "symbol",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "initialSupply",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "contractAddress",
+								"type": "address"
+							}
+						],
+						"internalType": "struct EquistartFactory.projectMeta[]",
+						"name": "props",
+						"type": "tuple[]"
 					}
 				],
 				"stateMutability": "view",
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "getDeployedProjects",
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "projectId",
+						"type": "uint256"
+					}
+				],
+				"name": "getDeployedProject",
 				"outputs": [
 					{
-						"internalType": "address[]",
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "projectName",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "symbol",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "initialSupply",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "contractAddress",
+								"type": "address"
+							}
+						],
+						"internalType": "struct EquistartFactory.projectMeta",
 						"name": "",
-						"type": "address[]"
+						"type": "tuple"
 					}
 				],
 				"stateMutability": "view",
@@ -128,6 +182,14 @@
 				"dweb:/ipfs/QmVz1sHCwgEivHPRDswdt9tdvky7EnWqFmbuk1wFE55VMG"
 			]
 		},
+		"@openzeppelin/contracts/security/ReentrancyGuard.sol": {
+			"keccak256": "0x842ccf9a6cd33e17b7acef8372ca42090755217b358fe0c44c98e951ea549d3a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6cc5f36034a77d105263ae6d8cc18b16260b4a0f6cdb1a26f21ba3670fdd06dd",
+				"dweb:/ipfs/QmdJrJ2LoG546BkfyZPta96BNmaVBfqZoh8kq7PqHuQyPk"
+			]
+		},
 		"@openzeppelin/contracts/token/ERC20/ERC20.sol": {
 			"keccak256": "0xb03df8481a954604ad0c9125680893b2e3f7ff770fe470e38b89ac61b84e8072",
 			"license": "MIT",
@@ -166,14 +228,6 @@
 			"urls": [
 				"bzz-raw://d4c3df1a7ca104b633a7d81c6c6f5192367d150cd5a32cba81f7f27012729013",
 				"dweb:/ipfs/QmSim72e3ZVsfgZt8UceCvbiSuMRHR6WDsiamqNzZahGSY"
-			]
-		},
-		"@openzeppelin/contracts/token/ERC20/presets/ERC20PresetFixedSupply.sol": {
-			"keccak256": "0x5f7388d6c413c6f1faece48438f21d296296140d8a421c62515613d1e84804ca",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://28cd14a7bf75540b17a95d8d58fbbbbfaf776d615997d873397d3f459583c9c4",
-				"dweb:/ipfs/QmQREJ53or1amn79THELJZBGAWx9M4e6ZVUXZiczCKksfw"
 			]
 		},
 		"@openzeppelin/contracts/token/ERC20/presets/ERC20PresetMinterPauser.sol": {
@@ -225,19 +279,19 @@
 			]
 		},
 		"contracts/EquistartFactory.sol": {
-			"keccak256": "0xb578b3685f3345e76df41405fec0a7cc3624e9fb2776003b15a71de993a67c75",
+			"keccak256": "0xae8f4d3a0599f655df54eefc8b3b3baf898d5a5a4fa13387bd7075e7c4169785",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://df80181bd465f77f2824ef611b656c5c7cef14fb2d02eda3782b44adf48c60ce",
-				"dweb:/ipfs/QmYd2S4NFafCstHNoZRee8wRw9NFM6UcoqRuzyhjiaCLug"
+				"bzz-raw://b15bf2bb52dde368cc65d0504faf43a3ad3aa15c62c214d21a9e1fe4e18d5cbe",
+				"dweb:/ipfs/QmSpCgdQCz1Hz85Uxc6yrY5XPNz4ThTx9RefMLf97uEAEm"
 			]
 		},
 		"contracts/EquistartProject.sol": {
-			"keccak256": "0x4db83850ce0ae6dd696d255d1633d9ea909aebd5984d2a0f4228b3408eb22f40",
+			"keccak256": "0x8cbc99d6cb4ae2b7e01feecf6ea3324a80a21fa3d13f704f81f127064a73b1c4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7209ff42f2c2f128f3ee55b19186762cf42caf7b26abbc54a5aa84bd739a3006",
-				"dweb:/ipfs/QmXxYzbT1snGevCQn7aAe6qsUJcmYa29ALPiqD8eVBS7Xp"
+				"bzz-raw://8942d7e5fef3f53b0571a5ec105a67cc84b0b0a22989e68f80873f0f562c281e",
+				"dweb:/ipfs/QmYKxpeQAVoSp8nVpWgy5r4jZqhWZc41iBDXK8PfUMmJMm"
 			]
 		}
 	},
