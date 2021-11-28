@@ -9,9 +9,6 @@ import { COLORS } from '../../colors';
 import DaoCardSummary from '../../components/DaoCardSummary';
 import EmptySpace from '../../components/EmptySpace';
 
-import Web3 from 'web3';
-import { newKitFromWeb3 } from '@celo/contractkit';
-import { useWalletConnect } from '@walletconnect/react-native-dapp';
 
 import {Factory_ABI, Project_ABI} from '../../ABI';
 
@@ -82,7 +79,7 @@ export default function DaoListScreen({ navigation }) {
         <CardList cardListData={data} card={DaoCardSummary} navigation={navigation} />
         <EmptySpace space={40} />
       </ScrollView>
-      <View style={{paddingBottom:'8%', paddingTop: 4}}>
+      <View style={commonStyles.rowButtonContainer}>
         <Button style={commonStyles.singleButton} onPress={() => { navigation.navigate('CreateDao') }}>
           Create New Project
         </Button>

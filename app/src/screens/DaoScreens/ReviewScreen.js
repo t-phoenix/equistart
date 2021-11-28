@@ -94,7 +94,6 @@ export default function ReviewScreen({navigation}) {
       <View style={commonStyles.rowButtonContainer}>
         <Button
           style={commonStyles.doubleButton}
-          size="small"
           onPress={() => navigation.navigate('cofounderDetails')}
           status='warning'>
           Back
@@ -102,9 +101,8 @@ export default function ReviewScreen({navigation}) {
         <Button
           style={commonStyles.doubleButton}
           onPress={()=>handleInstall()}
-          size="small"
           >
-          Install Project on Blockchain
+          Install on Blockchain
         </Button>
       </View>
     </View>

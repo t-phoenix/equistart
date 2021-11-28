@@ -61,7 +61,6 @@ export default function CofounderDetailsScreen({ navigation }) {
         backdropStyle={styles.backdrop}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
         <View style={styles.modalView}>

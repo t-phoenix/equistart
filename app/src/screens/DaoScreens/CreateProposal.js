@@ -59,7 +59,7 @@ const CreateProposal = ({ navigation }) => {
                     />
                 </View>
             </ScrollView>
-            <View style={styles.rowContainer}>
+            <View style={commonStyles.rowButtonContainer}>
                 <Button
                     style={commonStyles.doubleButton}
                     onPress={() => navigation.goBack(null)}
