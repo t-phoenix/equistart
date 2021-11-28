@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Image } from 'react-native';
+import { View, StyleSheet, FlatList, Image, ImageBackground } from 'react-native';
 import { Button, Layout, Text, Icon, Card, Spinner } from '@ui-kitten/components';
 
 import commonStyles from '../../commonStyles';
@@ -19,23 +19,8 @@ export default function WalletHomeScreen({ navigation }) {
     const [balance, setBalance] = React.useState({});
     const [fetching, setFetching] = React.useState(false);
     const connector = useWalletConnect();
-    // console.log('Wallet connector:', connector);
-
-    const connectedNetwork = 'alfajores';
     const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
-    //console.log("WEB3:", web3);
     const kit = newKitFromWeb3(web3);
-    const FactoryContract = new kit.connection.web3.eth.Contract(Factory_ABI, contractAddress);
-    // const ProjectContract = new kit.connection.web3.eth.Contract(Project_ABI, contractAddress);
-
-    console.log("swax", FactoryContract);
-    // console.log("Contract Kit:", kit);
-    // const address = '0x1erve1i2udb2wd29nd2wnewace';
-    const tokenData = [
-        { token: 'CELO', amount: '6.5', value: '6' },
-        { token: 'cUSD', amount: '10', value: '1' },
-        { token: 'EQI', amount: '7000000', value: '0.0001' },
-    ];
 
     // const loadProjects = async () => {
     //     const projectList = await getProjectList();
@@ -169,8 +154,8 @@ export default function WalletHomeScreen({ navigation }) {
             </View>
 
             <View style={commonStyles.rowButtonContainer}>
-                <Button style={commonStyles.doubleButton} status="warning" onPress={() => navigation.navigate('sendScreen')}>
-                    Send
+                <Button style={commonStyles.doubleButton} onPress={() => navigation.navigate('sendScreen')}>
+                    Transfer
                 </Button>
                 <Button style={commonStyles.doubleButton} >
                     Recieve
