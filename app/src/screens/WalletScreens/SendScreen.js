@@ -13,8 +13,35 @@ import { getProjectList } from '../../services/FactoryServices';
 import Web3 from 'web3';
 import { Factory_ABI, Project_ABI } from '../../ABI';
 import { newKitFromWeb3 } from '@celo/contractkit';
+import { useWalletConnect } from '@walletconnect/react-native-dapp';
 
 let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
+let minABI = [
+  // transfer
+  {
+      "constant": false,
+      "inputs": [
+          {
+              "name": "_to",
+              "type": "address"
+          },
+          {
+              "name": "_value",
+              "type": "uint256"
+          }
+      ],
+      "name": "transfer",
+      "outputs": [
+          {
+              "name": "success",
+              "type": "bool"
+          }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+  }
+  ];
 export default function ({ navigation }) {
   const [sendingToken, setSendingToken] = React.useState();
   const [sendingAmount, setSendingAmount] = React.useState();
@@ -26,6 +53,7 @@ export default function ({ navigation }) {
 
   const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
   const kit = newKitFromWeb3(web3);
+  const connector = useWalletConnect();
 
   const setSelectedIndex = (idx) => {
     _setSelectedIndex(idx);
@@ -66,9 +94,17 @@ export default function ({ navigation }) {
   const sendTokens = async () => {
     if (sendingToken) {
       setSending(true);
-      let contract = new kit.connection.web3.eth.Contract(Project_ABI, sendingToken[4]);
-      console.log('1');
-      await contract.methods.transfer(sendingAddress, sendingAmount).call();
+      let contract = new web3.eth.Contract(minABI, sendingToken[4]);
+      console.log(sendingToken, connector.accounts[0])
+      const txo = await contract.methods.transfer(sendingAddress, sendingAmount).send({
+          from: connector.accounts[0],
+          gas: 2000000
+      });
+      // const tx = await kit.sendTransactionObject(txo, {from: connector.accounts[0]});
+      console.log(txo);
+      // const hash = await tx.getHash();
+      // const receipt = await tx.waitReceipt();
+      // console.log(hash, receipt);
       setSending(false);
     }
   }
