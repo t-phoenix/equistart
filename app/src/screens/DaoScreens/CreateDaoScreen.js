@@ -5,13 +5,26 @@ import { backgrounds, colorPairs } from '../../colors';
 import commonStyles from '../../commonStyles';
 import EmptySpace from '../../components/EmptySpace';
 
+//importing web3 Services
+import {useWalletConnect} from '@walletconnect/react-native-dapp';
+import {installProject} from '../../services/FactoryServices';
+
 export default function CreateDaoScreen({ navigation }) {
+
+  const connector = useWalletConnect();
   const [projectTitle, setProjectTitle] = React.useState('');
   //const [description, setDescription] = React.useState('');
   const [symbol, setSymbol] = React.useState('');
   const [numOfToken, setNumOfToken] = React.useState();
   //const [initialDeposit, setInitialDeposit] = React.useState();
   let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
+
+  async function handleInstall(){
+    const install = await installProject(connector, projectTitle, symbol, numOfToken);
+    console.log("installing Project: ", install);
+  }
+
+  
 
   return (
     <View style={commonStyles.pageView}>
@@ -91,9 +104,10 @@ export default function CreateDaoScreen({ navigation }) {
         </Button>
         <Button
           style={commonStyles.doubleButton}
-          onPress={() => navigation.navigate('cofounderDetails')}
+          // onPress={() => navigation.navigate('cofounderDetails', {projectTitle: projectTitle, symbol: symbol, numOfToken: numOfToken} )}
+          onPress={handleInstall}
         >
-          Next
+          Install on Blockchain
         </Button>
       </View>
     </View>
