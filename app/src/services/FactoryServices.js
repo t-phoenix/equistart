@@ -20,13 +20,17 @@ export async function getProjectList(){
 export async function installProject(connector, name, symbol, initialSupply){
     console.log("starting...", connector);
     const txo = await FactoryContract.methods.createProject(name, symbol, initialSupply);
-    console.log("kit :", kit);
+    const data = txo.encodeABI();
+    console.log("data :", data);
 
-    const signed = await connector.signTransaction( {txo, from: connector.accounts[0]});
+    // const tx = await kit.connection.sendTransactionObject({from: connector.accounts[0], data: data})
+    // console.log("Transaction: ", tx);
+
+    const signed = await connector.sendTransaction( { from: connector.accounts[0], data: data});
     console.log("signature:", signed);
 
-    const trcxn = await kit.connection.sendSignedTransaction(signed.rawTransaction);
-    console.log("Transaction:", trcxn);
+    // const trcxn = await kit.connection.sendSignedTransaction(signed.rawTransaction);
+    // console.log("Transaction:", trcxn);
 
     // const tx = await kit.connection.sendTransactionObject(txo, {from: 0xe2c7618d0f07578cad8de5c05d5cbc3382b04fcd});
     // const tx2 = await connector.signTransaction(tx);

@@ -6,12 +6,27 @@ import commonStyles from '../../commonStyles';
 import EmptySpace from '../../components/EmptySpace';
 
 //importing web3 Services
+import { Factory_ABI, Project_ABI } from "../../ABI";
 import {useWalletConnect} from '@walletconnect/react-native-dapp';
 import {installProject} from '../../services/FactoryServices';
+import Web3 from 'web3';
+import { newKitFromWeb3 } from '@celo/contractkit';
 
 export default function CreateDaoScreen({ navigation }) {
 
   const connector = useWalletConnect();
+  console.log("connector:", connector);
+  const web3 = new Web3(connector);
+  let kit = newKitFromWeb3(web3);
+  //console.log("Kit:", kit);
+
+  kit.defaultAccount = connector.accounts[0];
+  console.log("account", kit.defaultAccount);
+
+  const contractAddress = "0x0f9Dd41f1c1b1b72808f791A83518dDF0c1aC17f";
+  const FactoryContract = new kit.connection.web3.eth.Contract(Factory_ABI, contractAddress);
+  console.log("Factory:", FactoryContract);
+
   const [projectTitle, setProjectTitle] = React.useState('');
   //const [description, setDescription] = React.useState('');
   const [symbol, setSymbol] = React.useState('');
@@ -20,11 +35,21 @@ export default function CreateDaoScreen({ navigation }) {
   let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
 
   async function handleInstall(){
-    const install = await installProject(connector, projectTitle, symbol, numOfToken);
-    console.log("installing Project: ", install);
+    // const install = await installProject(connector, projectTitle, symbol, numOfToken);
+    // console.log("installing Project: ", install);
+    const txo = await FactoryContract.methods.createProject(projectTitle, symbol, numOfToken);
+    //console.log("traObj:", txo);
+    const data = txo.encodeABI();
+    const tx = await kit.sendTransaction({ from: kit.defaultAccount, data: data});
+    console.log("Txn:", tx);
+
+
+    const receipt = await tx.waitReceipt();
+    console.log("receipt:", receipt);
+
   }
 
-  
+
 
   return (
     <View style={commonStyles.pageView}>

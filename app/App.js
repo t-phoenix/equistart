@@ -127,6 +127,10 @@ export default withWalletConnect(App, {
   storageOptions: {
     asyncStorage: AsyncStorage,
   },
+  rpcUrl: {
+    44787: "https://alfajores-forno.celo-testnet.org",
+    42220: "https://forno.celo.org",
+  },
   
   //uri:"0e46b69-d0cc-4b3e-b6a2-cee442f97188@1?bridge=https%3A%2F%2Fbridge.walletconnect.org&key=627f76522696909ec5ed72b3abad15b9"
   //bridge: "https://bridge.walletconnect.org/info"

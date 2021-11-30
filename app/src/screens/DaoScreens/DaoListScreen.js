@@ -24,7 +24,7 @@ export default function DaoListScreen({ navigation }) {
 
 
   async function loadProjAddList(){
-    const projectList = await getProjectList()
+    const projectList = await getProjectList();
     console.log("contract List:", projectList);
     let listOfObjects = [];
     if(projectList.length > 0){
