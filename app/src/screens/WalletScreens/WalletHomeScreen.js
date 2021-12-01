@@ -6,6 +6,8 @@ import commonStyles from '../../commonStyles';
 import { colorPairs, backgrounds } from '../../colors';
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 import EmptySpace from '../../components/EmptySpace';
+
+//web3 imports
 import Web3 from 'web3';
 import { newKitFromWeb3 } from '@celo/contractkit';
 import { Factory_ABI, Project_ABI } from '../../ABI';
@@ -15,11 +17,15 @@ let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
 
 export default function WalletHomeScreen({ navigation }) {
     const [connected, setConnected] = React.useState(false);
-    const [userData, setUserData] = React.useState({ network: 'Alfajores', phone: '+91-82839-44992', address: '' });
+    const [userData, setUserData] = React.useState({ network: 'Alfajores', phone: '+91-99999-88888', address: '' });
     const [balance, setBalance] = React.useState({});
     const [fetching, setFetching] = React.useState(false);
     const connector = useWalletConnect();
     const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
+    //const web3connector = new Web3(connector);
+    console.log("connector:",connector);
+    console.log("web3:", web3);
+    //console.log("web3connector:",web3connector);
     const kit = newKitFromWeb3(web3);
 
     // const loadProjects = async () => {
@@ -42,7 +48,7 @@ export default function WalletHomeScreen({ navigation }) {
             setUserData((x) => ({ ...x, address: connector.accounts[0] }));
             // loadProjects();
             setConnected(true);
-        }
+        } 
     }, []);
 
     const tokenBalances = ({ item }) => {
@@ -82,11 +88,19 @@ export default function WalletHomeScreen({ navigation }) {
         setConnected(false);
     }
 
-    const handleCheck = async () => {
+    const fetchBalance = async () => {
         setFetching(true);
+        let bal = {};
+        let totalBalance = await kit.getTotalBalance(connector.accounts[0]);
+        console.log("Total balance:", totalBalance.CELO);
+        if(totalBalance.CELO && totalBalance.cUSD){
+            bal["CELO"] = totalBalance.CELO;
+            bal["cUSD"] = totalBalance.cUSD;
+        }
+
         const projectList = await getProjectList();
         console.log("contract List:", projectList);
-        let bal = {};
+        
         for (var i = 0; i < projectList.length; i++) {
             console.log(projectList[i]);
             let contract = new kit.connection.web3.eth.Contract(Project_ABI, projectList[i][4]);
@@ -96,6 +110,7 @@ export default function WalletHomeScreen({ navigation }) {
             console.log(contract.methods);
         }
         setBalance(bal);
+        console.log(bal);
         setFetching(false);
     }
 
@@ -138,7 +153,7 @@ export default function WalletHomeScreen({ navigation }) {
                     <EmptySpace />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <Text style={commonStyles.primaryTextOrange}>Tokens: </Text>
-                        <Button style={commonStyles.button} status="info" size="small" onPress={() => handleCheck()}>
+                        <Button style={commonStyles.button} status="info" size="small" onPress={() => fetchBalance()}>
                             {!fetching && "Fetch Balance"}
                             {fetching && <LoadingIndicator />}
                         </Button>

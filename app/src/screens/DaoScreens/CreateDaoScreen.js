@@ -15,17 +15,20 @@ import { newKitFromWeb3 } from '@celo/contractkit';
 export default function CreateDaoScreen({ navigation }) {
 
   const connector = useWalletConnect();
-  console.log("connector:", connector);
-  const web3 = new Web3(connector);
+  //console.log("connector:", connector);
+
+  const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
+  //console.log("web3:", web3);
+  
   let kit = newKitFromWeb3(web3);
   //console.log("Kit:", kit);
 
   kit.defaultAccount = connector.accounts[0];
   console.log("account", kit.defaultAccount);
 
-  const contractAddress = "0x0f9Dd41f1c1b1b72808f791A83518dDF0c1aC17f";
-  const FactoryContract = new kit.connection.web3.eth.Contract(Factory_ABI, contractAddress);
-  console.log("Factory:", FactoryContract);
+  const factoryAddress = "0x0f9Dd41f1c1b1b72808f791A83518dDF0c1aC17f";
+  const FactoryContract = new kit.connection.web3.eth.Contract(Factory_ABI, factoryAddress);
+  console.log("Factory:", FactoryContract.methods);
 
   const [projectTitle, setProjectTitle] = React.useState('');
   //const [description, setDescription] = React.useState('');
@@ -37,15 +40,24 @@ export default function CreateDaoScreen({ navigation }) {
   async function handleInstall(){
     // const install = await installProject(connector, projectTitle, symbol, numOfToken);
     // console.log("installing Project: ", install);
-    const txo = await FactoryContract.methods.createProject(projectTitle, symbol, numOfToken);
-    //console.log("traObj:", txo);
-    const data = txo.encodeABI();
-    const tx = await kit.sendTransaction({ from: kit.defaultAccount, data: data});
-    console.log("Txn:", tx);
+    const create = await FactoryContract.methods.createProject(projectTitle, symbol, numOfToken);
+    const encodedData = create.encodeABI();
+    const txObj = {
+      from: connector.accounts[0],
+      to: factoryAddress,
+      data: encodedData
+    }
+    const txn = await connector.sendTransaction(txObj);
+    console.log("Transaction:", txn);
+    // const data = txo.encodeABI();
+    // //const provider = kit.connection.setProvider(connector)
+    // console.log("provider: ", provider);
+    // const tx = await kit.sendTransactionObject( {txo, from: kit.defaultAccount});
+    // console.log("Txn:", tx);
 
 
-    const receipt = await tx.waitReceipt();
-    console.log("receipt:", receipt);
+    // const receipt = await tx.waitReceipt();
+    // console.log("receipt:", receipt);
 
   }
 
