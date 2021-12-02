@@ -13,35 +13,10 @@ import { getProjectList } from '../../services/FactoryServices';
 import Web3 from 'web3';
 import { Factory_ABI, Project_ABI } from '../../ABI';
 import { newKitFromWeb3 } from '@celo/contractkit';
-import { useWalletConnect } from '@walletconnect/react-native-dapp';
+import  {useWalletConnect} from '@walletconnect/react-native-dapp';
 
 let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
-let minABI = [
-  // transfer
-  {
-      "constant": false,
-      "inputs": [
-          {
-              "name": "_to",
-              "type": "address"
-          },
-          {
-              "name": "_value",
-              "type": "uint256"
-          }
-      ],
-      "name": "transfer",
-      "outputs": [
-          {
-              "name": "success",
-              "type": "bool"
-          }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-  }
-  ];
+
 export default function ({ navigation }) {
   const [sendingToken, setSendingToken] = React.useState();
   const [sendingAmount, setSendingAmount] = React.useState();
@@ -51,9 +26,11 @@ export default function ({ navigation }) {
   const [tokenList, setTokenList] = React.useState([[0, 1, 2]]);
   const [sending, setSending] = React.useState(false);
 
-  const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
-  const kit = newKitFromWeb3(web3);
   const connector = useWalletConnect();
+  const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
+  //const web3 = new Web3(connector);
+  const kit = newKitFromWeb3(web3);
+  kit.defaultAccount = connector.accounts[0];
 
   const setSelectedIndex = (idx) => {
     _setSelectedIndex(idx);
@@ -94,18 +71,43 @@ export default function ({ navigation }) {
   const sendTokens = async () => {
     if (sendingToken) {
       setSending(true);
-      let contract = new web3.eth.Contract(minABI, sendingToken[4]);
-      console.log(sendingToken, connector.accounts[0])
-      const txo = await contract.methods.transfer(sendingAddress, sendingAmount).send({
-          from: connector.accounts[0],
-          gas: 2000000
-      });
-      // const tx = await kit.sendTransactionObject(txo, {from: connector.accounts[0]});
-      console.log(txo);
-      // const hash = await tx.getHash();
-      // const receipt = await tx.waitReceipt();
-      // console.log(hash, receipt);
+      let projectContract = new kit.connection.web3.eth.Contract(Project_ABI, sendingToken[4]);
+      console.log("tokenAddress:", sendingToken[4]);
+      console.log('proj contract:', projectContract);
+      let transfer = await projectContract.methods.transfer(sendingAddress, sendingAmount);
+      let encodedData = transfer.encodeABI();
+      const txObj = {
+        from: connector.accounts[0],
+        to: sendingToken[4],
+        data: encodedData,
+        
+      }
+      const txn = await connector.sendTransaction(txObj)
+      console.log("transaction: ", txn);
       setSending(false);
+    }
+  }
+
+  const sendNativeToken = async () => {
+    try {
+      // let amount = kit.web3.utils.toWei('0.001','ether');
+      // const stableContract = await kit.contracts.getStableToken();
+      // console.log("stable token contract:", stableContract);
+      // const tx = await stableContract.transfer('0x2F15F9c7C7100698E10A48E3EA22b582FA4fB859', amount).send();
+      // console.log("Trxn: ", tx);
+      // const receipt = await tx.waitReceipt();
+      // console.log("receipt: ", receipt);
+      let amount = kit.web3.utils.toWei('1','ether');
+      const tx =  {
+        from: connector.accounts[0],
+        to: "0x2F15F9c7C7100698E10A48E3EA22b582FA4fB859",
+        value: amount,
+      }
+      const txn = await connector.sendTransaction(tx)
+      console.log("Transaction: ",txn);
+
+    } catch (error) {
+      console.log("ERROR:", error);
     }
   }
 
@@ -113,6 +115,9 @@ export default function ({ navigation }) {
     <View style={commonStyles.pageView}>
       <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
         <EmptySpace />
+        <Button onPress={sendNativeToken}>
+          test
+        </Button>
         <Card style={commonStyles.card}>
           <View style={{ ...styles.topCard, backgroundColor: colorPairs[num].background }}>
             <View>

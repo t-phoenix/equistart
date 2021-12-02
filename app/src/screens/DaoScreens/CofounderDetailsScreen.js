@@ -20,7 +20,7 @@ import { Button, Text, Modal, Input, Card } from '@ui-kitten/components';
 import { Dimensions } from 'react-native';
 import EmptySpace from '../../components/EmptySpace';
 
-export default function CofounderDetailsScreen({ navigation }) {
+export default function CofounderDetailsScreen({route, navigation }) {
   const [modalVisible, setModalVisible] = React.useState(false);
   const tableHeader = ['phone', 'Address', 'Token', 'Amount'];
   const [tableData, setTableData] = React.useState([
@@ -121,8 +121,8 @@ export default function CofounderDetailsScreen({ navigation }) {
         >
           Add a Co-founder
         </Button>
-        <Text style={commonStyles.secondaryTextGrey}>Total token to mint: {<Text style={commonStyles.primaryTextOrange}> 210000 </Text>} </Text>
-        <Text style={commonStyles.secondaryTextGrey}>Total amount to deposit: {<Text style={commonStyles.primaryTextOrange}> 7000 </Text>}</Text>
+        <Text style={commonStyles.secondaryTextGrey}>Total token to mint: {<Text style={commonStyles.primaryTextOrange}> {route.params.numOfToken} </Text>} </Text>
+        {/* <Text style={commonStyles.secondaryTextGrey}>Total amount to deposit: {<Text style={commonStyles.primaryTextOrange}> 7000 </Text>}</Text> */}
 
         <View style={styles.tableBox}>
           <Text style={commonStyles.secondaryTextGrey}>Co-founder Details</Text>
@@ -172,6 +172,7 @@ const styles = StyleSheet.create({
     marginVertical: 5
   },
   tableBox: {
+    // width: '100%',
     marginVertical: 4,
     display: 'flex',
     flexDirection: 'column',
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
   },
   tableHeader: {
     height: 40,
-    width: '100%',
+    width: '90%',
     backgroundColor: '#e67425',
     alignContent: "center",
   },
@@ -192,8 +193,8 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   tableRow: {
-    // height: 36,
-    width: '100%',
+    height: 36,
+    width: '90%',
     backgroundColor: 'rgba(51, 102, 255, 0.08)'
   },
   backdrop: {

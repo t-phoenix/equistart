@@ -25,6 +25,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import commonStyles from './src/commonStyles';
 //import WalletConnectProvider from '@walletconnect/react-native-dapp';
 
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();
+
 const Drawer = createDrawerNavigator();
 
 const App = () => {
@@ -127,11 +131,16 @@ export default withWalletConnect(App, {
   storageOptions: {
     asyncStorage: AsyncStorage,
   },
+  rpc: {
+    44787: "https://alfajores-forno.celo-testnet.org",
+    // 42220: "https://forno.celo.org",
+  },
   
   //uri:"0e46b69-d0cc-4b3e-b6a2-cee442f97188@1?bridge=https%3A%2F%2Fbridge.walletconnect.org&key=627f76522696909ec5ed72b3abad15b9"
   //bridge: "https://bridge.walletconnect.org/info"
   //url: "wc:00e46b69-d0cc-4b3e-b6a2-cee442f97188@1?bridge=https%3A%2F%2Fbridge.walletconnect.org&key=627f76522696909ec5ed72b3abad15b9",
-  // apiKey: '627f76522696909ec5ed72b3abad15b9',
+  //apiKey: '627f76522696909ec5ed72b3abad15b9',
   //rpcUrl: 'https://alfajores-forno.celo-testnet.org',
   //renderQrcodeModal: RenderQrcodeModalProps => <CustomBottomSheet {...RenderQrcodeModalProps} />,
+
 });

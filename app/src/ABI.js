@@ -109,6 +109,7 @@ export const Factory_ABI = [
 		"type": "function"
 	}
 ]
+
 export const Project_ABI = [
 	{
 		"inputs": [

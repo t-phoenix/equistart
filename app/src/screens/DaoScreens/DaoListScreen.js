@@ -30,7 +30,7 @@ export default function DaoListScreen({ navigation }) {
     if(projectList.length > 0){
       for (let i = 0; i < projectList.length; i++){
         const tempProj = projectList[i];
-        console.log("Project"+i + " :"+tempProj[0]);
+        //console.log("Project"+i + " :"+tempProj[0]);
         listOfObjects.push({key: tempProj[0], title: tempProj[1], token: tempProj[2], amount: tempProj[3], address: tempProj[4]})
       }
       setData(listOfObjects);
@@ -39,7 +39,9 @@ export default function DaoListScreen({ navigation }) {
 
   return (
     <View style={commonStyles.pageView}>
-      
+      <Button onPress={loadProjAddList}>
+        Reload
+      </Button>
        
       <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
         <EmptySpace space={20} />
