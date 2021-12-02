@@ -42,5 +42,10 @@ export async function installProject(connector, name, symbol, initialSupply){
     // return {hash,receipt};
 }
 
+export async function getProposalList(address){
+    let contract = new kit.connection.web3.eth.Contract(Project_ABI, address);
+    let proposalList = await contract.methods.getAllProposals().call();
+    return proposalList;
+}
 
 

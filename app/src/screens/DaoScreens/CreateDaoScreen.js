@@ -67,8 +67,8 @@ export default function CreateDaoScreen({ navigation }) {
     <View style={commonStyles.pageView}>
       <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
         <EmptySpace />
-        <Card style={commonStyles.card}>
-          <View style={{ ...styles.topCard, backgroundColor: colorPairs[num].background }}>
+        <View style={commonStyles.outerCard}>
+          <View style={{ ...commonStyles.innerCard, backgroundColor: colorPairs[num].background, flexDirection: 'row' }}>
             <View>
               <Text style={{ color: colorPairs[num].text, ...styles.heading }}> Add Project </Text>
               <Text style={{ color: colorPairs[num].text, ...styles.heading }}>  Details</Text>
@@ -84,7 +84,7 @@ export default function CreateDaoScreen({ navigation }) {
               />
             </View>
           </View>
-        </Card>
+        </View>
         <EmptySpace />
         {/* <Input
           style={commonStyles.input}
@@ -162,6 +162,6 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 25,
-    // fontWeight: 'bold',
+    fontWeight: 'bold',
   }
 });

@@ -3,10 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import {StyleSheet, View, TouchableOpacity, Image, Text} from 'react-native';
-import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
-//import components
-import CustomSideBarMenu from './src/components/CustomSideBarMenu';
 import * as eva from '@eva-design/eva';
 import {ApplicationProvider, IconRegistry, Layout} from '@ui-kitten/components';
 import {default as theme} from './custom-theme.json';
@@ -15,15 +12,10 @@ import Navigator from './src/navigation/Navigator';
 //web3 imports
 // import Web3 from 'web3';
 import {
-  withWalletConnect,
-  useWalletConnect,
-  RenderQrcodeModalProps,
-  WalletService
+  withWalletConnect
 } from '@walletconnect/react-native-dapp';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import commonStyles from './src/commonStyles';
-//import WalletConnectProvider from '@walletconnect/react-native-dapp';
 
 import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
@@ -32,11 +24,6 @@ LogBox.ignoreAllLogs();
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-  // const web3 = new Web3('https://alfajores-forno.celo-testnet.org');
-  // console.log("Web3 instance:", web3);
-
-  // const connector = useWalletConnect();
-  // console.log('App connector:', connector);
 
   const DaoNavigator = ({navigation}) => (
     <Navigator screens={DaoScreens} navigation={navigation} />

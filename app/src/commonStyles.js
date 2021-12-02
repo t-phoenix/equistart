@@ -27,14 +27,24 @@ export default StyleSheet.create({
   },
   card: {
     borderRadius: 20,
-    margin: 4
+    backgroundColor: '#1F2122',
+    borderColor: '#090E13',
+    borderWidth: 1,
+    padding: 5
+  },
+  outerCard: {
+    borderRadius: 20,
+    backgroundColor: '#1F2122',
+    borderColor: '#090E13',
+    borderWidth: 1,
+    padding: 10
   },
   innerCard: {
-      marginHorizontal: '-7.5%',
-      marginTop: '-5.3%',
-      marginBottom: 5,
-      borderRadius: 20,
-      padding: 10
+    borderRadius: 15,
+    backgroundColor: '#1F2122',
+    borderColor: '#090E13',
+    borderWidth: 1,
+    padding: 20
   },
   rowButtonContainer: {
     flexDirection: 'row',
@@ -43,7 +53,8 @@ export default StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   backSection: {
     height: '4%',

@@ -1,19 +1,17 @@
 import React from 'react'
 import { StyleSheet, View, FlatList } from 'react-native'
+import EmptySpace from './EmptySpace'
 
 const CardList = ({ cardListData, card, navigation }) => {
     return (
         <View>
-            {/* <FlatList
-                data={cardListData}
-                renderItem={(item) => card({ cardData: item.item, navigation: navigation })}
-                keyExtractor={item => item.key}
-            /> */}
-            <View>
-                {cardListData.map((item) => (
+            <EmptySpace />
+            {cardListData.map((item) => (
+                <View>
                     <View key={item.key}>{card({ cardData: item, navigation: navigation })}</View>
-                ))}
-            </View>
+                    <EmptySpace key={item.key} />
+                </View>
+            ))}
         </View>
     )
 }

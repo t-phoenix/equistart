@@ -3,55 +3,50 @@ import { StyleSheet, View } from 'react-native'
 import { Button, Text, Layout, Card } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
 import { backgrounds } from '../colors'
+import { formatAddress, formatMobileNumber, formatNumber } from '../services/FormatterService'
+import EmptySpace from './EmptySpace'
 
 const DaoCardDetail = ({ cardData, navigation }) => {
     return (
-        <Card style={{backgroundColor:'#F8F8F8', ...commonStyles.card}}>
+        <View>
+            <EmptySpace />
+            <View style={{ ...commonStyles.innerCard, backgroundColor: '#F8F8F8' }}>
                 <View style={styles.nameContainer}>
                     <Text style={styles.headerText} category='h3'>{cardData.title}</Text>
-                    <Text style={styles.dynamicText} category='s1'>({cardData.token})</Text>
+                    <Text style={styles.text} category='s1'>({cardData.token})</Text>
                 </View>
                 <Text style={commonStyles.primaryTextOrange}>About</Text>
-                <View style={styles.rowContainer}>
+                <View style={commonStyles.row}>
                     <View>
-                        <Text style={commonStyles.secondaryTextGrey}>Creator: {<Text style={styles.dynamicText}> 8283944992 </Text>} </Text>
-                        <Text style={commonStyles.secondaryTextGrey}>Total token: {<Text style={styles.dynamicText}> {cardData.amount/1000}K </Text>} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Creator: {<Text style={styles.text}> {formatMobileNumber('8283944992')} </Text>} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Total token: {<Text style={styles.text}> {formatNumber(cardData.amount)} </Text>} </Text>
                     </View>
                     <View>
-                        <Text style={commonStyles.secondaryTextGrey}>Symbol: {<Text style={styles.dynamicText}> {cardData.token} </Text>} </Text>
-                        <Text style={commonStyles.secondaryTextGrey}>Address: {<Text style={styles.dynamicText}> {cardData.address} </Text>} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Symbol: {<Text style={styles.text}> {cardData.token} </Text>} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Address: {<Text style={styles.text}> {formatAddress(cardData.address)} </Text>} </Text>
                     </View>
                 </View>
                 <Text style={commonStyles.primaryTextOrange}>Description</Text>
-                <Text style={styles.dynamicText}>
+                <Text style={styles.text}>
                     This is the best company in the world.
                 </Text>
-            </Card>
+            </View>
+            <EmptySpace />
+        </View>
     )
 }
 
 export default DaoCardDetail;
 
 const styles = StyleSheet.create({
-    footerContainer: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-    },
-    footerControl: {
-        marginHorizontal: 2,
-    },
     nameContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
     },
-    rowContainer: {
-        justifyContent: 'space-between',
-        flexDirection: 'row'
-    },
-    dynamicText: {
+    text: {
         color: '#9C9DA0',
-        paddingLeft: 6 
+        paddingLeft: 6
     },
     headerText: {
         color: '#404248'

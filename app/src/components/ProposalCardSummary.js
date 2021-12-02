@@ -8,10 +8,10 @@ import { colorPairs } from '../colors'
 const ProposalCardSummary = ({ cardData, navigation }) => {
     let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
     return (
-        <Card style={commonStyles.card}>
-            <Card style={{ backgroundColor: colorPairs[num].background, ...styles.dynamicCard }}>
-                <ImageBackground source={require('../../assets/images/proposal.png')} style={{ height: 270, justifyContent: 'space-between' }}>
-                    <View style={styles.rowContainer}>
+        <View style={commonStyles.outerCard}>
+            <View style={{ ...commonStyles.innerCard, backgroundColor: colorPairs[num].background }}>
+                <ImageBackground source={require('../../assets/images/proposal.png')} style={{ height: 250, justifyContent: 'space-between' }}>
+                    <View style={commonStyles.row}>
                         <Text style={commonStyles.secondaryTextGrey}>ID: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.id} </Text>} </Text>
                         <Badge status={cardData.status} />
                     </View>
@@ -34,8 +34,8 @@ const ProposalCardSummary = ({ cardData, navigation }) => {
                         </View>
                     </View>
                 </ImageBackground>
-            </Card>
-        </Card>
+            </View>
+        </View>
     )
 }
 

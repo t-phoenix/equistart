@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 
 const EmptySpace = ({space = 10}) => {
     return (
-        <View style={{marginVertical: space}}>
+        <View style={{margin: space}}>
         </View>
     )
 }

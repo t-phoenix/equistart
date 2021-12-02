@@ -13,7 +13,7 @@ import { getProjectList } from '../../services/FactoryServices';
 import Web3 from 'web3';
 import { Factory_ABI, Project_ABI } from '../../ABI';
 import { newKitFromWeb3 } from '@celo/contractkit';
-import  {useWalletConnect} from '@walletconnect/react-native-dapp';
+import { useWalletConnect } from '@walletconnect/react-native-dapp';
 
 let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
 
@@ -31,6 +31,7 @@ export default function ({ navigation }) {
   //const web3 = new Web3(connector);
   const kit = newKitFromWeb3(web3);
   kit.defaultAccount = connector.accounts[0];
+  const scrollViewRef = React.useRef();
 
   const setSelectedIndex = (idx) => {
     _setSelectedIndex(idx);
@@ -46,11 +47,6 @@ export default function ({ navigation }) {
     const projectList = await getProjectList();
     console.log("contract List:", projectList);
     setTokenList(projectList);
-    // let tokens = [];
-    // for (var i = 0; i < projectList.length; i++) {
-    //   console.log(projectList[i]);
-    //   tokens.push(projectList[i][3]);
-    // }
   }
 
   const tokenBalances = ({ item }) => {
@@ -71,40 +67,37 @@ export default function ({ navigation }) {
   const sendTokens = async () => {
     if (sendingToken) {
       setSending(true);
-      let projectContract = new kit.connection.web3.eth.Contract(Project_ABI, sendingToken[4]);
-      console.log("tokenAddress:", sendingToken[4]);
-      console.log('proj contract:', projectContract);
-      let transfer = await projectContract.methods.transfer(sendingAddress, sendingAmount);
-      let encodedData = transfer.encodeABI();
-      const txObj = {
-        from: connector.accounts[0],
-        to: sendingToken[4],
-        data: encodedData,
-        
+      try {
+        let projectContract = new kit.connection.web3.eth.Contract(Project_ABI, sendingToken[4]);
+        console.log("tokenAddress:", sendingToken[4]);
+        console.log('proj contract:', projectContract);
+        let transfer = await projectContract.methods.transfer(sendingAddress, sendingAmount);
+        let encodedData = transfer.encodeABI();
+        const txObj = {
+          from: connector.accounts[0],
+          to: sendingToken[4],
+          data: encodedData,
+
+        }
+        const txn = await connector.sendTransaction(txObj)
+        console.log("transaction: ", txn);
+      } catch (error) {
+        console.log("ERROR:", error);
       }
-      const txn = await connector.sendTransaction(txObj)
-      console.log("transaction: ", txn);
       setSending(false);
     }
   }
 
   const sendNativeToken = async () => {
     try {
-      // let amount = kit.web3.utils.toWei('0.001','ether');
-      // const stableContract = await kit.contracts.getStableToken();
-      // console.log("stable token contract:", stableContract);
-      // const tx = await stableContract.transfer('0x2F15F9c7C7100698E10A48E3EA22b582FA4fB859', amount).send();
-      // console.log("Trxn: ", tx);
-      // const receipt = await tx.waitReceipt();
-      // console.log("receipt: ", receipt);
-      let amount = kit.web3.utils.toWei('1','ether');
-      const tx =  {
+      let amount = kit.web3.utils.toWei('1', 'ether');
+      const tx = {
         from: connector.accounts[0],
         to: "0x2F15F9c7C7100698E10A48E3EA22b582FA4fB859",
         value: amount,
       }
       const txn = await connector.sendTransaction(tx)
-      console.log("Transaction: ",txn);
+      console.log("Transaction: ", txn);
 
     } catch (error) {
       console.log("ERROR:", error);
@@ -113,15 +106,12 @@ export default function ({ navigation }) {
 
   return (
     <View style={commonStyles.pageView}>
-      <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
+      <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false} ref={scrollViewRef}>
         <EmptySpace />
-        <Button onPress={sendNativeToken}>
-          test
-        </Button>
-        <Card style={commonStyles.card}>
-          <View style={{ ...styles.topCard, backgroundColor: colorPairs[num].background }}>
+        <View style={commonStyles.outerCard}>
+          <View style={{ ...commonStyles.innerCard, backgroundColor: colorPairs[num].background, flexDirection: 'row' }}>
             <View>
-              <Text style={{ color: colorPairs[num].text, ...styles.heading }}> Add Recipients </Text>
+              <Text style={{ color: colorPairs[num].text, ...styles.heading }}> Add Payment </Text>
               <Text style={{ color: colorPairs[num].text, ...styles.heading }}>  Details</Text>
             </View>
             <View>
@@ -135,7 +125,7 @@ export default function ({ navigation }) {
               />
             </View>
           </View>
-        </Card>
+        </View>
         <EmptySpace />
         <Select
           style={{ height: 70, justifyContent: 'space-between' }}
@@ -155,6 +145,7 @@ export default function ({ navigation }) {
         <Input
           style={commonStyles.input}
           onChangeText={setSendingAddress}
+          onTouchStart={() => scrollViewRef.current.scrollToEnd()}
           value={sendingAddress}
           placeholder="address"
           label={() => <Text style={commonStyles.inputLabel}>Address</Text>}
@@ -162,12 +153,13 @@ export default function ({ navigation }) {
         <Input
           style={commonStyles.input}
           onChangeText={setSendingAmount}
+          onTouchStart={() => scrollViewRef.current.scrollToEnd()}
           value={sendingAmount}
           placeholder="amount"
           label={() => <Text style={commonStyles.inputLabel}>Amount</Text>}
           keyboardType="numeric"
         />
-        <EmptySpace space={100} />
+        <EmptySpace space={110} />
       </ScrollView>
       <View style={commonStyles.rowButtonContainer}>
         <Button style={commonStyles.doubleButton} status="warning" onPress={() => navigation.goBack()}>
@@ -175,7 +167,7 @@ export default function ({ navigation }) {
         </Button>
         <Button style={commonStyles.doubleButton} onPress={() => sendTokens()}>
           {!sending && "Sign and Send"}
-          {sending && <Spinner size='tiny' status='basic'/>}
+          {sending && <Spinner size='tiny' status='basic' />}
         </Button>
       </View>
     </View>
@@ -183,16 +175,8 @@ export default function ({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  topCard: {
-    flexDirection: 'row',
-    padding: '5%',
-    justifyContent: 'space-between',
-    borderRadius: 15,
-    marginHorizontal: '-4%',
-    marginVertical: '-2%'
-  },
   heading: {
     fontSize: 20,
-    // fontWeight: 'bold',
+    fontWeight: 'bold',
   }
 });
