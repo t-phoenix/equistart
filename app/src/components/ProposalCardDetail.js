@@ -3,29 +3,30 @@ import { StyleSheet, View } from 'react-native'
 import { Button, Text, Layout, Card } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
 import Badge from './Badge'
+import EmptySpace from './EmptySpace'
+import { formatMobileNumber } from '../services/FormatterService'
 
 const ProposalCardDetail = ({ cardData }) => {
-    const [yesCount, setYesCount] = React.useState(cardData.id);
-    const [noCount, setNoCount] = React.useState(cardData.id);
+    const [yesCount, setYesCount] = React.useState(Number(cardData.yesCount));
+    const [noCount, setNoCount] = React.useState(Number(cardData.noCount));
     const [votingStatus, setVotingStatus] = React.useState(false);
     return (
         <View>
-            <Card style={{...commonStyles.card}} >
-                <View>
-
-                </View>
+            <View style={{ ...commonStyles.innerCard }} >
                 <View style={styles.nameContainer}>
-                    <Text category='h3'>{cardData.header}</Text>
+                    <Text category='h3' style={styles.header}>{cardData.header}</Text>
                     <Badge status={cardData.status} />
                 </View>
+                <EmptySpace />
                 <Text style={commonStyles.primaryTextOrange}>Description</Text>
                 <Text>
                     This is the best proposal in the world.
                 </Text>
+                <EmptySpace />
                 <Text style={commonStyles.primaryTextOrange}>About</Text>
-                <View style={styles.rowContainer}>
+                <View style={commonStyles.rowButtonContainer}>
                     <View>
-                        <Text style={commonStyles.secondaryTextGrey}>Creator: {<Text> 8283944992 </Text>} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Creator: {<Text> {formatMobileNumber('8283944992')} </Text>} </Text>
                         <Text style={commonStyles.secondaryTextGrey}>Start Date: {<Text> {cardData.amount} </Text>} </Text>
                     </View>
                     <View>
@@ -33,6 +34,7 @@ const ProposalCardDetail = ({ cardData }) => {
                         <Text style={commonStyles.secondaryTextGrey}>End Date: {<Text> {cardData.value} </Text>} </Text>
                     </View>
                 </View>
+                <EmptySpace />
                 <Text style={commonStyles.primaryTextOrange}>Results</Text>
                 <View style={styles.bottomSection}>
                     <View style={{ marginLeft: '10%' }}></View>
@@ -40,30 +42,31 @@ const ProposalCardDetail = ({ cardData }) => {
                     <View style={{ marginLeft: '10%' }}></View>
                     <Text style={commonStyles.secondaryTextGrey}>No {<Text> {noCount} </Text>} </Text>
                 </View>
+                <EmptySpace />
                 <View style={styles.voteMessage}>
                     <Text style={commonStyles.primaryTextOrange}>Vote</Text>
-                    {votingStatus && <View style={{marginTop: 13, marginLeft: 3}}><Text style={commonStyles.smallTextRed}>(You have Voted)</Text></View>}
+                    {votingStatus && <View style={{ marginTop: 13, marginLeft: 3 }}><Text style={commonStyles.smallTextRed}>(You have Voted)</Text></View>}
                 </View>
+
                 <View style={styles.bottomSection}>
                     <Button
                         style={commonStyles.doubleButton}
-                        onPress={() => {setYesCount(yesCount + 1); setVotingStatus(true)}}
+                        onPress={() => { setYesCount(yesCount + 1); setVotingStatus(true) }}
                         status='success'
-                        
+
                         disabled={votingStatus}>
                         YES
                     </Button>
                     <Button
                         style={commonStyles.doubleButton}
-                        onPress={() => {setNoCount(noCount + 1); setVotingStatus(true)}}
-                        
+                        onPress={() => { setNoCount(noCount + 1); setVotingStatus(true) }}
+
                         status='danger'
                         disabled={votingStatus}>
                         NO
                     </Button>
                 </View>
-                
-            </Card>
+            </View>
         </View>
     )
 }
@@ -75,20 +78,12 @@ const styles = StyleSheet.create({
         // flex: 1,
         margin: 4,
     },
-    footerContainer: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end'
-    },
-    footerControl: {
-        marginHorizontal: 2,
+    header: {
+        maxWidth: '80%'
     },
     nameContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between'
-    },
-    rowContainer: {
-        justifyContent: 'space-evenly',
-        flexDirection: 'row'
     },
     bottomSection: {
         flexDirection: 'row',

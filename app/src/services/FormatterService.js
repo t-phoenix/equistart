@@ -14,10 +14,10 @@ export const formatMobileNumber = (number) => {
 }
 
 export const formatNumber = (value) => {
-    if(value/ 1000 < 0){
+    if(value/ 1000 < 1){
         return value;
     }
-    if(value/1000000 < 0) {
+    if(value/1000000 < 1) {
         return String(value/1000) + ' K';
     }
     else{

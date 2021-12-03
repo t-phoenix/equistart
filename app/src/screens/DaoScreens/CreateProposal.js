@@ -1,25 +1,64 @@
 import React from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View, Image } from 'react-native'
 import commonStyles from '../../commonStyles'
-import { Button, Text, Layout, Card, Icon, Input, Datepicker, PopoverPlacements } from '@ui-kitten/components'
-import EmptySpace from '../../components/EmptySpace'
+import { Button, Text, Layout, Card, Icon, Input, Datepicker, Spinner } from '@ui-kitten/components'
+import EmptySpace from '../../components/EmptySpace';
+import { colorPairs } from '../../colors'
+import { createProposal } from '../../services/ProjectServices';
+import { useWalletConnect } from '@walletconnect/react-native-dapp';
 
-const CreateProposal = ({ navigation }) => {
+
+let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
+
+const CreateProposal = ({ route, navigation }) => {
     const [description, setDescription] = React.useState('');
     const [header, setHeader] = React.useState('');
-    const today = new Date();
-    const [startDate, setStartDate] = React.useState(today);
-    const [endDate, setEndDate] = React.useState();
+    const [sending, setSending] = React.useState(false);
+    const connector = useWalletConnect();
+    const scrollViewRef = React.useRef();
+    // const today = new Date();
+    // const [startDate, setStartDate] = React.useState(today);
+    // const [endDate, setEndDate] = React.useState();
 
     const CalendarIcon = (props) => (
         <Icon {...props} name='calendar' />
     );
 
+    const addProposal = async () => {
+        setSending(true);
+        createProposal(route.params.data.address, header, description, connector).then(success => {
+            setSending(false);
+            if(success) {
+                console.log("refresh to view proposal");  
+                navigation.goBack();
+            }
+            else
+                console.log("request failed");  
+        });
+    }
     return (
         <View style={commonStyles.pageView}>
-            <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
+            <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false} ref={scrollViewRef}>
                 <EmptySpace />
-                <Text style={commonStyles.secondaryTextGrey}>Enter Proposal Details</Text>
+                <View style={commonStyles.outerCard}>
+                    <View style={{ ...commonStyles.innerCard, backgroundColor: colorPairs[num].background, flexDirection: 'row' }}>
+                        <View>
+                            <Text style={{ color: colorPairs[num].text, ...styles.heading }}> Enter Proposal </Text>
+                            <Text style={{ color: colorPairs[num].text, ...styles.heading }}>  Details</Text>
+                        </View>
+                        <View>
+                            <Image
+                                style={{
+                                    width: 180,
+                                    height: 100,
+                                    resizeMode: 'contain'
+                                }}
+                                source={require('../../../assets/images/project_details.png')}
+                            />
+                        </View>
+                    </View>
+                </View>
+                <EmptySpace />
                 <Input
                     style={commonStyles.input}
                     value={header}
@@ -31,12 +70,13 @@ const CreateProposal = ({ navigation }) => {
                     style={commonStyles.input}
                     onChangeText={setDescription}
                     value={description}
+                    onTouchStart={() => scrollViewRef.current.scrollToEnd()}
                     label={() => <Text style={commonStyles.inputLabel}> Description </Text>}
                     placeholder='Description'
                     multiline
                     numberOfLines={4}
                 />
-                <View style={styles.datePickerContainer}>
+                {/* <View style={styles.datePickerContainer}>
                     <Datepicker
                         controlStyle={commonStyles.input}
                         min={today}
@@ -57,7 +97,8 @@ const CreateProposal = ({ navigation }) => {
                         placement={PopoverPlacements.BOTTOM_END}
                         backdropStyle={styles.backdrop}
                     />
-                </View>
+                </View> */}
+                <EmptySpace space={120} />
             </ScrollView>
             <View style={commonStyles.rowButtonContainer}>
                 <Button
@@ -68,9 +109,10 @@ const CreateProposal = ({ navigation }) => {
                 </Button>
                 <Button
                     style={commonStyles.doubleButton}
-                // onPress={addFounder}
+                    onPress={addProposal}
                 >
-                    Publish
+                    {!sending && "Publish"}
+                    {sending && <Spinner size='tiny' status='basic' />}
                 </Button>
             </View>
         </View>
@@ -100,5 +142,9 @@ const styles = StyleSheet.create({
     },
     backdrop: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    },
+    heading: {
+        fontSize: 20,
+        fontWeight: 'bold',
     }
 })

@@ -26,10 +26,10 @@ const DaoCardDetail = ({ cardData, navigation }) => {
                         <Text style={commonStyles.secondaryTextGrey}>Address: {<Text style={styles.text}> {formatAddress(cardData.address)} </Text>} </Text>
                     </View>
                 </View>
-                <Text style={commonStyles.primaryTextOrange}>Description</Text>
+                {/* <Text style={commonStyles.primaryTextOrange}>Description</Text>
                 <Text style={styles.text}>
                     This is the best company in the world.
-                </Text>
+                </Text> */}
             </View>
             <EmptySpace />
         </View>

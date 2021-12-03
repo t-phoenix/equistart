@@ -12,7 +12,7 @@ const ProposalCardSummary = ({ cardData, navigation }) => {
             <View style={{ ...commonStyles.innerCard, backgroundColor: colorPairs[num].background }}>
                 <ImageBackground source={require('../../assets/images/proposal.png')} style={{ height: 250, justifyContent: 'space-between' }}>
                     <View style={commonStyles.row}>
-                        <Text style={commonStyles.secondaryTextGrey}>ID: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.id} </Text>} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>ID: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {Number(cardData.key) + 1} </Text>} </Text>
                         <Badge status={cardData.status} />
                     </View>
                     <View>
@@ -20,9 +20,9 @@ const ProposalCardSummary = ({ cardData, navigation }) => {
                         <Text style={commonStyles.secondaryTextGrey}>Votes:</Text>
                         <View style={styles.container}>
                             <View style={{ marginLeft: '10%' }}></View>
-                            <Text style={commonStyles.primaryTextGreen}> Yes {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.id} </Text>} </Text>
+                            <Text style={commonStyles.primaryTextGreen}> Yes {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.yesCount} </Text>} </Text>
                             <View style={{ marginLeft: '10%' }}></View>
-                            <Text style={commonStyles.primaryTextRed}> No {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.id} </Text>} </Text>
+                            <Text style={commonStyles.primaryTextRed}> No {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.noCount} </Text>} </Text>
                             <View style={{ marginLeft: 'auto' }}></View>
                             <Button
                                 style={commonStyles.button}

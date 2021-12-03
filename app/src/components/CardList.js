@@ -7,9 +7,9 @@ const CardList = ({ cardListData, card, navigation }) => {
         <View>
             <EmptySpace />
             {cardListData.map((item) => (
-                <View>
-                    <View key={item.key}>{card({ cardData: item, navigation: navigation })}</View>
-                    <EmptySpace key={item.key} />
+                <View  key={item.key}>
+                    <View>{card({ cardData: item, navigation: navigation })}</View>
+                    <EmptySpace />
                 </View>
             ))}
         </View>

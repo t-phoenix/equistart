@@ -165,7 +165,7 @@ export default function ({ navigation }) {
         <Button style={commonStyles.doubleButton} status="warning" onPress={() => navigation.goBack()}>
           Back
         </Button>
-        <Button style={commonStyles.doubleButton} onPress={() => sendTokens()}>
+        <Button style={commonStyles.doubleButton} onPress={sendTokens}>
           {!sending && "Sign and Send"}
           {sending && <Spinner size='tiny' status='basic' />}
         </Button>
