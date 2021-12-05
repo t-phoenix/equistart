@@ -80,7 +80,6 @@ export default StyleSheet.create({
   },
   pageContent: {
     marginHorizontal: '4%',
-    marginTop: '2%',
     ...Platform.select({
       ios: {
         height: windowHeight - 180,
@@ -268,5 +267,21 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 2,
     color: 'rgba(0,0,0,0.5)',
+  },
+  warningContainer: {
+    backgroundColor: 'rgba(255, 247, 171, 0.15)',
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 3
+  },
+  warningText: {
+    color: 'rgb(255, 247, 171)'
+  },
+  linkText: {
+    color: 'rgb(255, 247, 171)',
+    textDecorationLine: 'underline',
+    fontWeight: 'bold'
   }
 });

@@ -16,6 +16,11 @@ export default function CreateDaoScreen({ navigation }) {
   const [symbol, setSymbol] = React.useState('');
   const [numOfToken, setNumOfToken] = React.useState();
   const [sendingRequest, SetSendingRequest] = React.useState(false);
+  const [isWalletConnected, setIsWalletConnected] = React.useState(connector.connected);
+
+  React.useEffect(() => {
+    setIsWalletConnected(connector.connected);
+  }, [connector.connected]);
 
   async function handleInstall() {
     SetSendingRequest(true);
@@ -34,6 +39,10 @@ export default function CreateDaoScreen({ navigation }) {
 
   return (
     <View style={commonStyles.pageView}>
+      {!isWalletConnected && <View style={commonStyles.warningContainer}>
+        <Text style={commonStyles.warningText}>Connect your Wallet to </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Wallet', { screen: 'WalletHomeScreen' })}><Text style={commonStyles.linkText}>continue</Text></TouchableOpacity>
+      </View>}
       <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false} ref={scrollViewRef}>
         <EmptySpace />
         <View style={commonStyles.outerCard}>
@@ -81,7 +90,7 @@ export default function CreateDaoScreen({ navigation }) {
           value={symbol}
           onChangeText={setSymbol}
           label={() => <Text style={commonStyles.inputLabel}> Project Symbol</Text>}
-          onTouchStart={() => scrollViewRef.current.scrollToEnd()}
+          onTouchEnd={() => scrollViewRef.current.scrollToEnd()}
           placeholder={'project symbol eg.."SYM"'}
         />
         <Input
@@ -89,7 +98,7 @@ export default function CreateDaoScreen({ navigation }) {
           value={numOfToken}
           onChangeText={setNumOfToken}
           label={() => <Text style={commonStyles.inputLabel}> Total Tokens to Mint</Text>}
-          onTouchStart={() => scrollViewRef.current.scrollToEnd()}
+          onTouchEnd={() => scrollViewRef.current.scrollToEnd()}
           placeholder='total tokens to mint eg.."20000"'
           keyboardType="numeric"
         />
@@ -114,6 +123,7 @@ export default function CreateDaoScreen({ navigation }) {
           style={commonStyles.doubleButton}
           // onPress={() => navigation.navigate('cofounderDetails', {projectTitle: projectTitle, symbol: symbol, numOfToken: numOfToken} )}
           onPress={handleInstall}
+          disabled={!isWalletConnected}
         >
           {!sendingRequest && "Install on Blockchain"}
           {sendingRequest && <Spinner size='tiny' status='basic' />}

@@ -81,6 +81,8 @@ export default function ({ navigation }) {
         }
         const txn = await connector.sendTransaction(txObj)
         console.log("transaction: ", txn);
+        setSendingAddress('');
+        setSendingAmount('');
       } catch (error) {
         console.log("ERROR:", error);
       }
@@ -145,7 +147,7 @@ export default function ({ navigation }) {
         <Input
           style={commonStyles.input}
           onChangeText={setSendingAddress}
-          onTouchStart={() => scrollViewRef.current.scrollToEnd()}
+          onTouchEnd={() => scrollViewRef.current.scrollToEnd()}
           value={sendingAddress}
           placeholder="address"
           label={() => <Text style={commonStyles.inputLabel}>Address</Text>}
@@ -153,7 +155,7 @@ export default function ({ navigation }) {
         <Input
           style={commonStyles.input}
           onChangeText={setSendingAmount}
-          onTouchStart={() => scrollViewRef.current.scrollToEnd()}
+          onTouchEnd={() => scrollViewRef.current.scrollToEnd()}
           value={sendingAmount}
           placeholder="amount"
           label={() => <Text style={commonStyles.inputLabel}>Amount</Text>}
