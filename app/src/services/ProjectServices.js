@@ -35,3 +35,23 @@ export const createProposal = async (address, header, description, connector) =>
         return false;
     }
 }
+
+export const castVote = async(address, connector, proposalId, vote) => {
+    try {
+        let projectContract = new kit.connection.web3.eth.Contract(Project_ABI, address);
+        let proposal = await projectContract.methods.vote(proposalId, vote);
+        console.log(address, proposal)
+        let encodedData = proposal.encodeABI();
+        const txObj = {
+            from: connector.accounts[0],
+            to: address,
+            data: encodedData,
+
+        }
+        await connector.sendTransaction(txObj);
+        return true;
+    } catch (error) {
+        console.log("ERROR:", error);
+        return false;
+    }
+}

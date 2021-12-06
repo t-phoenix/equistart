@@ -27,7 +27,7 @@ export default function DaoHomeScreen({ route, navigation }) {
     if (proposalList.length > 0) {
       for (let i = 0; i < proposalList.length; i++) {
         const prop = proposalList[i];
-        listOfObjects.push({ key: prop[0], header: prop[1], description: prop[2], address: prop[3], yesCount: prop[5], noCount: prop[6], isPassed: prop[7] });
+        listOfObjects.push({ key: prop[0], header: prop[1], description: prop[2], address: prop[3], yesCount: prop[5], noCount: prop[6], isPassed: prop[7], projectData: route.params.data });
       }
       setData(listOfObjects);
     }

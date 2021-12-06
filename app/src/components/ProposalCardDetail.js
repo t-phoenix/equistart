@@ -4,12 +4,32 @@ import { Button, Text, Layout, Card } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
 import Badge from './Badge'
 import EmptySpace from './EmptySpace'
-import { formatMobileNumber } from '../services/FormatterService'
+import { formatAddress, formatMobileNumber } from '../services/FormatterService'
+import { castVote } from '../services/ProjectServices'
+import { useWalletConnect } from '@walletconnect/react-native-dapp';
 
 const ProposalCardDetail = ({ cardData }) => {
     const [yesCount, setYesCount] = React.useState(Number(cardData.yesCount));
     const [noCount, setNoCount] = React.useState(Number(cardData.noCount));
     const [votingStatus, setVotingStatus] = React.useState(false);
+    const connector = useWalletConnect();
+
+    const handleVote = async(vote) => {
+        castVote(cardData.projectData.address, connector, cardData.key, vote).then( success => {
+            if(success) {
+                if(vote){
+                    setYesCount(yesCount + 1);
+                }
+                else {
+                    setNoCount(noCount + 1);
+                }
+            }
+            else{
+                console.log('error');
+            }
+        })
+    };
+
     return (
         <View>
             <View style={{ ...commonStyles.innerCard }} >
@@ -20,17 +40,17 @@ const ProposalCardDetail = ({ cardData }) => {
                 <EmptySpace />
                 <Text style={commonStyles.primaryTextOrange}>Description</Text>
                 <Text>
-                    This is the best proposal in the world.
+                    {cardData.description}
                 </Text>
                 <EmptySpace />
                 <Text style={commonStyles.primaryTextOrange}>About</Text>
                 <View style={commonStyles.rowButtonContainer}>
                     <View>
-                        <Text style={commonStyles.secondaryTextGrey}>Creator: {<Text> {formatMobileNumber('8283944992')} </Text>} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Creator: {<Text> {formatAddress(cardData.address)} </Text>} </Text>
                         <Text style={commonStyles.secondaryTextGrey}>Start Date: {<Text> {cardData.amount} </Text>} </Text>
                     </View>
                     <View>
-                        <Text style={commonStyles.secondaryTextGrey}>Symbol: {<Text> {cardData.token} </Text>} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}> </Text>
                         <Text style={commonStyles.secondaryTextGrey}>End Date: {<Text> {cardData.value} </Text>} </Text>
                     </View>
                 </View>
@@ -51,16 +71,14 @@ const ProposalCardDetail = ({ cardData }) => {
                 <View style={styles.bottomSection}>
                     <Button
                         style={commonStyles.doubleButton}
-                        onPress={() => { setYesCount(yesCount + 1); setVotingStatus(true) }}
+                        onPress={() => { handleVote(true) }}
                         status='success'
-
                         disabled={votingStatus}>
                         YES
                     </Button>
                     <Button
                         style={commonStyles.doubleButton}
-                        onPress={() => { setNoCount(noCount + 1); setVotingStatus(true) }}
-
+                        onPress={() => { handleVote(false) }}
                         status='danger'
                         disabled={votingStatus}>
                         NO
