@@ -1,23 +1,19 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {EvaIconsPack} from '@ui-kitten/eva-icons';
-import {StyleSheet, View, TouchableOpacity, Image, Text} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import * as eva from '@eva-design/eva';
-import {ApplicationProvider, IconRegistry, Layout} from '@ui-kitten/components';
-import {default as theme} from './custom-theme.json';
-import {DaoScreens, WalletScreens} from './src/navigation/StackConfig';
+import { ApplicationProvider, IconRegistry, Layout } from '@ui-kitten/components';
+import { default as theme } from './custom-theme.json';
+import { DaoScreens, WalletScreens } from './src/navigation/StackConfig';
 import Navigator from './src/navigation/Navigator';
-//web3 imports
-// import Web3 from 'web3';
-import {
-  withWalletConnect
-} from '@walletconnect/react-native-dapp';
-
+import CustomSideBarMenu from './src/components/CustomSideBarMenu';
+import { withWalletConnect } from '@walletconnect/react-native-dapp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { LogBox } from 'react-native';
+
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();
 
@@ -25,11 +21,11 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
 
-  const DaoNavigator = ({navigation}) => (
+  const DaoNavigator = ({ navigation }) => (
     <Navigator screens={DaoScreens} navigation={navigation} />
   );
 
-  const WalletNavigator = ({navigation}) => (
+  const WalletNavigator = ({ navigation }) => (
     <Navigator screens={WalletScreens} navigation={navigation} />
   );
 
@@ -53,29 +49,31 @@ const App = () => {
     //   >
     <>
       <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={{...eva.dark, ...theme}}>
+      <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
         <NavigationContainer>
           <Drawer.Navigator
             screenOptions={{
               drawerStyle: {
                 backgroundColor: '#1d2023',
-                width: 240,
+                width: 280,
               },
               drawerActiveTintColor: '#E4C2A6',
+              drawerItemStyle: {borderRadius: 30},
+              drawerLabelStyle: {paddingLeft: 40},
               drawerInactiveTintColor: '#FFFFFF',
             }}
 
-            // drawerContent={props => <CustomSideBarMenu {...props} />}
+            drawerContent={props => <CustomSideBarMenu {...props} />}
           >
             <Drawer.Screen
               name="Dao"
               component={DaoNavigator}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
             <Drawer.Screen
               name="Wallet"
               component={WalletNavigator}
-              options={{headerShown: false}}
+              options={{ headerShown: false }}
             />
           </Drawer.Navigator>
         </NavigationContainer>
@@ -91,11 +89,11 @@ function CustomBottomSheet({
   uri,
 }) {
   const renderContent = React.useCallback(() => {
-  //   return <Text>Hello</Text>;
-  // });
+    //   return <Text>Hello</Text>;
+    // });
 
-  return walletServices.map((walletService, i) => (
-      <TouchableOpacity style={{backgroundColor:"#fff"}} key={`i${i}`} onPress={() => connectToWalletService(walletService, uri)}>
+    return walletServices.map((walletService, i) => (
+      <TouchableOpacity style={{ backgroundColor: "#fff" }} key={`i${i}`} onPress={() => connectToWalletService(walletService, uri)}>
         <Image source={{ uri: walletService.logo }} />
         <Text>{walletService.name}</Text>
       </TouchableOpacity>
@@ -122,7 +120,7 @@ export default withWalletConnect(App, {
     44787: "https://alfajores-forno.celo-testnet.org",
     // 42220: "https://forno.celo.org",
   },
-  
+
   //uri:"0e46b69-d0cc-4b3e-b6a2-cee442f97188@1?bridge=https%3A%2F%2Fbridge.walletconnect.org&key=627f76522696909ec5ed72b3abad15b9"
   //bridge: "https://bridge.walletconnect.org/info"
   //url: "wc:00e46b69-d0cc-4b3e-b6a2-cee442f97188@1?bridge=https%3A%2F%2Fbridge.walletconnect.org&key=627f76522696909ec5ed72b3abad15b9",

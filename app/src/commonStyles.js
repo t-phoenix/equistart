@@ -216,6 +216,10 @@ export default StyleSheet.create({
     marginVertical: 4,
     color: '#E4C2A6',
   },
+  secondaryTextOrange: {
+    fontSize: 12,
+    color: '#E4C2A6',
+  },
   tertiaryTextGreen: {
     color: '#609661'
   },

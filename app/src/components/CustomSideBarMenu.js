@@ -17,54 +17,47 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import commonStyles from '../commonStyles';
-import {COLORS} from '../colors';
-// import {Svg} from 'react-native-svg';
-// import HarmonyLogo from '../assets/harmony-icon.svg';
+import { COLORS } from '../colors';
+import EmptySpace from './EmptySpace';
+import { Button, Icon } from '@ui-kitten/components';
 
 const CustomSidebarMenu = props => {
-  const BASE_PATH =
-    'https://raw.githubusercontent.com/AboutReact/sampleresource/master/';
-  const proileImage = 'react_logo.png';
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: COLORS.primaryBlack}}>
-      {/*Top Large Image */}
-      {/* <Image
-        source={{uri: BASE_PATH + proileImage}}
-        style={styles.sideMenuProfileIcon}
-      /> */}
-      <View style={styles.logoBox}>
-        {/* <HarmonyLogo width={30} height={30} style={styles.logoStyle} /> */}
-        <Text style={commonStyles.primaryTextOrange}>equistart</Text>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.customItem}>
+      <EmptySpace space={5}/>
+        <Image source={require('../../assets/images/app_logo.png')} style={{height: 80, width: 80}} />
+        <Text style={commonStyles.primaryTextWhite}>EQUISTART</Text>
+        <Text style={commonStyles.secondaryTextOrange}>Decenteralising Equity</Text>
+        <EmptySpace />
       </View>
-      <View style={commonStyles.dividerStyle} />
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-
-        <View style={commonStyles.dividerStyle} />
-        <View style={styles.customItem}>
-          <Text
-            style={{color: COLORS.primaryWhite}}
-            onPress={() => {
-              Linking.openURL(
-                'https://open.harmony.one/22m-on-social-wallet-security',
-              );
-            }}>
-            Grants
-          </Text>
-        </View>
-        <View style={styles.customItem}>
-          <Text
-            style={{color: COLORS.primaryWhite}}
-            onPress={() => {
-              Linking.openURL('https://github.com/polymorpher/one-wallet/wiki');
-            }}>
-            Wiki
-          </Text>
-        </View>
       </DrawerContentScrollView>
-      <View style={styles.creatorContainer}>
-        <Text style={commonStyles.smallText}>t-phoenix</Text>
+      <View style={commonStyles.rowButtonContainer}>
+        <Button
+          style={commonStyles.doubleButton}
+          status="warning"
+          onPress={() => Linking.openURL('https://open.harmony.one/22m-on-social-wallet-security')}>
+          Grants
+          <Icon
+            style={styles.icon}
+            fill="#FFFFFF"
+            name='external-link-outline'
+          />
+        </Button>
+        <Button
+          style={commonStyles.doubleButton}
+          status="warning"
+          onPress={() => Linking.openURL('https://github.com/polymorpher/one-wallet/wiki')}>
+          Wiki
+          <Icon
+            style={styles.icon}
+            fill="#FFFFFF"
+            name='external-link-outline'
+          />
+        </Button>
       </View>
     </SafeAreaView>
   );
@@ -78,15 +71,21 @@ const styles = StyleSheet.create({
     borderRadius: 100 / 2,
     alignSelf: 'center',
   },
-  iconStyle: {
-    width: 15,
-    height: 15,
-    marginHorizontal: 5,
+  icon: {
+    width: 12,
+    height: 12,
   },
   customItem: {
-    padding: 16,
-    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: '#121314',
+    // borderColor: '#e4c2a6',
+    borderRadius: 20,
+    // borderBottomLeftRadius: 15,
+    // borderBottomRightRadius: 15,
+    // borderWidth: 1,
+    // borderBottomWidth: 1,
     alignItems: 'center',
+    margin: 8
   },
   creatorContainer: {
     alignItems: 'center',

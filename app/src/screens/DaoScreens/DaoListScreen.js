@@ -52,7 +52,7 @@ export default function DaoListScreen({ navigation }) {
           </View>
         </View>
         {!isLoading && <CardList cardListData={data} card={DaoCardSummary} navigation={navigation} />}
-        {isLoading && <View style={{alignItems:'center'}}><EmptySpace space={50}/><Spinner status='basic' /></View>}
+        {isLoading && <View style={{ alignItems: 'center' }}><EmptySpace space={50} /><Spinner status='basic' /></View>}
         <EmptySpace space={40} />
       </ScrollView>
       <View style={commonStyles.rowButtonContainer}>
