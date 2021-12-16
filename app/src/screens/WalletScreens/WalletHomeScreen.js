@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Image, ImageBackground } from 'react-native';
+import { View, StyleSheet, FlatList, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import { Button, Layout, Text, Icon, Card, Spinner } from '@ui-kitten/components';
 
 import commonStyles from '../../commonStyles';
@@ -18,7 +18,7 @@ let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
 export default function WalletHomeScreen({ navigation }) {
     const [connected, setConnected] = React.useState(false);
     const [userData, setUserData] = React.useState({ network: 'Alfajores', phone: '9999988888', address: '' });
-    const [balance, setBalance] = React.useState({});
+    const [balance, setBalance] = React.useState({ "CELO": "0", "cEUR": "0", "cUSD": "0", "lockedCELO": "0", "pending": "0" });
     const [fetching, setFetching] = React.useState(false);
     const connector = useWalletConnect();
     const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
@@ -28,7 +28,8 @@ export default function WalletHomeScreen({ navigation }) {
         if (connector.connected) {
             setUserData((x) => ({ ...x, address: connector.accounts[0] }));
             setConnected(true);
-        } 
+            fetchBalance();
+        }
     }, []);
 
     const handleConnect = async () => {
@@ -44,41 +45,42 @@ export default function WalletHomeScreen({ navigation }) {
     }
 
     const handleDisconnect = async () => {
+        // console.log(connector);
         connector.killSession();
         setUserData({ network: 'Alfajores', phone: '', address: '' });
-        setBalance({});
+        setBalance({ "CELO": "0", "cEUR": "0", "cUSD": "0", "lockedCELO": "0", "pending": "0" });
         setConnected(false);
     }
 
     const fetchBalance = async () => {
         setFetching(true);
-        let bal = {};
         let totalBalance = await kit.getTotalBalance(connector.accounts[0]);
-        console.log("Total balance:", totalBalance.CELO);
-        if(totalBalance.CELO && totalBalance.cUSD){
-            bal["CELO"] = totalBalance.CELO;
-            bal["cUSD"] = totalBalance.cUSD;
-        }
+        console.log("Total balance:", totalBalance);
+        // let bal = Object.keys(totalBalance).map((key) => totalBalance[key]);
+        // if(totalBalance.CELO && totalBalance.cUSD){
+        //     bal["CELO"] = totalBalance.CELO;
+        //     bal["cUSD"] = totalBalance.cUSD;
+        //     bal["cEUR"] = totalBalance.cEUR;
+        // }
 
-        const projectList = await getProjectList();
-        console.log("contract List:", projectList);
-        
-        for (var i = 0; i < projectList.length; i++) {
-            console.log(projectList[i]);
-            let contract = new kit.connection.web3.eth.Contract(Project_ABI, projectList[i][4]);
-            let syb = await contract.methods.symbol().call();
-            let val = await contract.methods.balanceOf(connector.accounts[0]).call();
-            bal[syb] = val + "000000000000000000";
-            console.log(contract.methods);
-        }
-        setBalance(bal);
-        console.log(bal);
+        // const projectList = await getProjectList();
+        // console.log("contract List:", projectList);
+
+        // for (var i = 0; i < projectList.length; i++) {
+        //     console.log(projectList[i]);
+        //     let contract = new kit.connection.web3.eth.Contract(Project_ABI, projectList[i][4]);
+        //     let syb = await contract.methods.symbol().call();
+        //     let val = await contract.methods.balanceOf(connector.accounts[0]).call();
+        //     bal[syb] = val + "000000000000000000";
+        //     console.log(contract.methods);
+        // }
+        setBalance(totalBalance);
         setFetching(false);
     }
 
     const LoadingIndicator = (props) => (
         <View style={[props.style, styles.indicator]}>
-            <Spinner size='tiny' />
+            <Spinner size='tiny' status='basic' />
         </View>
     );
 
@@ -115,20 +117,28 @@ export default function WalletHomeScreen({ navigation }) {
                         </View>
                     </View>
                     <EmptySpace />
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text style={commonStyles.primaryTextOrange}>Tokens: </Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: '2%' }}>
+                        <Text style={commonStyles.primaryTextOrange}>Native Tokens: </Text>
                         <Button style={commonStyles.button} status="info" size="small" onPress={() => fetchBalance()}>
-                            {!fetching && "Fetch Balance"}
+                            {!fetching && "Refresh"}
                             {fetching && <LoadingIndicator />}
                         </Button>
                     </View>
                     <EmptySpace />
-                    <View >
-                        {Object.keys(balance).map((token) => (
-                            <Text key={token} style={commonStyles.secondaryTextGrey}>{token}: {<Text>{formatTokenValue(balance[token])}</Text>}</Text>
-                        ))}
+                    <View style={commonStyles.rowButtonContainer}>
+                        <View>
+                            <Text style={commonStyles.secondaryTextGrey}>CELO: {<Text>{formatTokenValue(balance.CELO)}</Text>}</Text>
+                            <Text style={commonStyles.secondaryTextGrey}>cUSD: {<Text>{formatTokenValue(balance.cUSD)}</Text>}</Text>
+                        </View>
+                        <View>
+                            <Text style={commonStyles.secondaryTextGrey}>cEUR: {<Text>{formatTokenValue(balance.cEUR)}</Text>}</Text>
+                            <Text style={commonStyles.secondaryTextGrey}>lockedCELO: {<Text>{formatTokenValue(balance.lockedCELO)}</Text>}</Text>
+                        </View>
                     </View>
                 </View>
+                {/* <View style={commonStyles.warningContainer}>
+                    <Text style={commonStyles.warningText}>Project tokens </Text>
+                </View> */}
             </View>
 
             <View style={commonStyles.rowButtonContainer}>
@@ -191,9 +201,10 @@ const styles = StyleSheet.create({
         left: 0,
         top: 0,
         opacity: 1,
-        backgroundColor: 'rgba(30,30,30,0.8)',
+        backgroundColor: 'rgba(12,14,15,0.9)',
         width: '100%',
-        height: '100%'
+        height: '100%',
+        padding: '5%'
     },
     indicator: {
         justifyContent: 'center',

@@ -3,7 +3,8 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  Image
+  Image,
+  TouchableWithoutFeedback
 } from 'react-native';
 import commonStyles from '../../commonStyles'
 import { Button, Text, Layout, Card, Icon, Input, Select, SelectItem, Spinner } from '@ui-kitten/components';
@@ -25,6 +26,8 @@ export default function ({ navigation }) {
   const [displayValue, setDisplayValue] = React.useState('');
   const [tokenList, setTokenList] = React.useState([[0, 1, 2]]);
   const [sending, setSending] = React.useState(false);
+  const [fetching, setFetching] = React.useState(false);
+  const [balance, setBalance] = React.useState('');
 
   const connector = useWalletConnect();
   const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
@@ -37,6 +40,7 @@ export default function ({ navigation }) {
     _setSelectedIndex(idx);
     setSendingToken(tokenList[idx - 1]);
     setDisplayValue(tokenList[idx - 1][2]);
+    fetchBalance(tokenList[idx - 1][4]);
   }
 
   React.useEffect(() => {
@@ -49,20 +53,19 @@ export default function ({ navigation }) {
     setTokenList(projectList);
   }
 
-  const tokenBalances = ({ item }) => {
-    return (
-      <View style={{ paddingTop: 10 }}>
-        <Text>
-          {item.token}: {item.amount} ~~~ ${' '}
-          {parseFloat(item.amount) * parseFloat(item.value)}
-        </Text>
-      </View>
-    );
-  };
-
   const ForwardIcon = (props) => (
     <Icon {...props} name='arrow-ios-forward' />
   );
+
+  const fetchBalance = async (projectAddress) => {
+    setFetching(true);
+    setBalance('');
+    let contract = new kit.connection.web3.eth.Contract(Project_ABI, projectAddress);
+    let val = await contract.methods.balanceOf(connector.accounts[0]).call();
+    console.log(val);
+    setBalance(val);
+    setFetching(false);
+  }
 
   const sendTokens = async () => {
     if (sendingToken) {
@@ -89,6 +92,12 @@ export default function ({ navigation }) {
       setSending(false);
     }
   }
+
+  const renderIcon = (props) => (
+    <TouchableWithoutFeedback onPress={() => {}}>
+      <Icon {...props} name='minus-square-outline' />
+    </TouchableWithoutFeedback>
+  );
 
   const sendNativeToken = async () => {
     try {
@@ -131,7 +140,16 @@ export default function ({ navigation }) {
         <EmptySpace />
         <Select
           style={{ height: 70, justifyContent: 'space-between' }}
-          label={() => <Text style={commonStyles.inputLabel}>Token</Text>}
+          status="warning"
+          label={() => {
+            return <View style={commonStyles.row}>
+              <Text style={commonStyles.inputLabel}>Token</Text>
+              <View style={{ flexDirection: 'row'}}>
+              { displayValue !== '' && <Text style={styles.balanceCaption}>Balance:  {balance}</Text>}
+              { fetching && <View style={{paddingTop: 3}}><Spinner style={{height: 12, width: 12}} size='tiny' status='basic' /></View>}
+              </View>
+            </View>;
+          }}
           selectedIndex={selectedIndex}
           onSelect={index => setSelectedIndex(index)}
           value={displayValue}>
@@ -150,6 +168,7 @@ export default function ({ navigation }) {
           onTouchEnd={() => scrollViewRef.current.scrollToEnd()}
           value={sendingAddress}
           placeholder="address"
+          // accessoryRight={renderIcon}
           label={() => <Text style={commonStyles.inputLabel}>Address</Text>}
         />
         <Input
@@ -180,5 +199,10 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  balanceCaption: {
+    color: '#9e9e9e',
+    fontWeight: 'bold',
+    fontSize: 13
   }
 });
