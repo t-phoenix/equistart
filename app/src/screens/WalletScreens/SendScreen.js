@@ -24,7 +24,7 @@ export default function ({ navigation }) {
   const [sendingAddress, setSendingAddress] = React.useState();
   const [selectedIndex, _setSelectedIndex] = React.useState(0);
   const [displayValue, setDisplayValue] = React.useState('');
-  const [tokenList, setTokenList] = React.useState([[0, 1, 2]]);
+  const [tokenList, setTokenList] = React.useState([]);
   const [sending, setSending] = React.useState(false);
   const [fetching, setFetching] = React.useState(false);
   const [balance, setBalance] = React.useState('');
