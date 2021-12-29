@@ -4,7 +4,7 @@
 Early Stage Startups
 
 #### Startup Stage:
-Prototype of celo testnet-alfajores
+Prototype on celo testnet-alfajores
 
 ## Inspiration:
 "Early Stage Startups" find it hectic, expensive and time consuming process to register as a "company" with state authorities at the time.
