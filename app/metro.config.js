@@ -6,7 +6,7 @@
  */
 const extraNodeModules = require('node-libs-browser');
 module.exports = {
-  esolver: {
+  resolver: {
     extraNodeModules,
   },
   transformer: {

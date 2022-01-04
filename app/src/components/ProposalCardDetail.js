@@ -4,27 +4,27 @@ import { Button, Text, Layout, Card } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
 import Badge from './Badge'
 import EmptySpace from './EmptySpace'
-import { formatAddress, formatMobileNumber } from '../services/FormatterService'
+import { formatAddress } from '../services/FormatterService'
 import { castVote } from '../services/ProjectServices'
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 
 const ProposalCardDetail = ({ cardData }) => {
     const [yesCount, setYesCount] = React.useState(Number(cardData.yesCount));
     const [noCount, setNoCount] = React.useState(Number(cardData.noCount));
-    const [votingStatus, setVotingStatus] = React.useState(false);
+    const [votingStatus, setVotingStatus] = React.useState(!cardData.isActive);
     const connector = useWalletConnect();
-
-    const handleVote = async(vote) => {
-        castVote(cardData.projectData.address, connector, cardData.key, vote).then( success => {
-            if(success) {
-                if(vote){
+    console.log(cardData.isActive);
+    const handleVote = async (vote) => {
+        castVote(cardData.projectData.address, connector, cardData.key, vote).then(success => {
+            if (success) {
+                if (vote) {
                     setYesCount(yesCount + 1);
                 }
                 else {
                     setNoCount(noCount + 1);
                 }
             }
-            else{
+            else {
                 console.log('error');
             }
         })
@@ -35,7 +35,7 @@ const ProposalCardDetail = ({ cardData }) => {
             <View style={{ ...commonStyles.innerCard }} >
                 <View style={styles.nameContainer}>
                     <Text category='h3' style={styles.header}>{cardData.header}</Text>
-                    <Badge status={cardData.status} />
+                    <Badge status={cardData.isActive} />
                 </View>
                 <EmptySpace />
                 <Text style={commonStyles.primaryTextOrange}>Description</Text>
@@ -44,15 +44,11 @@ const ProposalCardDetail = ({ cardData }) => {
                 </Text>
                 <EmptySpace />
                 <Text style={commonStyles.primaryTextOrange}>About</Text>
-                <View style={commonStyles.rowButtonContainer}>
-                    <View>
-                        <Text style={commonStyles.secondaryTextGrey}>Creator: {<Text> {formatAddress(cardData.address)} </Text>} </Text>
-                        <Text style={commonStyles.secondaryTextGrey}>Start Date: {<Text> {cardData.amount} </Text>} </Text>
-                    </View>
-                    <View>
-                        <Text style={commonStyles.secondaryTextGrey}> </Text>
-                        <Text style={commonStyles.secondaryTextGrey}>End Date: {<Text> {cardData.value} </Text>} </Text>
-                    </View>
+                <View>
+                    <Text style={commonStyles.secondaryTextGrey}>Creator: </Text>
+                    {<Text>     {formatAddress(cardData.address)} </Text>} 
+                    <Text style={commonStyles.secondaryTextGrey}>Voting Ends At: </Text>
+                    {<Text>     {String(cardData.votingEndDate)} </Text>} 
                 </View>
                 <EmptySpace />
                 <Text style={commonStyles.primaryTextOrange}>Results</Text>
@@ -65,7 +61,7 @@ const ProposalCardDetail = ({ cardData }) => {
                 <EmptySpace />
                 <View style={styles.voteMessage}>
                     <Text style={commonStyles.primaryTextOrange}>Vote</Text>
-                    {votingStatus && <View style={{ marginTop: 13, marginLeft: 3 }}><Text style={commonStyles.smallTextRed}>(You have Voted)</Text></View>}
+                    {votingStatus && <View style={{ marginTop: 13, marginLeft: 3 }}><Text style={commonStyles.smallTextRed}>(Voting period is over for this proposal)</Text></View>}
                 </View>
 
                 <View style={styles.bottomSection}>

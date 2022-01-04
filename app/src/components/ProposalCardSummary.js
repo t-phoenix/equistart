@@ -13,7 +13,7 @@ const ProposalCardSummary = ({ cardData, navigation }) => {
                 <ImageBackground source={require('../../assets/images/proposal.png')} style={{ height: 250, justifyContent: 'space-between' }}>
                     <View style={commonStyles.row}>
                         <Text style={commonStyles.secondaryTextGrey}>ID: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {Number(cardData.key) + 1} </Text>} </Text>
-                        <Badge status={cardData.status} />
+                        <Badge status={cardData.isActive} />
                     </View>
                     <View>
                         <Text style={commonStyles.secondaryTextGrey}>Header: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.header} </Text>} </Text>

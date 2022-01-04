@@ -14,7 +14,7 @@ export const formatMobileNumber = (number) => {
 }
 
 export const formatNumber = (value) => {
-    if(value/ 1000 < 1){
+    if(value/1000 < 1){
         return value;
     }
     if(value/1000000 < 1) {

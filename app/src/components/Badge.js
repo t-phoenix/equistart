@@ -2,15 +2,15 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import commonStyles from '../commonStyles';
 
-const Badge = ({status}) => {
-    if(status){
+const Badge = ({ status }) => {
+    if (status) {
         return (
             <View style={styles.activeBadge}>
                 <Text style={commonStyles.tertiaryTextGreen}>Active</Text>
             </View>
         )
     }
-    else{
+    else {
         return (
             <View style={styles.closedBadge}>
                 <Text style={commonStyles.tertiaryTextRed}>Closed</Text>
@@ -23,13 +23,13 @@ export default Badge
 
 const styles = StyleSheet.create({
     activeBadge: {
-        borderColor: '#00d142',
-        backgroundColor: 'rgba(237, 255, 243, 0.2)',
+        borderColor: '#29A47E',
+        backgroundColor: 'rgba(41,164,126,0.2)',
         borderWidth: 1,
         borderRadius: 20,
         height: 30,
         width: 55,
-        justifyContent:'center',
+        justifyContent: 'center',
         alignItems: 'center'
     },
     closedBadge: {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         height: 30,
         width: 55,
-        justifyContent:'center',
+        justifyContent: 'center',
         alignItems: 'center'
     }
 })

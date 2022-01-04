@@ -18,14 +18,16 @@ const DaoCardDetail = ({ cardData, navigation }) => {
                 <Text style={commonStyles.primaryTextOrange}>About</Text>
                 <View style={commonStyles.rowButtonContainer}>
                     <View>
-                        <Text style={commonStyles.secondaryTextGrey}>Total token: {<Text style={styles.text}>{formatNumber(cardData.amount)} </Text>}</Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Total token: </Text>
+                        <Text style={styles.text}>   {formatNumber(cardData.amount)} </Text>
                         <Text style={commonStyles.secondaryTextGrey}>Creator: </Text>
-                        <Text style={styles.text}>     {formatMobileNumber('8283944992')} </Text>
+                        <Text style={styles.text}>   {formatMobileNumber('8283944992')} </Text>
                     </View>
                     <View>
-                        <Text style={commonStyles.secondaryTextGrey}>Symbol: {<Text style={styles.text}>{cardData.token} </Text>}</Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Symbol: </Text>
+                        <Text style={styles.text}>   {cardData.token} </Text>
                         <Text style={commonStyles.secondaryTextGrey}>Address: </Text>
-                        <Text style={styles.text}>     {formatAddress(cardData.address)} </Text>
+                        <Text style={styles.text}>   {formatAddress(cardData.address)} </Text>
                     </View>
                 </View>
                 {/* <Text style={commonStyles.primaryTextOrange}>Description</Text>

@@ -49,7 +49,8 @@ export default StyleSheet.create({
   rowButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: 'auto'
   },
   row: {
     flexDirection: 'row',
@@ -221,7 +222,7 @@ export default StyleSheet.create({
     color: '#E4C2A6',
   },
   tertiaryTextGreen: {
-    color: '#609661'
+    color: '#29A47E'
   },
   tertiaryTextRed: {
     color: '#C16068'
