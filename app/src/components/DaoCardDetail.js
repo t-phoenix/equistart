@@ -31,14 +31,14 @@ const DaoCardDetail = ({ cardData, navigation }) => {
                     </View>
                 </View>
                 
-                <Text style={commonStyles.primaryTextOrange}>Balance</Text>
+                {/* <Text style={commonStyles.primaryTextOrange}>Balance</Text>
                 <View style={commonStyles.rowButtonContainer}>
                 <Text style={styles.text}>
                     500 EQUI
                 </Text>
                 <Button appearance='ghost' style={commonStyles.button} onPress={() => navigation.navigate('Wallet', { screen: 'SendScreen' })}>Transfer</Button>
                 <Icon name='star'/>
-                </View>
+                </View> */}
             </View>
             <EmptySpace />
         </View>

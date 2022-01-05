@@ -111,7 +111,7 @@ export default function WalletHomeScreen({ navigation }) {
                             />
                             {/* <EmptySpace /> */}
                             <View>
-                                <Text style={commonStyles.secondaryTextGrey}>    Phone:       {<Text style={commonStyles.tertiaryTextBlack}>{formatMobileNumber(userData.phone)}</Text>}</Text>
+                                {/* <Text style={commonStyles.secondaryTextGrey}>    Phone:       {<Text style={commonStyles.tertiaryTextBlack}>{formatMobileNumber(userData.phone)}</Text>}</Text> */}
                                 <Text style={commonStyles.secondaryTextGrey}>    Address:    {<Text style={commonStyles.tertiaryTextBlack}>{formatAddress(userData.address)}</Text>}</Text>
                             </View>
                         </View>
