@@ -142,7 +142,7 @@ export default function WalletHomeScreen({ navigation }) {
             </View>
 
             <View style={commonStyles.rowButtonContainer}>
-                <Button style={commonStyles.doubleButton} onPress={() => navigation.navigate('sendScreen')}>
+                <Button style={commonStyles.doubleButton} onPress={() => navigation.navigate('SendScreen')}>
                     Transfer
                 </Button>
                 <Button style={commonStyles.doubleButton} >
