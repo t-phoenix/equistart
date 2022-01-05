@@ -4,7 +4,7 @@ import { Button, Text, Layout, Card } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
 import Badge from './Badge'
 import EmptySpace from './EmptySpace'
-import { formatAddress } from '../services/FormatterService'
+import { formatAddressLong, formatDate } from '../services/FormatterService'
 import { castVote } from '../services/ProjectServices'
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 
@@ -32,31 +32,31 @@ const ProposalCardDetail = ({ cardData }) => {
 
     return (
         <View>
-            <View style={{ ...commonStyles.innerCard }} >
+            <View style={{ ...commonStyles.innerCard, backgroundColor: '#F8F8F8' }} >
                 <View style={styles.nameContainer}>
                     <Text category='h3' style={styles.header}>{cardData.header}</Text>
                     <Badge status={cardData.isActive} />
                 </View>
                 <EmptySpace />
                 <Text style={commonStyles.primaryTextOrange}>Description</Text>
-                <Text>
+                <Text style={styles.text}>
                     {cardData.description}
                 </Text>
                 <EmptySpace />
                 <Text style={commonStyles.primaryTextOrange}>About</Text>
                 <View>
                     <Text style={commonStyles.secondaryTextGrey}>Creator: </Text>
-                    {<Text>     {formatAddress(cardData.address)} </Text>} 
+                    {<Text style={styles.text}>     {formatAddressLong(cardData.address)} </Text>} 
                     <Text style={commonStyles.secondaryTextGrey}>Voting Ends At: </Text>
-                    {<Text>     {String(cardData.votingEndDate)} </Text>} 
+                    {<Text style={styles.text}>     {formatDate(cardData.votingEndDate)} </Text>} 
                 </View>
                 <EmptySpace />
                 <Text style={commonStyles.primaryTextOrange}>Results</Text>
                 <View style={styles.bottomSection}>
                     <View style={{ marginLeft: '10%' }}></View>
-                    <Text style={commonStyles.secondaryTextGrey}>Yes {<Text> {yesCount} </Text>} </Text>
+                    <Text style={commonStyles.secondaryTextGrey}>Yes {<Text style={styles.text}> {yesCount} </Text>} </Text>
                     <View style={{ marginLeft: '10%' }}></View>
-                    <Text style={commonStyles.secondaryTextGrey}>No {<Text> {noCount} </Text>} </Text>
+                    <Text style={commonStyles.secondaryTextGrey}>No {<Text style={styles.text}> {noCount} </Text>} </Text>
                 </View>
                 <EmptySpace />
                 <View style={styles.voteMessage}>
@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
         margin: 4,
     },
     header: {
-        maxWidth: '80%'
+        maxWidth: '80%',
+        color: '#404248'
     },
     nameContainer: {
         flexDirection: 'row',
@@ -106,5 +107,9 @@ const styles = StyleSheet.create({
     },
     voteMessage: {
         flexDirection: 'row'
-    }
+    },
+    text: {
+        color: '#9C9DA0',
+        paddingLeft: 6
+    },
 })

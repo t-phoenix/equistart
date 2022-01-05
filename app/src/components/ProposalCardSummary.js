@@ -17,13 +17,14 @@ const ProposalCardSummary = ({ cardData, navigation }) => {
                     </View>
                     <View>
                         <Text style={commonStyles.secondaryTextGrey}>Header: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.header} </Text>} </Text>
-                        <Text style={commonStyles.secondaryTextGrey}>Votes:</Text>
                         <View style={styles.container}>
+                            <Text style={commonStyles.secondaryTextGrey}>Votes:</Text>
                             <View style={{ marginLeft: '10%' }}></View>
                             <Text style={commonStyles.primaryTextGreen}> Yes {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.yesCount} </Text>} </Text>
                             <View style={{ marginLeft: '10%' }}></View>
                             <Text style={commonStyles.primaryTextRed}> No {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.noCount} </Text>} </Text>
-                            <View style={{ marginLeft: 'auto' }}></View>
+                        </View>
+                        <View style={{marginLeft: 'auto', marginTop: 2}}>
                             <Button
                                 style={commonStyles.button}
                                 onPress={() => navigation.navigate('ProposalDetails', { cardData })}
@@ -55,11 +56,6 @@ const styles = StyleSheet.create({
     },
     container: {
         flexDirection: 'row'
-    },
-    dynamicCard: {
-        borderRadius: 15,
-        marginHorizontal: '-4%',
-        marginVertical: '-2%'
     },
     dynamicText: {
         color: '#FFFFFF'

@@ -55,7 +55,7 @@ export const DaoScreens = [
         component: WalletHomeScreen
       },
       {
-        name: 'sendScreen',
+        name: 'SendScreen',
         title: 'Wallet',
         component: SendScreen
       },

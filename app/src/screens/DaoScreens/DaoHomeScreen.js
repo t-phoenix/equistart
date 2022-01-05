@@ -25,7 +25,6 @@ export default function DaoHomeScreen({ route, navigation }) {
     console.log(proposalList);
     let listOfObjects = [];
     let currentTimestamp = Number(new Date())/1000;
-    console.log(currentTimestamp, 'currtime')
     if (proposalList.length > 0) {
       for (let i = 0; i < proposalList.length; i++) {
         const prop = proposalList[i];
@@ -34,7 +33,7 @@ export default function DaoHomeScreen({ route, navigation }) {
           description: prop[2], 
           address: prop[3],
           isActive: currentTimestamp < prop[4],
-          votingEndDate: new Date(prop[4] * 1000),
+          votingEndDate: String(new Date(prop[4] * 1000)),
           yesCount: prop[5], 
           noCount: prop[6], 
           isPassed: prop[7], 
@@ -55,9 +54,10 @@ export default function DaoHomeScreen({ route, navigation }) {
         </View>
         <View>
           {!isLoading && <CardList cardListData={data} card={ProposalCardSummary} navigation={navigation} />}
+          {!isLoading && !data.length && <View style={{ alignItems: 'center' }}><EmptySpace space={40} /><Text style={commonStyles.tertiaryTextGrey}>No Proposals</Text></View>}
           {isLoading && <View style={{ alignItems: 'center' }}><EmptySpace space={50} /><Spinner status='basic' /></View>}
         </View>
-        <EmptySpace space={40} />
+        <EmptySpace space={60} />
       </ScrollView>
       <View style={commonStyles.rowButtonContainer}>
         <Button

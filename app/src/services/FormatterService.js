@@ -2,6 +2,10 @@ export const formatAddress = (addr) => {
     return addr.substring(0, 5) + '...' + addr.substring(addr.length - 4);
 }
 
+export const formatAddressLong = (addr) => {
+    return addr.substring(0, 10) + '...' + addr.substring(addr.length - 10);
+}
+
 export const formatTokenValue = (value) => {
     let val = String(value);
     let bd = val.slice(0, -18);
@@ -23,4 +27,8 @@ export const formatNumber = (value) => {
     else{
         return String(value/1000000) + ' M';
     }
+}
+
+export const formatDate = (date) => {
+    return String(date);
 }

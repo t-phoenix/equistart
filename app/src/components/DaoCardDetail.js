@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Button, Text, Layout, Card } from '@ui-kitten/components'
+import { Button, Text, Layout, Card, Icon } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
 import { backgrounds } from '../colors'
 import { formatAddress, formatMobileNumber, formatNumber } from '../services/FormatterService'
@@ -30,10 +30,15 @@ const DaoCardDetail = ({ cardData, navigation }) => {
                         <Text style={styles.text}>   {formatAddress(cardData.address)} </Text>
                     </View>
                 </View>
-                {/* <Text style={commonStyles.primaryTextOrange}>Description</Text>
+                
+                <Text style={commonStyles.primaryTextOrange}>Balance</Text>
+                <View style={commonStyles.rowButtonContainer}>
                 <Text style={styles.text}>
-                    This is the best company in the world.
-                </Text> */}
+                    500 EQUI
+                </Text>
+                <Button appearance='ghost' style={commonStyles.button} onPress={() => navigation.navigate('Wallet', { screen: 'SendScreen' })}>Transfer</Button>
+                <Icon name='star'/>
+                </View>
             </View>
             <EmptySpace />
         </View>
