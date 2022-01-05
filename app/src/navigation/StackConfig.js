@@ -9,6 +9,7 @@ import SendScreen from '../screens/WalletScreens/SendScreen';
 import CreateProposal from '../screens/DaoScreens/CreateProposal';
 import ProposalDetailsScreen from '../screens/DaoScreens/ProposalDetailsScreen';
 // import RestoreScreen from '../screens/RestoreScreen';
+import InstructionHomeScreen from '../screens/InstructionScreens/InstructionHomeScreen';
 
 export const DaoScreens = [
     {
@@ -60,6 +61,14 @@ export const DaoScreens = [
         component: SendScreen
       },
   ];
+
+  export const InstructionScreens = [
+    {
+      name: 'InstructionHomeScreen',
+      title: 'Instructions',
+      component: InstructionHomeScreen
+    }
+  ]
 
 //   export const RestoreScreens = [
 //     {

@@ -39,8 +39,8 @@ const CustomSidebarMenu = props => {
         <Button
           style={commonStyles.doubleButton}
           status="warning"
-          onPress={() => Linking.openURL('https://open.harmony.one/22m-on-social-wallet-security')}>
-          Grants
+          onPress={() => Linking.openURL('https://github.com/t-phoenix/equistart')}>
+          Github
           <Icon
             style={styles.icon}
             fill="#FFFFFF"
@@ -50,8 +50,8 @@ const CustomSidebarMenu = props => {
         <Button
           style={commonStyles.doubleButton}
           status="warning"
-          onPress={() => Linking.openURL('https://github.com/polymorpher/one-wallet/wiki')}>
-          Wiki
+          onPress={() => Linking.openURL('https://alfajores-blockscout.celo-testnet.org/address/0x0f9Dd41f1c1b1b72808f791A83518dDF0c1aC17f/transactions')}>
+          Explorer
           <Icon
             style={styles.icon}
             fill="#FFFFFF"

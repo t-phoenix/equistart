@@ -21,7 +21,7 @@ export default StyleSheet.create({
     borderRadius: 30
   },
   doubleButton: {
-    marginVertical: 2,
+    marginVertical: 20,
     width: '45.45%',
     borderRadius: 30
   },

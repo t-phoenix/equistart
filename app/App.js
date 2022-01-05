@@ -7,7 +7,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry, Layout } from '@ui-kitten/components';
 import { default as theme } from './custom-theme.json';
-import { DaoScreens, WalletScreens } from './src/navigation/StackConfig';
+import { DaoScreens, WalletScreens, InstructionScreens } from './src/navigation/StackConfig';
 import Navigator from './src/navigation/Navigator';
 import CustomSideBarMenu from './src/components/CustomSideBarMenu';
 import { withWalletConnect } from '@walletconnect/react-native-dapp';
@@ -28,6 +28,10 @@ const App = () => {
   const WalletNavigator = ({ navigation }) => (
     <Navigator screens={WalletScreens} navigation={navigation} />
   );
+
+  const InstructionNavigator = ({ navigation }) => (
+    <Navigator screens={InstructionScreens} navigation={navigation} /> 
+  )
 
   return (
     // <WalletConnectProvider
@@ -73,6 +77,11 @@ const App = () => {
             <Drawer.Screen
               name="Wallet"
               component={WalletNavigator}
+              options={{ headerShown: false }}
+            />
+            <Drawer.Screen
+              name="Instructions"
+              component={InstructionNavigator}
               options={{ headerShown: false }}
             />
           </Drawer.Navigator>
