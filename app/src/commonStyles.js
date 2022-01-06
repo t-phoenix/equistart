@@ -21,7 +21,7 @@ export default StyleSheet.create({
     borderRadius: 30
   },
   doubleButton: {
-    marginVertical: 20,
+    marginVertical: 2,
     width: '45.45%',
     borderRadius: 30
   },
@@ -57,13 +57,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center'
   },
-  backSection: {
-    height: '4%',
-    width: '90%',
-    marginVertical: '2%',
-    justifyContent: 'center',
-    backgroundColor: '#3EA0BD',
-  },
   headerBarStyle: {
     backgroundColor: '#1d2023'
   },
@@ -86,7 +79,7 @@ export default StyleSheet.create({
         height: windowHeight - 180,
       },
       android: {
-        height: windowHeight - 140,
+        height: windowHeight - 180,
       },
     }),
   },

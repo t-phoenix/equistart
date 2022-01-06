@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, FlatList, Image, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import { Button, Layout, Text, Icon, Card, Spinner } from '@ui-kitten/components';
 
 import commonStyles from '../../commonStyles';
@@ -86,7 +86,7 @@ export default function WalletHomeScreen({ navigation }) {
 
     return (
         <View style={commonStyles.pageView}>
-            <View style={commonStyles.pageContent}>
+            <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
                 <EmptySpace />
                 <View style={commonStyles.outerCard}>
                     <View style={{ ...commonStyles.innerCard, backgroundColor: colorPairs[num].background }}>
@@ -139,7 +139,7 @@ export default function WalletHomeScreen({ navigation }) {
                 {/* <View style={commonStyles.warningContainer}>
                     <Text style={commonStyles.warningText}>Project tokens </Text>
                 </View> */}
-            </View>
+            </ScrollView>
 
             <View style={commonStyles.rowButtonContainer}>
                 <Button style={commonStyles.doubleButton} onPress={() => navigation.navigate('SendScreen')}>

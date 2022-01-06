@@ -1,12 +1,31 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Button, Text, Layout, Card, Icon } from '@ui-kitten/components'
+import { Button, Text, Spinner, Card, Icon } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
 import { backgrounds } from '../colors'
 import { formatAddress, formatMobileNumber, formatNumber } from '../services/FormatterService'
-import EmptySpace from './EmptySpace'
+import EmptySpace from './EmptySpace';
+import { useWalletConnect } from '@walletconnect/react-native-dapp';
+import { fetchUserBalance } from '../services/UserServices';
 
 const DaoCardDetail = ({ cardData, navigation }) => {
+    const [balance, setBalance] = React.useState('');
+    const [fetching, setFetching] = React.useState(false);
+    const connector = useWalletConnect();
+
+    React.useEffect(() => {
+        fetchBalance(cardData.address);
+    }, []);
+
+    const fetchBalance = (projectAddress) => {
+        setFetching(true);
+        setBalance('');
+        fetchUserBalance(projectAddress, connector).then((val) => {
+            setBalance(val);
+            setFetching(false);
+        });
+    }
+
     return (
         <View>
             <EmptySpace />
@@ -18,19 +37,20 @@ const DaoCardDetail = ({ cardData, navigation }) => {
                 <Text style={commonStyles.primaryTextOrange}>About</Text>
                 <View style={commonStyles.rowButtonContainer}>
                     <View>
-                        <Text style={commonStyles.secondaryTextGrey}>Total token: </Text>
-                        <Text style={styles.text}>   {formatNumber(cardData.amount)} </Text>
-                        <Text style={commonStyles.secondaryTextGrey}>Creator: </Text>
-                        <Text style={styles.text}>   {formatMobileNumber('8283944992')} </Text>
-                    </View>
-                    <View>
                         <Text style={commonStyles.secondaryTextGrey}>Symbol: </Text>
                         <Text style={styles.text}>   {cardData.token} </Text>
-                        <Text style={commonStyles.secondaryTextGrey}>Address: </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Creator: </Text>
                         <Text style={styles.text}>   {formatAddress(cardData.address)} </Text>
                     </View>
+                    <View>
+                        <Text style={commonStyles.secondaryTextGrey}>Total token: </Text>
+                        <Text style={styles.text}>   {formatNumber(cardData.amount)} </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Your Balance: </Text>
+                        { !fetching && <Text style={styles.text}>   {formatNumber(balance)} </Text>}
+                        { fetching && <View style={{marginTop: 4, marginLeft: 30}}><Spinner size='tiny' status='info' /></View>}
+                    </View>
                 </View>
-                
+
                 {/* <Text style={commonStyles.primaryTextOrange}>Balance</Text>
                 <View style={commonStyles.rowButtonContainer}>
                 <Text style={styles.text}>

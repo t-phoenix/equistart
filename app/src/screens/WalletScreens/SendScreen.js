@@ -15,6 +15,7 @@ import Web3 from 'web3';
 import { Factory_ABI, Project_ABI } from '../../ABI';
 import { newKitFromWeb3 } from '@celo/contractkit';
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
+import { fetchUserBalance } from '../../services/UserServices';
 
 let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
 
@@ -60,11 +61,10 @@ export default function ({ navigation }) {
   const fetchBalance = async (projectAddress) => {
     setFetching(true);
     setBalance('');
-    let contract = new kit.connection.web3.eth.Contract(Project_ABI, projectAddress);
-    let val = await contract.methods.balanceOf(connector.accounts[0]).call();
-    console.log(val);
-    setBalance(val);
-    setFetching(false);
+    fetchUserBalance(projectAddress, connector).then((val) => {
+        setBalance(val);
+        setFetching(false);
+    });
   }
 
   const sendTokens = async () => {
