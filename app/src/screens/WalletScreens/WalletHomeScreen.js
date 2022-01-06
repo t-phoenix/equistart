@@ -103,8 +103,8 @@ export default function WalletHomeScreen({ navigation }) {
                         <View style={commonStyles.rowButtonContainer}>
                             <Image
                                 style={{
-                                    width: 75,
-                                    height: 75,
+                                    width: 65,
+                                    height: 65,
                                     resizeMode: 'contain'
                                 }}
                                 source={require('../../../assets/images/user.png')}

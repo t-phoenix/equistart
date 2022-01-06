@@ -58,7 +58,7 @@ const CreateProposal = ({ route, navigation }) => {
                         <View>
                             <Image
                                 style={{
-                                    width: 180,
+                                    width: 140,
                                     height: 100,
                                     resizeMode: 'contain'
                                 }}

@@ -54,7 +54,7 @@ export default function CreateDaoScreen({ navigation }) {
             <View>
               <Image
                 style={{
-                  width: 180,
+                  width: 140,
                   height: 100,
                   resizeMode: 'contain'
                 }}
@@ -74,7 +74,7 @@ export default function CreateDaoScreen({ navigation }) {
           onChangeText={setProjectTitle}
           value={projectTitle}
           label={() => <Text style={commonStyles.inputLabel}> Project Title</Text>}
-          placeholder={'Project Title'}
+          placeholder={'project Title'}
         />
         {/* <Input
           style={commonStyles.input}
@@ -115,7 +115,7 @@ export default function CreateDaoScreen({ navigation }) {
         <Button
           style={commonStyles.doubleButton}
           // onPress={() => navigation.navigate('DaoList')}
-          onPress={() => navigation.navigate('DaoList')}
+          onPress={() => navigation.goBack()}
           status='warning'>
           Back
         </Button>
@@ -125,7 +125,7 @@ export default function CreateDaoScreen({ navigation }) {
           onPress={handleInstall}
           disabled={!isWalletConnected}
         >
-          {!sendingRequest && "Install on Blockchain"}
+          {!sendingRequest && "Publish Project"}
           {sendingRequest && <Spinner size='tiny' status='basic' />}
         </Button>
       </View>
