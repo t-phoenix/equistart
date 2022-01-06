@@ -141,7 +141,7 @@ export default function InstructionHomeScreen({navigation}) {
           </View>
 
           <View style={styles.contentBox}>
-            <Text style={styles.specialText}>If your are interested to fund the project, please contact the developers.</Text>
+            <Text style={styles.specialText}>If your are interested to fund/ Join the project, please contact the developers.</Text>
             <Text style={styles.specialText}>Thank You !</Text>
           </View>
         </View>
