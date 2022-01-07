@@ -18,12 +18,14 @@ const DaoCardDetail = ({ cardData, navigation }) => {
     }, []);
 
     const fetchBalance = (projectAddress) => {
-        setFetching(true);
-        setBalance('');
-        fetchUserBalance(projectAddress, connector).then((val) => {
-            setBalance(val);
-            setFetching(false);
-        });
+        if (connector.connected) {
+            setFetching(true);
+            setBalance('');
+            fetchUserBalance(projectAddress, connector).then((val) => {
+                setBalance(val);
+                setFetching(false);
+            });
+        }
     }
 
     return (
@@ -46,9 +48,9 @@ const DaoCardDetail = ({ cardData, navigation }) => {
                         <Text style={commonStyles.secondaryTextGrey}>Total token: </Text>
                         <Text style={styles.text}>   {formatNumber(cardData.amount)} </Text>
                         <Text style={commonStyles.secondaryTextGrey}>Your Balance: </Text>
-                        { connector.connected && !fetching && <Text style={styles.text}>   {formatNumber(balance)} </Text>}
-                        { connector.connected && fetching && <View style={{marginTop: 4, marginLeft: 30}}><Spinner size='tiny' status='info' /></View>}
-                        { !connector.connected && <Button appearance='outline' size='tiny' style={{...commonStyles.button, width: 100}} onPress={() => navigation.navigate('Wallet', { screen: 'WalletHomeScreen' })}>Connect Wallet</Button>}
+                        {connector.connected && !fetching && <Text style={styles.text}>   {formatNumber(balance)} </Text>}
+                        {connector.connected && fetching && <View style={{ marginTop: 4, marginLeft: 30 }}><Spinner size='tiny' status='info' /></View>}
+                        {!connector.connected && <Button appearance='outline' size='tiny' style={{ ...commonStyles.button, width: 100 }} onPress={() => navigation.navigate('Wallet', { screen: 'WalletHomeScreen' })}>Connect Wallet</Button>}
                     </View>
                 </View>
 
