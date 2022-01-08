@@ -35,8 +35,13 @@ export default function WalletHomeScreen({ navigation }) {
     const handleConnect = async () => {
         if (!connector.connected) {
             connector.connect().then((res) => {
-                setUserData((x) => ({ ...x, address: res.accounts[0] }));
-                setConnected(true);
+                console.log("Connector Result:", res);
+                if(res.chainId==44787){ 
+                    setUserData((x) => ({ ...x, network: 'alfajores',  address: res.accounts[0] }))
+                    setConnected(true);
+                }
+                
+                
             })
         }
         else {
@@ -47,7 +52,7 @@ export default function WalletHomeScreen({ navigation }) {
     const handleDisconnect = async () => {
         // console.log(connector);
         connector.killSession();
-        setUserData({ network: 'Alfajores', phone: '', address: '' });
+        setUserData({ network: '', phone: '', address: '' });
         setBalance({ "CELO": "0", "cEUR": "0", "cUSD": "0", "lockedCELO": "0", "pending": "0" });
         setConnected(false);
     }
@@ -155,10 +160,10 @@ export default function WalletHomeScreen({ navigation }) {
                     <EmptySpace space={50} />
                     <View style={commonStyles.outerCard}>
                         <View style={{ ...commonStyles.innerCard, backgroundColor: colorPairs[num].background }}>
-                            <View style={{ flexDirection: 'row', marginVertical: '5%' }}>
+                            <View style={{ flexDirection: 'row', marginVertical: '5%', justifyContent:'flex-start' }}>
                                 <View>
-                                    <Text style={{ color: colorPairs[num].text, ...styles.heading }}> Connect your </Text>
-                                    <Text style={{ color: colorPairs[num].text, ...styles.heading }}> CELO Wallet</Text>
+                                    <Text style={{ color: colorPairs[num].text, ...styles.heading }}> Connect only </Text>
+                                    <Text style={{ color: colorPairs[num].text, ...styles.heading }}> Alfajores Wallet</Text>
                                 </View>
                                 <Image
                                     style={{
@@ -192,7 +197,7 @@ const styles = StyleSheet.create({
         marginVertical: '-2%',
     },
     heading: {
-        fontSize: 25,
+        fontSize: 22,
         // fontWeight: 'bold',
     },
     overlay: {

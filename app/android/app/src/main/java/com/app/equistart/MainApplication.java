@@ -1,4 +1,4 @@
-package com.app;
+package com.app.equistart;
 
 import android.app.Application;
 import android.content.Context;

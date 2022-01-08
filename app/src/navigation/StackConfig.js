@@ -14,7 +14,7 @@ import InstructionHomeScreen from '../screens/InstructionScreens/InstructionHome
 export const DaoScreens = [
     {
       name: 'DaoList',
-      title: 'Dao List',
+      title: 'Project List',
       component: DaoListScreen
     },
     {

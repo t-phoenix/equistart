@@ -1,4 +1,4 @@
-package com.app;
+package com.app.equistart;
 
 import com.facebook.react.ReactActivity;
 

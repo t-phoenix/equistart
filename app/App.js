@@ -70,7 +70,7 @@ const App = () => {
             drawerContent={props => <CustomSideBarMenu {...props} />}
           >
             <Drawer.Screen
-              name="Dao"
+              name="Projects"
               component={DaoNavigator}
               options={{ headerShown: false }}
             />
