@@ -8,7 +8,7 @@ Prototype on celo testnet-alfajores
 
 ## Inspiration:
 "Early Stage Startups" find it hectic, expensive and time consuming process to register as a "company" with state authorities at the time.
-Traditionally there are no concreate alternative to manage your project equity in a trustless manner, no option to manage finances without trust, and no verifiable logs of important decisions.
+Traditionally there are no concrete alternatives to manage your project equity in a trustless manner, no option to manage finances without trust, and no verifiable logs of important decisions.
 Facebook or Apple's co-founder spat at the time of scaling can be deemed as an example.
 
 ## Solution:
