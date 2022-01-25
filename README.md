@@ -25,9 +25,9 @@ transfer their tokens and also log their finances by using the tokens for onchai
 
 ### Summary:
 Internet unlocked a vast universe of new Applications over the past decades and now blockchain is 
-revolutionising how we can manage our financial assetsover the network of computers in a decentralised manner.
+revolutionising how we can manage our financial assets over the network of computers in a decentralised manner.
 
-This summary explains how we can edge on p[ublic blockchains to create an ERC-20 token representing equity for founders, 
+This summary explains how we can edge on [public blockchains to create an ERC-20 token representing equity for founders, 
 investors and other stakeholders in an Early Stage Startup Project. We aim in creating a generic smart contract template 
 which will help "any" startup team to:
 - create their project token(ERC20)
