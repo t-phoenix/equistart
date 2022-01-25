@@ -41,7 +41,7 @@ This Dapp can save hours of time and pile of money while building trust among th
 to traditional methods upon necessity. Blockchain projects can use the application till they manage to develop their platform. -->
 
 #### How to use our prototype DApp
-[!Demo Link](https://img.youtube.com/vi/GbPaw_7Wvio/0.jpg)](https://www.youtube.com/watch?v=GbPaw_7Wvio)
+[![Demo Link](https://img.youtube.com/vi/GbPaw_7Wvio/0.jpg)](https://www.youtube.com/watch?v=GbPaw_7Wvio)
 
 
 ### This Repository
