@@ -39,6 +39,8 @@ This Dapp can save hours of time and pile of money while building trust among th
 
 <!-- The project can be scaled into a decentralised entity to comply with most jurisdictions or they can choose to migrate
 to traditional methods upon necessity. Blockchain projects can use the application till they manage to develop their platform. -->
+#### Download the App from Play Store
+[![Play Store Link](https://images.app.goo.gl/7Uf6VowuwDj6Dvkw9)](https://play.google.com/store/apps/details?id=com.app.equistart)
 
 #### How to use our prototype DApp
 [![Demo Link](https://img.youtube.com/vi/GbPaw_7Wvio/0.jpg)](https://www.youtube.com/watch?v=GbPaw_7Wvio)
