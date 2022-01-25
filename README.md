@@ -41,7 +41,8 @@ This Dapp can save hours of time and pile of money while building trust among th
 to traditional methods upon necessity. Blockchain projects can use the application till they manage to develop their platform. -->
 
 #### How to use our prototype DApp
-<iframe width="560" height="315" src="https://www.youtube.com/embed/GbPaw_7Wvio" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[!Demo Link](https://img.youtube.com/vi/GbPaw_7Wvio/0.jpg)](https://www.youtube.com/watch?v=GbPaw_7Wvio)
+
 
 ### This Repository
 **app** folder contains code for react-native application, tested on android devices.
