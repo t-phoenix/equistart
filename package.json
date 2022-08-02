@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.2"
+  },
+  "devDependencies": {
+    "husky": "^8.0.1"
   }
 }
