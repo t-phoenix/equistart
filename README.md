@@ -8,7 +8,7 @@ Prototype on celo testnet-alfajores
 
 ## Inspiration:
 "Early Stage Startups" find it hectic, expensive and time consuming process to register as a "company" with state authorities at the time.
-Traditionally there are no concreate alternative to manage your project equity in a trustless manner, no option to manage finances without trust, and no verifiable logs of important decisions.
+Traditionally there are no concrete alternatives to manage your project equity in a trustless manner, no option to manage finances without trust, and no verifiable logs of important decisions.
 Facebook or Apple's co-founder spat at the time of scaling can be deemed as an example.
 
 ## Solution:
@@ -25,19 +25,25 @@ transfer their tokens and also log their finances by using the tokens for onchai
 
 ### Summary:
 Internet unlocked a vast universe of new Applications over the past decades and now blockchain is 
-revolutionising how we can manage our financial assetsover the network of computers in a decentralised manner.
+revolutionising how we can manage our financial assets over the network of computers in a decentralised manner.
 
-This summary explains how we can edge on p[ublic blockchains to create an ERC-20 token representing equity for founders, 
+This summary explains how we can edge on public blockchains to create an ERC-20 token representing equity for founders, 
 investors and other stakeholders in an Early Stage Startup Project. We aim in creating a generic smart contract template 
 which will help "any" startup team to:
 - create their project token(ERC20)
 - transfer these project tokens(equity)
-- manage your finances (escrow, accounts, etc.)
+- manage your finances (escrow, accounts, treasury, etc.)
 - vote on important decisions.
 
 This Dapp can save hours of time and pile of money while building trust among the team members.
-The project can be scaled with the pillars of legal framework to accomodate any startup in the Future or they can choose to migrate
-to traditional methods upon necessity. Blockchain projects can use the application till they manage to develop their platform.
+
+<!-- The project can be scaled into a decentralised entity to comply with most jurisdictions or they can choose to migrate
+to traditional methods upon necessity. Blockchain projects can use the application till they manage to develop their platform. -->
+#### Download the App from Play Store
+[Play Store Link](https://play.google.com/store/apps/details?id=com.app.equistart)
+
+#### How to use our prototype DApp
+[Demo Link](https://www.youtube.com/watch?v=GbPaw_7Wvio)
 
 
 ### This Repository
