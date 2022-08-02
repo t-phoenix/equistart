@@ -9,6 +9,7 @@ import "./EquistartProject.sol";
 
 contract EquistartFactory {
     
+    event NewEquistartProjectCreated(string name, string symbol, uint256 amount, address indexed contractAddr);
 
     uint numOfProjects;
 
@@ -31,7 +32,7 @@ contract EquistartFactory {
         project.symbol = symbol;
         project.initialSupply = initialSupply;
         project.contractAddress = address(new EquistartProject(name, symbol, initialSupply,  msg.sender));
-
+        emit NewEquistartProjectCreated(name, symbol, initialSupply, project.contractAddres);
         // deployedProjects.push(newProject);
     }
     
@@ -44,7 +45,7 @@ contract EquistartFactory {
         }
     }
 
-    function getDeployedProject(uint256 projectId) public view returns (projectMeta memory){
+    function getProjectById(uint256 projectId) public view returns (projectMeta memory){
         return deployedProjects[projectId];
     }
 }

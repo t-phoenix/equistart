@@ -5,6 +5,7 @@ pragma solidity ^0.8.2;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 // import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 // import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
@@ -35,12 +36,12 @@ contract EquistartProject is ERC20{
     // mapping(address => uint256) private boardMembers;
 
     event NewGeneralProposal(address indexed proposer);
+    event transferERC20Token(address _from, address _to, uint256 _amount);
 
 
     constructor(string memory name, string memory symbol, uint tokenSupply, address manager) ERC20(name, symbol){
         _mint(manager, tokenSupply);
     }
-    
     
     // modifier onlyInvestor (string memory errorMessage){
     //     require(hasRole(INVESTOR_ROLE, msg.sender), errorMessage);
@@ -50,6 +51,7 @@ contract EquistartProject is ERC20{
     //     require(hasRole(BOARD_MEMBER_ROLE, msg.sender), errorMessage);
     //     _;
     // }
+
     modifier onlyBoardMember(string memory message){
         require( (balanceOf(msg.sender) > totalSupply()/20), message);
         _;
@@ -107,6 +109,13 @@ contract EquistartProject is ERC20{
         return generalProposalVotes[msg.sender];
     }
     
+
+    function transferERC20 (IERC20 token, address to, uint256 amount ) external onlyBoardMember("only board member can transfer token") {
+        uint256 erc20balance = token.balanceOf(address(this));
+        require(amount <= erc20balance, "Insufficient balance");
+        token.transfer(to, amount);
+        emit transferERC20Token(msg.sender, to, amount);
+    }
     
     
 }

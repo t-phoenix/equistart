@@ -10,8 +10,8 @@ import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 
 /// @custom:security-contact  1
-contract Equistart is ERC20, ERC20Permit, ERC20Votes {
-    constructor() ERC20("Equistart", "EQI") ERC20Permit("Equistart") {
+contract Equistart is ERC20, ERC20Votes {
+    constructor() ERC20("Equistart", "EQI") payable ERC20Permit("Equistart") {
         _mint(msg.sender, 21000000 * 10 ** decimals());
     }
 
