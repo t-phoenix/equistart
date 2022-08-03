@@ -12,6 +12,8 @@
 
 :mage: **Not sure how to get started?** Check out [Contracts Wizard](https://wizard.openzeppelin.com/) — an interactive smart contract generator.
 
+:building_construction: **Want to scale your decentralized application?** Check out [OpenZeppelin Defender](https://openzeppelin.com/defender) — a secure platform for automating and monitoring your operations.
+
 ## Overview
 
 ### Installation
@@ -21,6 +23,8 @@ $ npm install @openzeppelin/contracts
 ```
 
 OpenZeppelin Contracts features a [stable API](https://docs.openzeppelin.com/contracts/releases-stability#api-stability), which means your contracts won't break unexpectedly when upgrading to a newer minor version.
+
+An alternative to npm is to use the GitHub repository `openzeppelin/openzeppelin-contracts` to retrieve the contracts. When doing this, make sure to specify the tag for a release such as `v4.5.0`, instead of using the `master` branch.
 
 ### Usage
 
@@ -66,7 +70,7 @@ The core development principles and strategies that OpenZeppelin Contracts is ba
 
 The latest audit was done on October 2018 on version 2.0.0.
 
-Please report any security issues you find to security@openzeppelin.org.
+We have a [**bug bounty program** on Immunefi](https://www.immunefi.com/bounty/openzeppelin). Please report any security issues you find through the Immunefi dashboard, or reach out to security@openzeppelin.com.
 
 Critical bug fixes will be backported to past major releases.
 

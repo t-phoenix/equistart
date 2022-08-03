@@ -46,3 +46,9 @@
 Governance Steps ideas
 1. Ideate on multiple functions or a single one.
 2. Customise the Governor Contract parameters to be dynamic.
+
+
+//TODO: Add test file for every major corresponding smart contract.
+//TODO: Write list of unit test cases for every contract.
+//TODO: Get the list of test cases approved by lead dev.
+//TODO: Develop the test cases exploring the functionality of truffle, mocha and chai.
