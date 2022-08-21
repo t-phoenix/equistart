@@ -5,40 +5,31 @@ contract("ERC20Token testing", function(accounts){
     before(async()=>{
         token = await ERC20Token.deployed()
     });
-    it("transfer function testing",async()=>{
-        const res=await token.transfer(accounts[1],10,{from:accounts[0]});
+    it("transfering token(s) from owner to account1 using Transfer function",async()=>{
+        const res=await token.transfer(accounts[1],10);
         assert.equal(res.logs[0].event,"Transfer","Transfered event ")
-        assert.equal(res.logs[0].args.from,accounts[0],"event account[0]")
-        assert.equal(res.logs[0].args.to,accounts[1],"event account[1]")
-        assert.equal(res.logs[0].args.value,10,"event value")
+        assert.equal(await token.balanceOf(accounts[1]),10,`10 token to ${accounts[1]} is transfered`)
     })
-    it("approve function testing",async()=>{
+    it("approving account1 from account0 of 10 tokens using approve function",async()=>{
         const res=await token.approve(accounts[1],10,{from:accounts[0]});
         assert.equal(res.logs[0].event,"Approval","Approval event called")
-        assert.equal(res.logs[0].args.owner,accounts[0],"event account[0]")
-        assert.equal(res.logs[0].args.spender,accounts[1],"event account[1]")
-        assert.equal(res.logs[0].args.value,10,"event value")
+        assert.equal(await token.allowance(accounts[0],accounts[1]),10,`allowance of 10 token from ${accounts[1]}`)
     })
-    it("transferFrom function testing",async()=>{
-        const res=await token.approve(accounts[1],10,{from:accounts[0]});
-        assert.equal(res.logs[0].event,"Approval","Approval event called")
-        assert.equal(res.logs[0].args.owner,accounts[0],"event account[0]")
-        assert.equal(res.logs[0].args.spender,accounts[1],"event account[1]")
-        assert.equal(res.logs[0].args.value,10,"event value")
+    it("transfering from account1 to account2 using transferFrom function ",async()=>{
+        const res=await token.transferFrom(accounts[0],accounts[2],5,{from:accounts[1]});
+        assert.equal(res.logs[0].event,"Transfer","Transfered event ")
+        assert.equal(await token.balanceOf(accounts[2]),5,"tokens transfered to account2")
+        assert.equal(await token.allowance(accounts[0],accounts[1]),5,"allowance decreased due to above transfer")
     })
-    it("increaseAllowance function testing",async()=>{
-        const res=await token.increaseAllowance(accounts[1],10,{from:accounts[0]});
+    it("increasing Allowance of account1 by 10 tokens using increaseAllowance function",async()=>{
+        const res= await token.increaseAllowance(accounts[1],10,{from:accounts[0]});
         assert.equal(res.logs[0].event,"Approval","Approval event called")
-        assert.equal(res.logs[0].args.owner,accounts[0],"event account[0]")
-        assert.equal(res.logs[0].args.spender,accounts[1],"event account[1]")
-        assert.equal(res.logs[0].args.value,20,"event value")
+        assert.equal(await token.allowance(accounts[0],accounts[1]),15,"allowance increased by 10 tokens")
     })
-    it("decreaseAllowance function testing",async()=>{
-        const res=await token.decreaseAllowance(accounts[1],10,{from:accounts[0]});
+    it("decreasing Allowance of account1 by 5 tokens using decreaseAllowance function",async()=>{
+        const res=await token.decreaseAllowance(accounts[1],5,{from:accounts[0]});
         assert.equal(res.logs[0].event,"Approval","Approval event called")
-        assert.equal(res.logs[0].args.owner,accounts[0],"event account[0]")
-        assert.equal(res.logs[0].args.spender,accounts[1],"event account[1]")
-        assert.equal(res.logs[0].args.value,10,"event value")
+        assert.equal(await token.allowance(accounts[0],accounts[1]),10,"allowance decresed by 5 tokens")
     })
 
     // ERC20 done
