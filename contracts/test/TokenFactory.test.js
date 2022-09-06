@@ -6,7 +6,7 @@ const name = "EQUISTART";
 const symbol = "EQUI";
 const amount = 16000000;
 
-contract("TokenFactory", (accounts) => {
+contract("TokenFactory", (accounts) =>   {
     const deployer = accounts[0];
     const account1 = accounts[1];
     const account2 = accounts[2];
@@ -15,6 +15,7 @@ contract("TokenFactory", (accounts) => {
     let instance;
     before(async function () {
         instance = await tokenFactory.deployed();
+        // console.log(instance);
     });
     
     it('should create a project', async function () {
@@ -24,7 +25,7 @@ contract("TokenFactory", (accounts) => {
 
     it('should check the correct parameters', async function (){
         const result = await instance.getProjectById(0);
-        console.log("Project Deets:", result);
+        // console.log("Project Deets:", result);
         assert.equal(result.projectName, name);
         assert.equal(result.symbol, symbol);
         assert.equal(result.initialSupply, amount);

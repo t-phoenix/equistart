@@ -25,7 +25,7 @@ contract CrowdsaleFactory is Ownable{
     }
 
 
-    function crateCrowdSale(uint256 _rate, address _wallet, ERC20 _token) public {
+    function createCrowdSale(uint256 _rate, address _wallet, ERC20 _token) public {
         uint crowdsaleId = numOfCrowdsale++;
         crowdsaleMeta storage currentCrowdsale = deployedCrowdsale[crowdsaleId];
         currentCrowdsale.token = _token;
