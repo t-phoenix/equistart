@@ -11,6 +11,10 @@ import ProposalDetailsScreen from '../screens/DaoScreens/ProposalDetailsScreen';
 // import RestoreScreen from '../screens/RestoreScreen';
 import InstructionHomeScreen from '../screens/InstructionScreens/InstructionHomeScreen';
 
+import TokenListScreen from '../screens/TokenScreens/TokenListScreen';
+import CreateTokenScreen from '../screens/TokenScreens/CreateTokenScreen';
+import TokenHomeScreen from '../screens/TokenScreens/TokenHomeScreen';
+
 export const DaoScreens = [
     {
       name: 'DaoList',
@@ -69,6 +73,25 @@ export const DaoScreens = [
       component: InstructionHomeScreen
     }
   ]
+
+  export const TokenScreens = [
+    {
+      name: 'TokenListScreen',
+      title: 'ERC20Token',
+      component: TokenListScreen
+    },
+    {
+      name: 'createToken',
+      title: 'Create your token',
+      component: CreateTokenScreen
+    },
+    {
+      name: 'TokenHomeScreen',
+      title: 'ERC20 Token',
+      component: TokenHomeScreen
+    }
+  ]
+
 
 //   export const RestoreScreens = [
 //     {

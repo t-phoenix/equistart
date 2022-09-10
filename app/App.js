@@ -7,7 +7,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry, Layout } from '@ui-kitten/components';
 import { default as theme } from './custom-theme.json';
-import { DaoScreens, WalletScreens, InstructionScreens } from './src/navigation/StackConfig';
+import { DaoScreens, WalletScreens, InstructionScreens, TokenScreens } from './src/navigation/StackConfig';
 import Navigator from './src/navigation/Navigator';
 import CustomSideBarMenu from './src/components/CustomSideBarMenu';
 import { withWalletConnect } from '@walletconnect/react-native-dapp';
@@ -31,6 +31,10 @@ const App = () => {
 
   const InstructionNavigator = ({ navigation }) => (
     <Navigator screens={InstructionScreens} navigation={navigation} /> 
+  )
+
+  const TokenNavigator = ({ navigation }) => (
+    <Navigator screens={TokenScreens} navigation={navigation} /> 
   )
 
   return (
@@ -84,6 +88,14 @@ const App = () => {
               component={InstructionNavigator}
               options={{ headerShown: false }}
             />
+            <Drawer.Screen
+              name="Tokens"
+              component={TokenNavigator}
+              options={{ headerShown: false }}
+            />
+            {/* Add 2 new navigators
+            1. Crowdsale
+            2. Governance */}
           </Drawer.Navigator>
         </NavigationContainer>
       </ApplicationProvider>
