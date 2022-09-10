@@ -1,9 +1,13 @@
-export default interface RandomGenerator {
-    next(): [number, RandomGenerator];
-    jump?(): RandomGenerator;
+export interface RandomGenerator {
     min(): number;
     max(): number;
+    clone(): RandomGenerator;
+    next(): [number, RandomGenerator];
+    jump?(): RandomGenerator;
+    unsafeNext(): number;
+    unsafeJump?(): void;
 }
-declare function generateN(rng: RandomGenerator, num: number): [number[], RandomGenerator];
-declare function skipN(rng: RandomGenerator, num: number): RandomGenerator;
-export { RandomGenerator, generateN, skipN };
+export declare function unsafeGenerateN(rng: RandomGenerator, num: number): number[];
+export declare function generateN(rng: RandomGenerator, num: number): [number[], RandomGenerator];
+export declare function unsafeSkipN(rng: RandomGenerator, num: number): void;
+export declare function skipN(rng: RandomGenerator, num: number): RandomGenerator;

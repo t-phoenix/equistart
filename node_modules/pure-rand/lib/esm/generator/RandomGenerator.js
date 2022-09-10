@@ -1,14 +1,22 @@
-function generateN(rng, num) {
-    var cur = rng;
+export function unsafeGenerateN(rng, num) {
     var out = [];
     for (var idx = 0; idx != num; ++idx) {
-        var nextOut = cur.next();
-        out.push(nextOut[0]);
-        cur = nextOut[1];
+        out.push(rng.unsafeNext());
     }
-    return [out, cur];
+    return out;
 }
-function skipN(rng, num) {
-    return generateN(rng, num)[1];
+export function generateN(rng, num) {
+    var nextRng = rng.clone();
+    var out = unsafeGenerateN(nextRng, num);
+    return [out, nextRng];
 }
-export { generateN, skipN };
+export function unsafeSkipN(rng, num) {
+    for (var idx = 0; idx != num; ++idx) {
+        rng.unsafeNext();
+    }
+}
+export function skipN(rng, num) {
+    var nextRng = rng.clone();
+    unsafeSkipN(nextRng, num);
+    return nextRng;
+}
