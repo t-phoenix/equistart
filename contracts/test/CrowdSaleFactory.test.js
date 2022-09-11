@@ -24,5 +24,8 @@ contract("CrowdsaleFactory",(accounts)=>{
         assert.equal(create[0].rate,1,"rate of crowdsale");
         assert.equal(create[0].beneficiaryAddr,accounts[1],"beneficiaryAddr in crowdsale");
     })
+    it("send tokens to address",async()=>{
+
+    })
 
 })
