@@ -32,3 +32,9 @@ export const formatNumber = (value) => {
 export const formatDate = (date) => {
     return String(date);
 }
+
+export const formatNumWithDecimal = (num, decimal) => {
+    let value = num/(10**decimal);
+    let result = formatNumber(value);
+    return result;
+}

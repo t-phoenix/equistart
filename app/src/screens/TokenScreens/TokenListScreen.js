@@ -32,7 +32,8 @@ export default function TokenListScreen({ navigation }) {
     if (projectList.length > 0) {
       for (let i = 0; i < projectList.length; i++) {
         const tempProj = projectList[i];
-        listOfObjects.push({ key: tempProj[0], title: tempProj[1], token: tempProj[2], amount: tempProj[3], address: tempProj[4] })
+        // console.log("TokenDetail", i,":", tempProj);
+        listOfObjects.push({ key: tempProj[0], title: tempProj[1], token: tempProj[2], amount: tempProj[3], address: tempProj[5] })
       }
       setData(listOfObjects);
     }
