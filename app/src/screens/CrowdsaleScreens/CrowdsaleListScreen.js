@@ -14,7 +14,7 @@ import EmptySpace from '../../components/EmptySpace';
 import { getAllDeployedTokens } from '../../services/TokenServices/TokenFactoryService';
 
 
-export default function TokenListScreen({ navigation }) {
+export default function CrowdsaleListScreen({ navigation }) {
 
   //const data = [{ key: 0, title: "Equistart", token: "EQI", amount: "21000000", value: "0.0001" }, { key: 1, title: "Company2", token: "CMP2", amount: "100000", value: "1" }, { key: 2, title: "Company3", token: "CMP3", amount: "100000", value: "1" }, { key: 3, title: "Company4", token: "CMP4", amount: "100000", value: "1" },];
   const [data, setData] = React.useState([{ key: 0, title: "0", token: "0", amount: "0", address: "0.0" }]);
@@ -43,6 +43,7 @@ export default function TokenListScreen({ navigation }) {
   return (
     <View style={commonStyles.pageView}>
       {/* <Text>TokenListing Screen</Text> */}
+      <Text>CrowdsaleListScreen</Text>
       
       <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
         <EmptySpace />
@@ -61,9 +62,11 @@ export default function TokenListScreen({ navigation }) {
         {isLoading && <View style={{ alignItems: 'center' }}><EmptySpace space={50} /><Spinner status='basic' /></View>}
         <EmptySpace space={40} />
       </ScrollView>
+      
+
       <View style={commonStyles.rowButtonContainer}>
         <Button style={commonStyles.singleButton} onPress={() => { navigation.navigate('CreateToken') }}>
-          Create New ERC20 Token
+          Create New Sale
         </Button>
       </View>
     </View>

@@ -88,6 +88,7 @@ export default StyleSheet.create({
     margin: 4,
     borderWidth: 0,
     backgroundColor: '#212427',
+    borderRadius: 16,
   },
   inputLabel: {
     color: '#9e9e9e',

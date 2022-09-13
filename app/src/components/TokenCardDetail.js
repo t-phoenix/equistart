@@ -37,7 +37,7 @@ const TokenCardDetail = ({ cardData, navigation }) => {
             setFetching(true);
             setDecimal('');
             getTokenDecimal(projectAddress).then((val) => {
-                console.log("Token Decimal:", val);                
+                // console.log("Token Decimal:", val);                
                 setDecimal(val);
                 setFetching(false);
             });
