@@ -66,7 +66,7 @@ export default StyleSheet.create({
         height: windowHeight - 80,
       },
       android: {
-        height: windowHeight - 80,
+        height: windowHeight,
       },
     }),
     justifyContent: 'space-between',
