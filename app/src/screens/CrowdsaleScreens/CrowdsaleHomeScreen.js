@@ -13,8 +13,7 @@ import {transferTokens,getUserBalance } from '../../services/TokenServices/ERC20
 import {useWalletConnect} from '@walletconnect/react-native-dapp';
 import {formatNumber} from '../../services/FormatterService';
 
-
-export default function TokenHomeScreen({route, navigation}) {
+export default function CrowdsaleHomeScreen({route, navigation}) {
   const connector = useWalletConnect();
 
   const [data, setData] = React.useState([]);
@@ -37,7 +36,7 @@ export default function TokenHomeScreen({route, navigation}) {
 
   const sendTokens = async () => {
     setSending(true);
-    console.log('contract address:', route.params.data.address);
+    console.log('Crowdsale contract address:', route.params.data.crowdsaleAddr);
     transferTokens(
       connector,
       route.params.data.address,
@@ -70,9 +69,13 @@ export default function TokenHomeScreen({route, navigation}) {
         style={commonStyles.pageContent}
         showsVerticalScrollIndicator={false}
         ref={scrollViewRef}>
-        <TokenCardDetail cardData={route.params.data} navigation={navigation} />
+        <Text>Crowdsale Home Screen</Text>
+        {/* TODO: Add Crowdsale Home Screen */}
 
-        <View
+
+        {/* <TokenCardDetail cardData={route.params.data} navigation={navigation} /> */}
+
+        {/* <View
           style={{
             ...commonStyles.innerCard,
             backgroundColor:
@@ -105,39 +108,10 @@ export default function TokenHomeScreen({route, navigation}) {
               {sending && <Spinner size="tiny" status="basic" />}
             </Button>
           </View>
-        </View>
+        </View> */}
 
         <EmptySpace space={12} />
 
-        <View
-          style={{
-            ...commonStyles.innerCard,
-            backgroundColor:
-              backgrounds[Math.floor(Math.random() * 100) % backgrounds.length],
-          }}>
-          <Text style={styles.headerText} category="h3">
-            User Balance
-          </Text>
-          <Input
-            style={commonStyles.input}
-            onChangeText={setFetchingAddress}
-            onTouchEnd={() => scrollViewRef.current.scrollToEnd()}
-            value={fetchinAddress}
-            placeholder="address"
-            // accessoryRight={renderIcon}
-            label={() => <Text style={styles.inputLabel}>Address</Text>}
-          />
-          <View style={commonStyles.rowButtonContainer}>
-            <Button style={commonStyles.doubleButton} onPress={fetchBalance}>
-              {!fetching && 'Get Balance'}
-              {fetching && <Spinner size="tiny" status="basic" />}
-            </Button>
-          </View>
-          <Text style={styles.inputLabel}>
-            Balance: {formatNumber(fetchedBalance)}
-          </Text>
-
-        </View>
 
         <EmptySpace space={60} />
       </ScrollView>
@@ -145,7 +119,7 @@ export default function TokenHomeScreen({route, navigation}) {
       <View style={commonStyles.rowButtonContainer}>
         <Button
           style={commonStyles.doubleButton}
-          onPress={() => navigation.navigate('TokenListScreen')}
+          onPress={() => navigation.goBack()}
           status="warning">
           Back
         </Button>

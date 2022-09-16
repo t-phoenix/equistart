@@ -152,7 +152,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/contracts/CrowdsaleFactory.sol": "CrowdsaleFactory"
+			"contracts/CrowdsaleFactory.sol": "CrowdsaleFactory"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -160,7 +160,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
@@ -214,7 +214,7 @@
 				"dweb:/ipfs/QmQJquTMtc6fgm5JQzGdsGpA2fqBe3MHWEdt2qzaLySMdN"
 			]
 		},
-		"contracts/contracts/Crowdsale.sol": {
+		"contracts/Crowdsale.sol": {
 			"keccak256": "0xfc6fa2e7243fcd3fe6012abf3e1da3bdc5c360bbfa392a3865e178f14169ea49",
 			"license": "GPL-3.0",
 			"urls": [
@@ -222,7 +222,7 @@
 				"dweb:/ipfs/QmSWcyLomNsy23yzhistP7Bs7NnPRyAYhfMGWED3LLuP8T"
 			]
 		},
-		"contracts/contracts/CrowdsaleFactory.sol": {
+		"contracts/CrowdsaleFactory.sol": {
 			"keccak256": "0x8d8a5c58e9eeeec9f8b916ea003c44cc00d019e38e6c7f1e206d4667fee516f3",
 			"license": "GPL-3.0",
 			"urls": [

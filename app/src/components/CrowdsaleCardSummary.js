@@ -6,10 +6,11 @@ import { backgrounds } from '../colors'
 import EmptySpace from './EmptySpace'
 import { formatAddress, formatNumber } from '../services/FormatterService'
 
-const TokenCardSummary = ({ cardData, navigation }) => {
+const CrowdsaleCardSummary = ({ cardData, navigation }) => {
 
     function openProject(data) {
-        navigation.navigate('TokenHomeScreen', { data: data })
+        //TODO: change Nav
+        navigation.navigate('CrowdsaleHomeScreen', { data: data })
     }
 
     return (
@@ -17,8 +18,8 @@ const TokenCardSummary = ({ cardData, navigation }) => {
             <View style={{ ...commonStyles.innerCard, backgroundColor: backgrounds[(Math.floor((Math.random() * 100))) % backgrounds.length] }}>
                 <ImageBackground source={require('../../assets/images/company.png')}>
                     <View>
-                        <Text style={commonStyles.secondaryTextBlack}>{cardData.title}</Text>
-                        <Text style={commonStyles.tertiaryTextGrey}>{cardData.token}</Text>
+                        <Text style={commonStyles.secondaryTextBlack}>{cardData.tokenName}</Text>
+                        {/* <Text style={commonStyles.tertiaryTextGrey}>{cardData.token}</Text> */}
                     </View>
                     <EmptySpace />
                     <Button
@@ -31,14 +32,14 @@ const TokenCardSummary = ({ cardData, navigation }) => {
                 </ImageBackground>
             </View>
             <View style={styles.bottomContainer}>
-                <Text style={commonStyles.tertiaryTextGrey}>Total Project Token:  {formatNumber(cardData.amount)} </Text>
-                <Text style={commonStyles.tertiaryTextGrey} selectable={true}>Address:  {cardData.address}</Text>
+                <Text style={commonStyles.tertiaryTextGrey}>Token Rate:  {formatNumber(cardData.rate)} </Text>
+                <Text style={commonStyles.tertiaryTextGrey} selectable={true}>Beneficiary Address:  {cardData.beneficiaryAddr}</Text>
             </View>
         </View>
     )
 }
 
-export default TokenCardSummary;
+export default CrowdsaleCardSummary;
 
 const styles = StyleSheet.create({
     bottomContainer: {

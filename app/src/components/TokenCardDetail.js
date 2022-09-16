@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { Button, Text, Spinner, Card, Icon } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
 import { backgrounds } from '../colors'
-import { formatAddress, formatMobileNumber, formatNumber, formatNumWithDecimal } from '../services/FormatterService'
+import { formatAddress, formatNumber } from '../services/FormatterService'
 import EmptySpace from './EmptySpace';
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 import { getUserBalance, getTokenDecimal } from '../services/TokenServices/ERC20TokenService';
@@ -11,13 +11,13 @@ import { getUserBalance, getTokenDecimal } from '../services/TokenServices/ERC20
 const TokenCardDetail = ({ cardData, navigation }) => {
     const [balance, setBalance] = React.useState('');
     const [fetching, setFetching] = React.useState(false);
-    const [decimal, setDecimal] = React.useState('');
+    // const [decimal, setDecimal] = React.useState('');
     // const [fetchingDeci, setFetchingDeci] = React.useState(false);
     const connector = useWalletConnect();
 
     React.useEffect(() => {
         fetchBalance(cardData.address);
-        fetchDecimal(cardData.address);
+        // fetchDecimal(cardData.address);
     }, []);
 
     const fetchBalance = (projectAddress) => {
@@ -31,18 +31,18 @@ const TokenCardDetail = ({ cardData, navigation }) => {
         }
     }
 
-
-    const fetchDecimal = (projectAddress) => {
-        if (connector.connected) {
-            setFetching(true);
-            setDecimal('');
-            getTokenDecimal(projectAddress).then((val) => {
-                // console.log("Token Decimal:", val);                
-                setDecimal(val);
-                setFetching(false);
-            });
-        }
-    }
+    //TODO: Chenge the fetch Decimal Mechanism to fromWei/ toWei in the services folder
+    // const fetchDecimal = (projectAddress) => {
+    //     if (connector.connected) {
+    //         setFetching(true);
+    //         setDecimal('');
+    //         getTokenDecimal(projectAddress).then((val) => {
+    //             // console.log("Token Decimal:", val);                
+    //             setDecimal(val);
+    //             setFetching(false);
+    //         });
+    //     }
+    // }
     //TODO: Check to represent balance with decimal numbers and without them.
     //Fetch getTokenDecimal from Token Services
 
@@ -60,13 +60,13 @@ const TokenCardDetail = ({ cardData, navigation }) => {
                         <Text style={commonStyles.secondaryTextGrey}>Symbol: </Text>
                         <Text style={styles.text}>   {cardData.token} </Text>
                         <Text style={commonStyles.secondaryTextGrey}>Project Address: </Text>
-                        <Text style={styles.text}>   {formatAddress(cardData.address)} </Text>
+                        <Text style={styles.text} selectable={true}>   {formatAddress(cardData.address)} </Text>
                     </View>
                     <View>
                         <Text style={commonStyles.secondaryTextGrey}>Total token: </Text>
                         <Text style={styles.text}>   {formatNumber(cardData.amount)} </Text>
                         <Text style={commonStyles.secondaryTextGrey}>Your Balance: </Text>
-                        {connector.connected && !fetching && <Text style={styles.text}>   {formatNumWithDecimal(balance, decimal)} </Text>}
+                        {connector.connected && !fetching && <Text style={styles.text}>   {formatNumber(balance)} </Text>}
                         {connector.connected && fetching && <View style={{ marginTop: 4, marginLeft: 30 }}><Spinner size='tiny' status='info' /></View>}
                         {!connector.connected && <Button appearance='outline' size='tiny' style={{ ...commonStyles.button, width: 100 }} onPress={() => navigation.navigate('Wallet', { screen: 'WalletHomeScreen' })}>Connect Wallet</Button>}
                     </View>
