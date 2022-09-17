@@ -12,18 +12,17 @@ contract("Crowdsale Test file",(accounts)=>{
         }).then(async(res)=>{
             instance=res;
             ins_add=res.address;
-            const yy= await token.totalSupply();
-            const rr= await token.transfer(res.address,yy.toString());
+            const totalSupply= await token.totalSupply();
+            await token.transfer(res.address,totalSupply.toString());
             assert.equal(await token.balanceOf(accounts[0]),0,"token transafered");
-            assert.equal(await token.balanceOf(ins_add),10000000000000000000,"token transfered to crowdsale contract")
+            assert.equal((await token.balanceOf(ins_add)).toString(),'1000000000000000000000',"token transfered to crowdsale contract")
         })
     })
     it("Try buying tokens from crowdsale",async()=>{
         const transaction=await instance.sendTransaction({from:accounts[1],value:100000000000000000});
-        assert.equal(transaction.logs.length,1, "1 event created");
         assert.equal(transaction.logs[0].event,"TokenPurchase","TokenPurchase event")
         assert.equal(transaction.logs[0].args.value,100000000000000000,"event value")
-        assert.equal(await token.balanceOf(ins_add),9900000000000000000,"token bought successfully")
-        assert.equal(await token.balanceOf(accounts[1]),100000000000000000,"token transfered successfully")
+        assert.equal((await token.balanceOf(ins_add)).toString(),'999900000000000000000',"token bought successfully")
+        assert.equal((await token.balanceOf(accounts[1])).toString(),'100000000000000000',"token transfered successfully")
     })
 })

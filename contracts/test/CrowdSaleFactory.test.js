@@ -12,17 +12,15 @@ contract("CrowdsaleFactory",(accounts)=>{
             })
         })
     })
-    it("createCrowdSale function",async()=>{
+    it("creating a crowdsale using createCrowdSale function",async()=>{
         const create= await instance.createCrowdSale(1,accounts[1],erc.address);
-        assert.equal(create.logs.length,1,"event created")
         assert.equal(create.logs[0].event,"newCrowdSaleCreatedAt","newCrowdSaleCreatedAt event created")
         assert.notEqual(create.logs[0].crowdsaleContract,0x00,"crowdsaleContract created");
     })
-    it("getAllDeployedProjects function",async()=>{
+    it("getting all created project by using getAllDeployedProjects function",async()=>{
         const create= await instance.getAllDeployedProjects.call();
         assert.equal(create[0].token,erc.address,"ERC20 token address");
         assert.equal(create[0].rate,1,"rate of crowdsale");
         assert.equal(create[0].beneficiaryAddr,accounts[1],"beneficiaryAddr in crowdsale");
     })
-
 })
