@@ -40,20 +40,13 @@
 ### Fork the project into ur git repo-
 1. [Fork_from](https://github.com/t-phoenix/equistart)
 
-### Start locla blockchain in ur laptop.
+### Start local blockchain in ur laptop.
 1. open **Ganache**
 2. select **QUICKSTART ETHEREUM** option. 
 *This will start a local blockchain in ur lap*
 
 **After doing these steps**
 
-
-
-### Clone the project from git-
-1. Go to the direactory in which you want ur project 
-2. create a **new blank folder** in that directory
-3. open terminal for the folder.
-4. type `LINK OF YOUR CLONED REPO` and press this will make a clone of the project into ur system.
 
 
 ### To check if all the proccess is done perfectly.
@@ -63,6 +56,25 @@
 **IF THE MIGRATION IS SUCCESSFULL THEN YOU HAVE DONE EVERYTHING RIGHT.**
 
 
+---
+=======================================================================================================================================================
+
+NOTES: TO EDIT THIS README
+1. Remove all the below content, and place it in a seperate test/notes.txt file.
+2. Instead add commands to run these test files seperately and all together.
+3. Mention if any configuration is needed in truffle.config
+4. Mention if any configuration is needed in any of the test.js file.
+5. Place a link to refer test/notes.txt file if any test case behave otherwise.
+---
+=======================================================================================================================================================
+
+
+
+### Clone the project from git-
+1. Go to the direactory in which you want ur project 
+2. create a **new blank folder** in that directory
+3. open terminal for the folder.
+4. type `LINK OF YOUR CLONED REPO` and press this will make a clone of the project into ur system.
 
 
 ### Understanding the *2_deploy_token_factory.js*.
