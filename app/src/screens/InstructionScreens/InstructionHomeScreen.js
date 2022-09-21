@@ -7,6 +7,7 @@ import {
   Dimensions,
   Linking,
   TouchableOpacity,
+  SafeAreaView
 } from 'react-native';
 import commonStyles from '../../commonStyles';
 import {COLORS} from '../../colors';
@@ -16,7 +17,7 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function InstructionHomeScreen({navigation}) {
   return (
-    <View style={commonStyles.pageView}>
+    <SafeAreaView style={commonStyles.pageView}>
       <ScrollView>
         <View>
           <View style={styles.contentBox}>
@@ -146,7 +147,7 @@ export default function InstructionHomeScreen({navigation}) {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

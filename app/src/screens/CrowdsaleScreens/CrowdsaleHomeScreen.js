@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
 import {Button, Text, Icon, Spinner, Input} from '@ui-kitten/components';
 import {Dimensions} from 'react-native';
 import TokenCardDetail from '../../components/TokenCardDetail';
@@ -64,7 +64,7 @@ export default function CrowdsaleHomeScreen({route, navigation}) {
 
   return (
     
-    <View style={commonStyles.pageView}>
+    <SafeAreaView style={commonStyles.pageView}>
       <ScrollView
         style={commonStyles.pageContent}
         showsVerticalScrollIndicator={false}
@@ -125,7 +125,7 @@ export default function CrowdsaleHomeScreen({route, navigation}) {
         </Button>
       </View>
       
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
 import { Button, Text, Spinner, Card, Icon } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
 import { backgrounds } from '../colors'
@@ -7,6 +7,8 @@ import { formatAddress, formatNumber } from '../services/FormatterService'
 import EmptySpace from './EmptySpace';
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 import { getUserBalance, getTokenDecimal } from '../services/TokenServices/ERC20TokenService';
+import Clipboard from '@react-native-clipboard/clipboard';
+import Toast from 'react-native-simple-toast';
 
 const TokenCardDetail = ({ cardData, navigation }) => {
     const [balance, setBalance] = React.useState('');
@@ -30,6 +32,12 @@ const TokenCardDetail = ({ cardData, navigation }) => {
             });
         }
     }
+
+    const copyToClipboard = (address) => {
+        Clipboard.setString(address);
+        Toast.show('Address copied to clipboard!')
+    }
+    
 
     //TODO: Chenge the fetch Decimal Mechanism to fromWei/ toWei in the services folder
     // const fetchDecimal = (projectAddress) => {
@@ -60,7 +68,9 @@ const TokenCardDetail = ({ cardData, navigation }) => {
                         <Text style={commonStyles.secondaryTextGrey}>Symbol: </Text>
                         <Text style={styles.text}>   {cardData.token} </Text>
                         <Text style={commonStyles.secondaryTextGrey}>Project Address: </Text>
-                        <Text style={styles.text} selectable={true}>   {formatAddress(cardData.address)} </Text>
+                        <TouchableOpacity onPress={() => copyToClipboard(cardData.address)}>
+                            <Text style={commonStyles.activeText}>{formatAddress(cardData.address)}</Text>
+                        </TouchableOpacity>
                     </View>
                     <View>
                         <Text style={commonStyles.secondaryTextGrey}>Total token: </Text>

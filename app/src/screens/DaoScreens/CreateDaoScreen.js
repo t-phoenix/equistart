@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableWithoutFeedback, View, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { SafeAreaView, View, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { Button, Text, Layout, Card, Icon, Input, Spinner } from '@ui-kitten/components';
 import { backgrounds, colorPairs } from '../../colors';
 import commonStyles from '../../commonStyles';
@@ -38,7 +38,7 @@ export default function CreateDaoScreen({ navigation }) {
 
 
   return (
-    <View style={commonStyles.pageView}>
+    <SafeAreaView style={commonStyles.pageView}>
       {!isWalletConnected && <View style={commonStyles.warningContainer}>
         <Text style={commonStyles.warningText}>Connect your Wallet to </Text>
         <TouchableOpacity onPress={() => navigation.navigate('Wallet', { screen: 'WalletHomeScreen' })}><Text style={commonStyles.linkText}>continue</Text></TouchableOpacity>
@@ -129,7 +129,7 @@ export default function CreateDaoScreen({ navigation }) {
           {sendingRequest && <Spinner size='tiny' status='basic' />}
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

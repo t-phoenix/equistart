@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { Button, Text, Icon, Spinner } from '@ui-kitten/components';
 import { Dimensions } from 'react-native';
 import DaoCardDetail from '../../components/DaoCardDetail';
@@ -45,7 +45,7 @@ export default function DaoHomeScreen({ route, navigation }) {
   }
 
   return (
-    <View style={commonStyles.pageView}>
+    <SafeAreaView style={commonStyles.pageView}>
       <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
         <DaoCardDetail cardData={route.params.data} navigation={navigation} />
         <View style={{ ...commonStyles.row, marginHorizontal: 5 }}>
@@ -73,7 +73,7 @@ export default function DaoHomeScreen({ route, navigation }) {
           Create Proposal
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

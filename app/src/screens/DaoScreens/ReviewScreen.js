@@ -2,7 +2,7 @@ import React from 'react';
 import {
   View,
   StyleSheet,
-  ScrollView
+  SafeAreaView
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import commonStyles from '../../commonStyles';
@@ -51,7 +51,7 @@ export default function ReviewScreen({navigation}) {
 
   const renderTeam = ({item}) => {
     return (
-      <View
+      <SafeAreaView
         style={{
           fdisplay: 'flex',
           flexDirection: 'row',
@@ -62,7 +62,7 @@ export default function ReviewScreen({navigation}) {
         <Text>{item.address}</Text>
         <Text>{item.token}</Text>
         <Text>{item.amount}</Text>
-      </View>
+      </SafeAreaView>
     );
   };
 
