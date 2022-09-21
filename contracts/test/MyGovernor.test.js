@@ -10,11 +10,11 @@ contract("testing MyGovernor contract",(accounts)=>{
         crowdsale= await Crowdsale.deployed()
         await erc.transfer(crowdsale.address,(await erc.totalSupply()).toString());//transfering the tokens to crowdsale contract
     })
-    it("Account 1,2,3,4 buy 100k,200k,300k,400k tokens and delegates themselfs ",async()=>{
+    it("Account 1,2,3,4 buy 1,2,3,4 tokens and delegates themselfs ",async()=>{
         for (let i = 1; i < 5; i++) {
             await crowdsale.buyTokens(accounts[i],{from:accounts[i],value:web3.utils.toWei(`${i}`, 'ether')})
             await erc.delegate(accounts[i],{from:accounts[i]})
-            assert.equal(await erc.getVotes(accounts[i]),web3.utils.toWei((i*1).toString(), 'ether'),`Not all TokenHolders got delegated- issue:${i}`)
+            assert.equal(await erc.getVotes(accounts[i]),web3.utils.toWei(`${i}`, 'ether'),`Not all TokenHolders got delegated- issue:${i}`)
         }
     })
     it("Creating a proposal using propose function",async()=>{
