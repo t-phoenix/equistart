@@ -694,7 +694,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/contracts/ERC20Token.sol": "ERC20Token"
+			"contracts/ERC20Token.sol": "ERC20Token"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -828,7 +828,7 @@
 				"dweb:/ipfs/QmUwxjtTUYB89ymeV46TZPmTsGnYrKNcgTHk7MQA1MG3hj"
 			]
 		},
-		"contracts/contracts/ERC20Token.sol": {
+		"contracts/ERC20Token.sol": {
 			"keccak256": "0xddbd1fa7e280dec5337d48046873f9235660d323cc56dcad8f6fb11c8c887d6d",
 			"license": "MIT",
 			"urls": [

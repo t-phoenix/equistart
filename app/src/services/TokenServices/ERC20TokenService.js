@@ -60,5 +60,5 @@ export async function transferTokens(connector, tokenAddr, sendingAddr, amount) 
 
 //TODO:ERC20 read and write functions list
 // balanceOf(Addr) - for any address.
-// getVotes (Addr) - for self and for any address.
-// delegate (addr); - to enable votes for users.
+// getVotes (Addr) - for self and for any address, return the voting power of account (read)
+// delegate (addr); - to enable votes for users (state change)
