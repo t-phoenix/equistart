@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Pressable
+  SafeAreaView
 } from 'react-native';
 import commonStyles from '../../commonStyles';
 import {
@@ -56,7 +56,7 @@ export default function CofounderDetailsScreen({route, navigation }) {
   }
 
   return (
-    <View style={commonStyles.pageView}>
+    <SafeAreaView style={commonStyles.pageView}>
       <Modal
         backdropStyle={styles.backdrop}
         visible={modalVisible}
@@ -150,7 +150,7 @@ export default function CofounderDetailsScreen({route, navigation }) {
           Review
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

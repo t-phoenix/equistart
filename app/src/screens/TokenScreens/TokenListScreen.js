@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { Button, Text, Layout, Card, Icon, Spinner } from '@ui-kitten/components';
 // import LinearGradient from 'react-native-linear-gradient';
 import CardList from '../../components/CardList';
@@ -41,7 +41,7 @@ export default function TokenListScreen({ navigation }) {
   }
 
   return (
-    <View style={commonStyles.pageView}>
+    <SafeAreaView style={commonStyles.pageView}>
       {/* <Text>TokenListing Screen</Text> */}
       
       <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
@@ -66,7 +66,7 @@ export default function TokenListScreen({ navigation }) {
           Create New ERC20 Token
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

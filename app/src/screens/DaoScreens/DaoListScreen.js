@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { Button, Text, Layout, Card, Icon, Spinner } from '@ui-kitten/components';
 // import LinearGradient from 'react-native-linear-gradient';
 import CardList from '../../components/CardList';
@@ -38,7 +38,7 @@ export default function DaoListScreen({ navigation }) {
   }
 
   return (
-    <View style={commonStyles.pageView}>
+    <SafeAreaView style={commonStyles.pageView}>
       <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
         <EmptySpace />
         <View style={{ ...styles.messageContainer, ...commonStyles.row }}>
@@ -60,7 +60,7 @@ export default function DaoListScreen({ navigation }) {
           Create New Project
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
 import {Button, Text, Icon, Spinner, Input} from '@ui-kitten/components';
 import {Dimensions} from 'react-native';
 import TokenCardDetail from '../../components/TokenCardDetail';
@@ -12,11 +12,13 @@ import EmptySpace from '../../components/EmptySpace';
 import {transferTokens,getUserBalance } from '../../services/TokenServices/ERC20TokenService';
 import {useWalletConnect} from '@walletconnect/react-native-dapp';
 import {formatNumber} from '../../services/FormatterService';
+import Toast from 'react-native-simple-toast';
 
 
 export default function TokenHomeScreen({route, navigation}) {
   const connector = useWalletConnect();
-
+  
+  const [cardBackgrounds, setCardBackgrounds] = React.useState(Array.from({ length: 2 }).map(() => backgrounds[Math.floor(Math.random() * 100) % backgrounds.length]));
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [sendingAddress, setSendingAddress] = React.useState();
@@ -61,11 +63,11 @@ export default function TokenHomeScreen({route, navigation}) {
       setFetchedBalance(result);
     })
     setFetching(false);
-  }
+  }  
 
   return (
     
-    <View style={commonStyles.pageView}>
+    <SafeAreaView style={commonStyles.pageView}>
       <ScrollView
         style={commonStyles.pageContent}
         showsVerticalScrollIndicator={false}
@@ -75,8 +77,7 @@ export default function TokenHomeScreen({route, navigation}) {
         <View
           style={{
             ...commonStyles.innerCard,
-            backgroundColor:
-              backgrounds[Math.floor(Math.random() * 100) % backgrounds.length],
+            backgroundColor:cardBackgrounds[0]
           }}>
           <Text style={styles.headerText} category="h3">
             Transfer Tokens
@@ -112,8 +113,7 @@ export default function TokenHomeScreen({route, navigation}) {
         <View
           style={{
             ...commonStyles.innerCard,
-            backgroundColor:
-              backgrounds[Math.floor(Math.random() * 100) % backgrounds.length],
+            backgroundColor:cardBackgrounds[1],
           }}>
           <Text style={styles.headerText} category="h3">
             User Balance
@@ -139,7 +139,7 @@ export default function TokenHomeScreen({route, navigation}) {
 
         </View>
 
-        <EmptySpace space={60} />
+        <EmptySpace space={120} />
       </ScrollView>
 
       <View style={commonStyles.rowButtonContainer}>
@@ -151,7 +151,7 @@ export default function TokenHomeScreen({route, navigation}) {
         </Button>
       </View>
       
-    </View>
+    </SafeAreaView>
   );
 }
 

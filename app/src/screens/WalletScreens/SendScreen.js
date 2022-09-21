@@ -4,7 +4,8 @@ import {
   StyleSheet,
   ScrollView,
   Image,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  SafeAreaView
 } from 'react-native';
 import commonStyles from '../../commonStyles'
 import { Button, Text, Layout, Card, Icon, Input, Select, SelectItem, Spinner } from '@ui-kitten/components';
@@ -116,7 +117,7 @@ export default function ({ navigation }) {
   }
 
   return (
-    <View style={commonStyles.pageView}>
+    <SafeAreaView style={commonStyles.pageView}>
       <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false} ref={scrollViewRef}>
         <EmptySpace />
         <View style={commonStyles.outerCard}>
@@ -191,7 +192,7 @@ export default function ({ navigation }) {
           {sending && <Spinner size='tiny' status='basic' />}
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
