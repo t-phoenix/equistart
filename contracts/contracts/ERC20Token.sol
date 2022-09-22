@@ -11,6 +11,7 @@ contract ERC20Token is ERC20,ERC20Permit, ERC20Votes  {
         _mint(owner, supply * 10 ** decimals());
     }
 
+
     function _afterTokenTransfer(address from, address to, uint256 amount)
         internal
         override(ERC20, ERC20Votes)
