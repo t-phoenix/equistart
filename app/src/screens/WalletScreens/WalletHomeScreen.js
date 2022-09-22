@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Image, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, ImageBackground, SafeAreaView } from 'react-native';
 import { Button, Layout, Text, Icon, Card, Spinner } from '@ui-kitten/components';
 
 import commonStyles from '../../commonStyles';
@@ -90,7 +90,7 @@ export default function WalletHomeScreen({ navigation }) {
     );
 
     return (
-        <View style={commonStyles.pageView}>
+        <SafeAreaView style={commonStyles.pageView}>
             <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
                 <EmptySpace />
                 <View style={commonStyles.outerCard}>
@@ -181,7 +181,7 @@ export default function WalletHomeScreen({ navigation }) {
                     </View>
                 </View>
             }
-        </View>
+        </SafeAreaView>
     );
 }
 

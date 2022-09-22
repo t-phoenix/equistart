@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, SafeAreaView, View, ScrollView } from 'react-native'
 import commonStyles from '../../commonStyles'
 import ProposalCardDetail from '../../components/ProposalCardDetail'
 import { Button } from '@ui-kitten/components'
@@ -8,7 +8,7 @@ import EmptySpace from '../../components/EmptySpace'
 const ProposalDetailsScreen = ({ route, navigation }) => {
 
     return (
-        <View style={commonStyles.pageView}>
+        <SafeAreaView style={commonStyles.pageView}>
             <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
                 <EmptySpace />
                 <ProposalCardDetail cardData={route.params.cardData} />
@@ -22,7 +22,7 @@ const ProposalDetailsScreen = ({ route, navigation }) => {
                     Back
                 </Button>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 
