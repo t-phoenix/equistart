@@ -69,4 +69,4 @@
 4. for *MyGovernor* type `truffle test MyGovernor.test.js` and hit *enter*
 5. for *TokenFactory* type `truffle test TokenFactory.test.js` and hit *enter*
   
-### If test cases are behaving not currectly -> [refer](notes.md)
+### If test cases are behaving not currectly -> [refer](notes.txt)
