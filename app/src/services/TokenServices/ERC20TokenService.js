@@ -8,19 +8,25 @@ const kit = newKitFromWeb3(web3);
 
 
 
-export async function getTokenName(address){
-    let contract = new kit.connection.web3.eth.Contract(ERC20TokenABI, address);
+export async function getTokenName(tokenAddr){
+    let contract = new kit.connection.web3.eth.Contract(ERC20TokenABI, tokenAddr);
     let name = await contract.methods.name().call();
     return name;
 }
 
 //TODO: can add symbol and total # of tokens call methods.
+export async function getTokenSupply(tokenAddr){
+    let contract = new kit.connection.web3.eth.Contract(ERC20TokenABI, tokenAddr);
+    let totalTokens = await contract.methods.totalSupply().call();
+    let userBalance = web3.utils.fromWei(totalTokens);
+    return userBalance;
+}
 
 
-export async function getTokenDecimal(address){
+export async function getTokenDecimal(tokenAddr){
     //Written but not used
     //fromWei-toWei is used from web3.utils
-    let contract = new kit.connection.web3.eth.Contract(ERC20TokenABI, address);
+    let contract = new kit.connection.web3.eth.Contract(ERC20TokenABI, tokenAddr);
     let decimal = await contract.methods.decimals().call();
     return decimal;
 }

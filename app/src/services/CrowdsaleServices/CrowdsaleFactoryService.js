@@ -35,3 +35,8 @@ export async function createNewCrowdsale (connector, tokenAddr, beneficiaryAddr,
         return false;
     }
 }
+
+
+// rate == number of Tokens for 1 wei
+// eg: rate ==3000, and user send 2 wei, he'll get 6000 tokens.
+// tokens received = rate * value sent

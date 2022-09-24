@@ -39,21 +39,6 @@ const TokenCardDetail = ({ cardData, navigation }) => {
     }
     
 
-    //TODO: Chenge the fetch Decimal Mechanism to fromWei/ toWei in the services folder
-    // const fetchDecimal = (projectAddress) => {
-    //     if (connector.connected) {
-    //         setFetching(true);
-    //         setDecimal('');
-    //         getTokenDecimal(projectAddress).then((val) => {
-    //             // console.log("Token Decimal:", val);                
-    //             setDecimal(val);
-    //             setFetching(false);
-    //         });
-    //     }
-    // }
-    //TODO: Check to represent balance with decimal numbers and without them.
-    //Fetch getTokenDecimal from Token Services
-
     return (
         <View>
             <EmptySpace />
@@ -82,14 +67,6 @@ const TokenCardDetail = ({ cardData, navigation }) => {
                     </View>
                 </View>
 
-                {/* <Text style={commonStyles.primaryTextOrange}>Balance</Text>
-                <View style={commonStyles.rowButtonContainer}>
-                <Text style={styles.text}>
-                    500 EQUI
-                </Text>
-                <Button appearance='ghost' style={commonStyles.button} onPress={() => navigation.navigate('Wallet', { screen: 'SendScreen' })}>Transfer</Button>
-                <Icon name='star'/>
-                </View> */}
             </View>
             <EmptySpace />
         </View>
