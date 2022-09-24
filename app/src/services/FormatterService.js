@@ -1,5 +1,6 @@
 export const formatAddress = (addr) => {
     return addr.substring(0, 5) + '...' + addr.substring(addr.length - 4);
+    //TODO: Use masking instead of hard coding the mask to enable touch and copy on screen
 }
 
 export const formatAddressLong = (addr) => {
@@ -31,4 +32,10 @@ export const formatNumber = (value) => {
 
 export const formatDate = (date) => {
     return String(date);
+}
+
+export const formatNumWithDecimal = (num, decimal) => {
+    let value = num/(10**decimal);
+    let result = formatNumber(value);
+    return result;
 }

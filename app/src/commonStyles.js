@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { COLORS } from './colors';
-import { Dimensions } from 'react-native';
 import { Platform } from 'react-native';
+import { Dimensions } from "react-native";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -61,14 +61,7 @@ export default StyleSheet.create({
     backgroundColor: '#1d2023'
   },
   pageView: {
-    ...Platform.select({
-      ios: {
-        height: windowHeight - 80,
-      },
-      android: {
-        height: windowHeight - 80,
-      },
-    }),
+    flex: 1,
     justifyContent: 'space-between',
     backgroundColor: '#212427',
   },
@@ -88,6 +81,7 @@ export default StyleSheet.create({
     margin: 4,
     borderWidth: 0,
     backgroundColor: '#212427',
+    borderRadius: 16,
   },
   inputLabel: {
     color: '#9e9e9e',
@@ -181,6 +175,10 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     marginVertical: 4,
     color: '#6B6E77',
+  },
+  activeText: {
+    textDecorationLine: 'underline',
+    color: 'blue',
   },
   tertiaryText: {
     fontSize: 15,

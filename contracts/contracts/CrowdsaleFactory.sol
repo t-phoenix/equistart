@@ -20,9 +20,9 @@ contract CrowdsaleFactory is Ownable{
     event newCrowdSaleCreatedAt(address crowdsaleContract );
 
 
-    constructor(){
-        // TODO: Add the owner as msg.sender from Ownable contract
-    }
+    // constructor(){
+    //     // TODO: Add the owner as msg.sender from Ownable contract
+    // }
 
 
     function createCrowdSale(uint256 _rate, address _wallet, ERC20 _token) public {

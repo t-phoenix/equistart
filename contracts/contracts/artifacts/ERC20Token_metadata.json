@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.17+commit.8df45f5f"
+		"version": "0.8.2+commit.661d1103"
 	},
 	"language": "Solidity",
 	"output": {
@@ -694,15 +694,15 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/contracts/ERC20Token.sol": "ERC20Token"
+			"contracts/ERC20Token.sol": "ERC20Token"
 		},
-		"evmVersion": "london",
+		"evmVersion": "istanbul",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
@@ -828,7 +828,7 @@
 				"dweb:/ipfs/QmUwxjtTUYB89ymeV46TZPmTsGnYrKNcgTHk7MQA1MG3hj"
 			]
 		},
-		"contracts/contracts/ERC20Token.sol": {
+		"contracts/ERC20Token.sol": {
 			"keccak256": "0xddbd1fa7e280dec5337d48046873f9235660d323cc56dcad8f6fb11c8c887d6d",
 			"license": "MIT",
 			"urls": [

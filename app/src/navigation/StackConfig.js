@@ -15,6 +15,11 @@ import TokenListScreen from '../screens/TokenScreens/TokenListScreen';
 import CreateTokenScreen from '../screens/TokenScreens/CreateTokenScreen';
 import TokenHomeScreen from '../screens/TokenScreens/TokenHomeScreen';
 
+import CrowdsaleListScreen from '../screens/CrowdsaleScreens/CrowdsaleListScreen';
+import CreateCrowdsaleScreen from '../screens/CrowdsaleScreens/CreateCrowdsaleScreen';
+import CrowdsaleHomeScreen from '../screens/CrowdsaleScreens/CrowdsaleHomeScreen';
+
+
 export const DaoScreens = [
     {
       name: 'DaoList',
@@ -81,7 +86,7 @@ export const DaoScreens = [
       component: TokenListScreen
     },
     {
-      name: 'createToken',
+      name: 'CreateToken',
       title: 'Create your token',
       component: CreateTokenScreen
     },
@@ -89,6 +94,24 @@ export const DaoScreens = [
       name: 'TokenHomeScreen',
       title: 'ERC20 Token',
       component: TokenHomeScreen
+    }
+  ]
+
+  export const CrowdsaleScreens = [
+    {
+      name: 'CrowdsaleListScreen',
+      title: 'Token Sale',
+      component: CrowdsaleListScreen
+    },
+    {
+      name: 'CreateCrowdsale',
+      title: 'Create a Crowdsale',
+      component: CreateCrowdsaleScreen
+    },
+    {
+      name: "CrowdsaleHomeScreen",
+      title: 'Buy Tokens',
+      component: CrowdsaleHomeScreen
     }
   ]
 

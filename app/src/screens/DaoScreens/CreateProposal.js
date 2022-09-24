@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, StyleSheet, View, Image, TouchableOpacity } from 'react-native'
+import { ScrollView, StyleSheet, View, Image, TouchableOpacity, SafeAreaView } from 'react-native'
 import commonStyles from '../../commonStyles'
 import { Button, Text, Layout, Card, Icon, Input, Datepicker, Spinner } from '@ui-kitten/components'
 import EmptySpace from '../../components/EmptySpace';
@@ -42,7 +42,7 @@ const CreateProposal = ({ route, navigation }) => {
         });
     }
     return (
-        <View style={commonStyles.pageView}>
+        <SafeAreaView style={commonStyles.pageView}>
             {!isWalletConnected && <View style={commonStyles.warningContainer}>
                 <Text style={commonStyles.warningText}>Connect your Wallet to </Text>
                 <TouchableOpacity onPress={() => navigation.navigate('Wallet', { screen: 'WalletHomeScreen' })}><Text style={commonStyles.linkText}>continue</Text></TouchableOpacity>
@@ -125,7 +125,7 @@ const CreateProposal = ({ route, navigation }) => {
                     {sending && <Spinner size='tiny' status='basic' />}
                 </Button>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 

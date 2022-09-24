@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { Button, Text, Layout, Card, Icon, Spinner } from '@ui-kitten/components';
 // import LinearGradient from 'react-native-linear-gradient';
 import CardList from '../../components/CardList';
@@ -32,7 +32,8 @@ export default function TokenListScreen({ navigation }) {
     if (projectList.length > 0) {
       for (let i = 0; i < projectList.length; i++) {
         const tempProj = projectList[i];
-        listOfObjects.push({ key: tempProj[0], title: tempProj[1], token: tempProj[2], amount: tempProj[3], address: tempProj[4] })
+        // console.log("TokenDetail", i,":", tempProj);
+        listOfObjects.push({ key: tempProj[0], title: tempProj[1], token: tempProj[2], amount: tempProj[3], address: tempProj[5] })
       }
       setData(listOfObjects);
     }
@@ -40,7 +41,7 @@ export default function TokenListScreen({ navigation }) {
   }
 
   return (
-    <View style={commonStyles.pageView}>
+    <SafeAreaView style={commonStyles.pageView}>
       {/* <Text>TokenListing Screen</Text> */}
       
       <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false}>
@@ -61,11 +62,11 @@ export default function TokenListScreen({ navigation }) {
         <EmptySpace space={40} />
       </ScrollView>
       <View style={commonStyles.rowButtonContainer}>
-        <Button style={commonStyles.singleButton} onPress={() => { navigation.navigate('createToken') }}>
+        <Button style={commonStyles.singleButton} onPress={() => { navigation.navigate('CreateToken') }}>
           Create New ERC20 Token
         </Button>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

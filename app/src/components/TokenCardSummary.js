@@ -32,7 +32,7 @@ const TokenCardSummary = ({ cardData, navigation }) => {
             </View>
             <View style={styles.bottomContainer}>
                 <Text style={commonStyles.tertiaryTextGrey}>Total Project Token:  {formatNumber(cardData.amount)} </Text>
-                <Text style={commonStyles.tertiaryTextGrey}>Address:  {formatAddress(cardData.address)}</Text>
+                <Text style={commonStyles.tertiaryTextGrey} selectable={true}>Address:  {cardData.address}</Text>
             </View>
         </View>
     )

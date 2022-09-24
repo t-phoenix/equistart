@@ -24,8 +24,12 @@ contract MyGovernor is Governor, GovernorCountingSimple, GovernorVotes, Governor
         return 45818; // 1 week
     }
 
+    // function proposalThreshold() public pure override returns (uint256) {
+    //     return 100e18;
+    // }
+    // TODO 100 eth is not required for our project
     function proposalThreshold() public pure override returns (uint256) {
-        return 100e18;
+        return 1e18;
     }
 
     // The following functions are overrides required by Solidity.
