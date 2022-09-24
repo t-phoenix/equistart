@@ -175,7 +175,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/contracts/Crowdsale.sol": "Crowdsale"
+			"contracts/Crowdsale.sol": "Crowdsale"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -229,7 +229,7 @@
 				"dweb:/ipfs/QmQJquTMtc6fgm5JQzGdsGpA2fqBe3MHWEdt2qzaLySMdN"
 			]
 		},
-		"contracts/contracts/Crowdsale.sol": {
+		"contracts/Crowdsale.sol": {
 			"keccak256": "0xfc6fa2e7243fcd3fe6012abf3e1da3bdc5c360bbfa392a3865e178f14169ea49",
 			"license": "GPL-3.0",
 			"urls": [
