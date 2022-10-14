@@ -8,7 +8,7 @@ contract("testing MyGovernor contract",(accounts)=>{
         instance =await myGovernor.deployed();
         erc= await ERC20Token.deployed()
         crowdsale= await Crowdsale.deployed()
-        await erc.transfer(crowdsale.address,(await erc.totalSupply()).toString());//transfering the tokens to crowdsale contract
+        await erc.transfer(crowdsale.address,(await erc.totalSupply()).toString());//transfering all the tokens to crowdsale contract
     })
     it("Account 1,2,3,4 buy 1,2,3,4 tokens and delegates themselfs ",async()=>{
         for (let i = 1; i < 5; i++) {
@@ -28,3 +28,34 @@ contract("testing MyGovernor contract",(accounts)=>{
         assert.equal((castVote_res.logs[0].args.support).toString(),1,"voted")
     })
 })
+
+
+
+//Deployments should be in 'before' not in 'it' functions
+//Also tests should be clubbed and to run different flows beforeEach function can be used to deploy afresh
+
+//No mention on timelock and ERC20 token when deploying Governor?
+//DId the Governor contract even deployed correctly
+//Timelock contract has 3 Access controls:
+//Proposer: Governor Instance should be granted this role
+//Executor: anyone (address(0)), or Governor instance (incase it's time sensitive)
+//Admin: initially granted automatically to deployer and timelock itself. Deployer must renounce
+
+//Openzeppelin Ref: https://docs.openzeppelin.com/contracts/4.x/governance#timelock
+
+//Timelock contructor:
+//Proposer, Executor (Representation):  ["0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db"]  --> Address[]
+//Check using hasRole function: role: {TIMELOCK_ADMIN_ROLE, PROPOSER_ROLE, EXECUTOR_ROLE}, address --> returns bool
+
+//Deploy governor contract with timelock and ERC20.
+
+//Add Governor as proposer in timelock contract.
+//Transfer funds to Governor timelock (both our ERC20 and ETH).
+//Follow proposal Lifecycle:
+//Can create multiple bunch of test cases, considering diiferent flow for different proposals.
+//Example1: proposal to grant ERC20 token to a team/individual for some Marketing work (how the team address will divide funds?)
+//Example2: proposal to create a new crowdsale to raise more funds.
+//Refer doc: https://docs.openzeppelin.com/contracts/4.x/governance#proposal_lifecycle
+
+
+

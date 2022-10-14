@@ -11,7 +11,7 @@ import "./ERC20Token.sol";
 
 contract TokenFactory {
     
-    event NewTokenCreated(string name, string symbol, uint256 amount, address indexed contractAddr);
+    event NewTokenCreated(string name, string symbol, uint256 amount);
 
     uint numOfProjects;
 
@@ -36,7 +36,7 @@ contract TokenFactory {
         project.initialSupply = initialSupply;
         project.tokenBeneficiary = beneficiary;
         project.contractAddress = address(new ERC20Token(name, symbol, initialSupply,  beneficiary));
-        emit NewTokenCreated(name, symbol, initialSupply, project.contractAddress);
+        emit NewTokenCreated(name, symbol, initialSupply);
         // deployedProjects.push(newProject);
     }
     
