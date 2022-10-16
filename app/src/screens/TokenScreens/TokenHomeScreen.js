@@ -35,6 +35,7 @@ export default function TokenHomeScreen({route, navigation}) {
 
   React.useEffect(() => {
     setIsWalletConnected(connector.connected);
+    console.log("TOken Data:", route.params.data);
   }, [connector.connected]);
 
   const sendTokens = async () => {

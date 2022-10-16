@@ -21,6 +21,8 @@ export default function TokenListScreen({ navigation }) {
   }, [])
 
 
+  
+
   async function loadProjAddList() {
     setIsLoading(true);
     const projectList = await getAllDeployedGovernors();
@@ -29,7 +31,7 @@ export default function TokenListScreen({ navigation }) {
       for (let i = 0; i < projectList.length; i++) {
         const tempProj = projectList[i];
         console.log("TokenDetail", i,":", tempProj);
-        listOfObjects.push({ key: i, governor: tempProj[0], timestamp: tempProj[1], token: tempProj[2] })
+        listOfObjects.push({ key: i, governor: tempProj[0], timelock: tempProj[1], token: tempProj[2] })
       }
       setData(listOfObjects);
     }

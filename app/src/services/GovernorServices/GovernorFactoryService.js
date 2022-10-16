@@ -60,7 +60,8 @@ export async function deployGovernor(connector, timelock, token){
 
 
 
-const governorFactoryContractAddress = "0x2597bb75ec7331F59f670a5520171B51442Bef19";
+// const governorFactoryContractAddress = "0x2597bb75ec7331F59f670a5520171B51442Bef19";
+const governorFactoryContractAddress = "0xa1d00f8be9e4ca67c2bc5976ed1b75b0c6d27872";
 const factoryContract = new kit.connection.web3.eth.Contract(myGovernorFactoryABI, governorFactoryContractAddress);
 
 export async function updateGovernorFactory(connector, governor, timelock, token){
