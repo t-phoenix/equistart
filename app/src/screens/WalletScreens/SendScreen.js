@@ -11,94 +11,85 @@ import commonStyles from '../../commonStyles'
 import { Button, Text, Layout, Card, Icon, Input, Select, SelectItem, Spinner } from '@ui-kitten/components';
 import { colorPairs } from '../../colors';
 import EmptySpace from '../../components/EmptySpace';
-import { getProjectList } from '../../services/FactoryServices';
+import { getAllDeployedTokens } from '../../services/TokenServices/TokenFactoryService';
+import { getUserBalance, transferTokens } from '../../services/TokenServices/ERC20TokenService';
 import Web3 from 'web3';
 import { Factory_ABI, Project_ABI } from '../../ABI';
 import { newKitFromWeb3 } from '@celo/contractkit';
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 import { fetchUserBalance } from '../../services/UserServices';
+import { CommonActions } from "@react-navigation/native";
 
 let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
 
-export default function ({ navigation }) {
-  const [sendingToken, setSendingToken] = React.useState();
+export default function ({ route, navigation }) {
   const [sendingAmount, setSendingAmount] = React.useState();
   const [sendingAddress, setSendingAddress] = React.useState();
-  const [selectedIndex, _setSelectedIndex] = React.useState(0);
-  const [displayValue, setDisplayValue] = React.useState('');
+  const [selectedIndex, _setSelectedIndex] = React.useState();
   const [tokenList, setTokenList] = React.useState([]);
   const [sending, setSending] = React.useState(false);
   const [fetching, setFetching] = React.useState(false);
   const [balance, setBalance] = React.useState('');
+  const [disabled, setDisabled] = React.useState(false);
 
   const connector = useWalletConnect();
   const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
-  //const web3 = new Web3(connector);
   const kit = newKitFromWeb3(web3);
   kit.defaultAccount = connector.accounts[0];
   const scrollViewRef = React.useRef();
 
   const setSelectedIndex = (idx) => {
     _setSelectedIndex(idx);
-    setSendingToken(tokenList[idx - 1]);
-    setDisplayValue(tokenList[idx - 1][2]);
-    fetchBalance(tokenList[idx - 1][4]);
+    fetchBalance(tokenList[idx - 1].address);
   }
 
   React.useEffect(() => {
-    fetchTokenList();
-  }, []);
+    _setSelectedIndex(undefined);
+    setTokenList([]);
+    setDisabled(false);
+    if (!!route.params && !!route.params.data && !!Object.keys(route.params.data).length) {
+      setTokenList([route.params.data]);
+    }
+    else {
+      fetchTokenList();
+    }
+  }, [route.params]);
+
+  React.useEffect(() => {
+    if (!!route.params && !!route.params.data && !!Object.keys(route.params.data).length && tokenList.length > 0) {
+      setDisabled(true);
+      setSelectedIndex(1);
+    }
+  }, [tokenList])
 
   const fetchTokenList = async () => {
-    const projectList = await getProjectList();
-    console.log("contract List:", projectList);
-    setTokenList(projectList);
+    const projectList = await getAllDeployedTokens();
+    setTokenList(projectList.map((x) => ({ key: x[0], title: x[1], token: x[2], amount: x[3], address: x[5] })));
   }
 
   const ForwardIcon = (props) => (
     <Icon {...props} name='arrow-ios-forward' />
   );
 
-  const fetchBalance = async (projectAddress) => {
+  const fetchBalance = (projectAddress) => {
     setFetching(true);
     setBalance('');
-    fetchUserBalance(projectAddress, connector).then((val) => {
-        setBalance(val);
-        setFetching(false);
+    getUserBalance(projectAddress, connector.accounts[0]).then((val) => {
+      setBalance(val);
+      setFetching(false);
     });
   }
 
-  const sendTokens = async () => {
-    if (sendingToken) {
-      setSending(true);
-      try {
-        let projectContract = new kit.connection.web3.eth.Contract(Project_ABI, sendingToken[4]);
-        console.log("tokenAddress:", sendingToken[4]);
-        console.log('proj contract:', projectContract);
-        let transfer = await projectContract.methods.transfer(sendingAddress, sendingAmount);
-        let encodedData = transfer.encodeABI();
-        const txObj = {
-          from: connector.accounts[0],
-          to: sendingToken[4],
-          data: encodedData,
-
-        }
-        const txn = await connector.sendTransaction(txObj)
-        console.log("transaction: ", txn);
-        setSendingAddress('');
-        setSendingAmount('');
-      } catch (error) {
-        console.log("ERROR:", error);
-      }
-      setSending(false);
-    }
-  }
-
   const renderIcon = (props) => (
-    <TouchableWithoutFeedback onPress={() => {}}>
+    <TouchableWithoutFeedback onPress={() => { }}>
       <Icon {...props} name='minus-square-outline' />
     </TouchableWithoutFeedback>
   );
+
+  const sendTokens = () => {
+    if(!!sendingAddress && !!sendingAmount)
+      transferTokens(connector, tokenList[selectedIndex - 1].address, sendingAddress, sendingAmount)
+  }
 
   const sendNativeToken = async () => {
     try {
@@ -116,6 +107,15 @@ export default function ({ navigation }) {
     }
   }
 
+  const handleNavigation = () => {
+    console.log(!!Object.keys(route.params.data).length, Object.keys(route.params.data).length)
+    if(!!route.params && !!Object.keys(route.params.data).length) {
+      navigation.navigate('Tokens', { screen: 'TokenHomeScreen', params: { data: route.params.data}});
+    }
+    else {
+      navigation.navigate('WalletHomeScreen');
+    }
+  }
   return (
     <SafeAreaView style={commonStyles.pageView}>
       <ScrollView style={commonStyles.pageContent} showsVerticalScrollIndicator={false} ref={scrollViewRef}>
@@ -145,19 +145,21 @@ export default function ({ navigation }) {
           label={() => {
             return <View style={commonStyles.row}>
               <Text style={commonStyles.inputLabel}>Token</Text>
-              <View style={{ flexDirection: 'row'}}>
-              { displayValue !== '' && <Text style={styles.balanceCaption}>Balance:  {balance}</Text>}
-              { fetching && <View style={{paddingTop: 3}}><Spinner style={{height: 12, width: 12}} size='tiny' status='basic' /></View>}
+              <View style={{ flexDirection: 'row' }}>
+                {!!selectedIndex && <Text style={styles.balanceCaption}>Balance:  {balance}</Text>}
+                {fetching && <View style={{ paddingTop: 3 }}><Spinner style={{ height: 12, width: 12 }} size='tiny' status='basic' /></View>}
               </View>
             </View>;
           }}
+          disabled={disabled}
+          placeholder="Select a Token"
           selectedIndex={selectedIndex}
           onSelect={index => setSelectedIndex(index)}
-          value={displayValue}>
+          value={tokenList[selectedIndex - 1]?.token}>
           {tokenList.map((x) => (
             <SelectItem
-              key={x[0]}
-              title={x[2]}
+              key={x.key}
+              title={x.token}
               accessoryRight={ForwardIcon}
             />
           ))}
@@ -184,7 +186,7 @@ export default function ({ navigation }) {
         <EmptySpace space={110} />
       </ScrollView>
       <View style={commonStyles.rowButtonContainer}>
-        <Button style={commonStyles.doubleButton} status="warning" onPress={() => navigation.goBack()}>
+        <Button style={commonStyles.doubleButton} status="warning" onPress={() => handleNavigation()}>
           Back
         </Button>
         <Button style={commonStyles.doubleButton} onPress={sendTokens}>

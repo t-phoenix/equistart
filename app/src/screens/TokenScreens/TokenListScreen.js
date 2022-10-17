@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { Button, Text, Layout, Card, Icon, Spinner } from '@ui-kitten/components';
 // import LinearGradient from 'react-native-linear-gradient';
 import CardList from '../../components/CardList';
-
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import commonStyles from '../../commonStyles';
 import { COLORS } from '../../colors';
 import TokenCardSummary from '../../components/TokenCardSummary';
@@ -53,7 +53,7 @@ export default function TokenListScreen({ navigation }) {
             <Text style={commonStyles.tertiaryTextGrey}>or get started by creating your own </Text>
           </View>
           <View>
-            <Button style={commonStyles.button} onPress={loadProjAddList} accessoryLeft={<Icon name='refresh-outline' />} status='warning' />
+            <Button style={commonStyles.button} onPress={() => loadProjAddList()} accessoryLeft={<Icon name='refresh-outline' />} status='warning' />
           </View>
         </View>
         {!isLoading && <CardList cardListData={data} card={TokenCardSummary} navigation={navigation} />}
@@ -63,7 +63,7 @@ export default function TokenListScreen({ navigation }) {
       </ScrollView>
       <View style={commonStyles.rowButtonContainer}>
         <Button style={commonStyles.singleButton} onPress={() => { navigation.navigate('CreateToken') }}>
-          Create New ERC20 Token
+          Create New Token
         </Button>
       </View>
     </SafeAreaView>

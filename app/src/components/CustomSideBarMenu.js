@@ -9,6 +9,7 @@ import {
   Image,
   Text,
   Linking,
+  TouchableOpacity
 } from 'react-native';
 
 import {
@@ -20,21 +21,39 @@ import commonStyles from '../commonStyles';
 import { COLORS } from '../colors';
 import EmptySpace from './EmptySpace';
 import { Button, Icon } from '@ui-kitten/components';
+import { useWalletConnect } from '@walletconnect/react-native-dapp';
+import Clipboard from '@react-native-clipboard/clipboard';
+import Toast from 'react-native-simple-toast';
+import { formatAddress_1 } from '../services/FormatterService'
 
 const CustomSidebarMenu = props => {
+  const connector = useWalletConnect();
 
+  const copyToClipboard = (address) => {
+    Clipboard.setString(address);
+    Toast.show('Wallet address copied to clipboard!')
+  }
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.customItem}>
       <EmptySpace space={5}/>
         <Image source={require('../../assets/images/app_logo.png')} style={{height: 80, width: 80}} />
         <Text style={commonStyles.primaryTextWhite}>EQUISTART</Text>
-        <Text style={commonStyles.secondaryTextOrange}>Decenteralising Equity</Text>
+        <Text style={commonStyles.tertiaryTextOrange}>Decenteralising Equity</Text>
         <EmptySpace />
       </View>
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
+      {connector.connected &&
+      <View style={{margin: '10%'}}>
+        <Text style={commonStyles.secondaryTextOrange}>
+          Wallet Address
+        </Text>
+        <TouchableOpacity onPress={() => copyToClipboard(connector.accounts[0])}>
+            <Text style={commonStyles.activeText}>{formatAddress_1(connector.accounts[0])}</Text>
+        </TouchableOpacity>
+      </View>}
       <View style={commonStyles.rowButtonContainer}>
         <Button
           style={commonStyles.doubleButton}
