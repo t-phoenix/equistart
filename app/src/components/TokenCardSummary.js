@@ -22,7 +22,7 @@ const TokenCardSummary = ({ cardData, navigation }) => {
                     </View>
                     <EmptySpace />
                     <Button
-                        style={{ width: 72.5, ...commonStyles.button }}
+                        style={{ width: '30%', ...commonStyles.button }}
                         onPress={() => openProject(cardData)}
                         size='small'
                         status='info'>

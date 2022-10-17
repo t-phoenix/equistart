@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, CommonActions, StackActions, NavigationActions } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
@@ -68,6 +68,13 @@ const App = () => {
       <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
         <NavigationContainer>
           <Drawer.Navigator
+            screenListeners={({navigation, route}) => ({
+              drawerItemPress: () => {
+                if(route.name === 'Wallet'){
+                  navigation.navigate('Wallet', {screen: 'WalletHomeScreen'});
+                }
+              }
+            })}
             screenOptions={{
               drawerStyle: {
                 backgroundColor: '#1d2023',
@@ -76,11 +83,15 @@ const App = () => {
               drawerActiveTintColor: '#E4C2A6',
               drawerItemStyle: {borderRadius: 30},
               drawerLabelStyle: {paddingLeft: 40},
-              drawerInactiveTintColor: '#FFFFFF',
+              drawerInactiveTintColor: '#FFFFFF'
             }}
-
             drawerContent={props => <CustomSideBarMenu {...props} />}
           >
+            <Drawer.Screen
+              name="Tokens"
+              component={TokenNavigator}
+              options={{ headerShown: false }}
+            />
             <Drawer.Screen
               name="Projects"
               component={DaoNavigator}
@@ -94,11 +105,6 @@ const App = () => {
             <Drawer.Screen
               name="Instructions"
               component={InstructionNavigator}
-              options={{ headerShown: false }}
-            />
-            <Drawer.Screen
-              name="Tokens"
-              component={TokenNavigator}
               options={{ headerShown: false }}
             />
             <Drawer.Screen

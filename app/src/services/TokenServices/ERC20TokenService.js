@@ -54,7 +54,6 @@ export async function transferTokens(connector, tokenAddr, sendingAddr, amount) 
           data: encodedData,
         }
         const txn = await connector.sendTransaction(txObj);
-        console.log("Transaction:", txn);
         return true;
     } catch (error) {
         console.log("error occured: ", error);
@@ -62,9 +61,28 @@ export async function transferTokens(connector, tokenAddr, sendingAddr, amount) 
     }
 }
 
+export async function getUserVotes(tokenAddr, userAddr){
+    let contract = new kit.connection.web3.eth.Contract(ERC20TokenABI, tokenAddr);
+    let votes = await contract.methods.getVotes(userAddr).call();
+    let userVotes = web3.utils.fromWei(votes);
+    console.log("UserVotes:", userVotes);
+    return userVotes;
+}
 
-
-//TODO:ERC20 read and write functions list
-// balanceOf(Addr) - for any address.
-// getVotes (Addr) - for self and for any address, return the voting power of account (read)
-// delegate (addr); - to enable votes for users (state change)
+export async function delegateUser(connector, tokenAddr, userAddr){
+    try{
+        let contract = new kit.connection.web3.eth.Contract(ERC20TokenABI, tokenAddr);
+        let delegate = await contract.methods.delegate(userAddr);
+        let encodedData = delegate.encodeABI();
+        const txObj = {
+        from: connector.accounts[0],
+        to: tokenAddr,
+        data: encodedData,
+        }
+        const txn = await connector.sendTransaction(txObj);
+        return true;
+    } catch (error) {
+        console.log("error occured: ", error);
+        return false;
+    }
+}

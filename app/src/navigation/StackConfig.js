@@ -71,7 +71,7 @@ export const DaoScreens = [
       },
       {
         name: 'SendScreen',
-        title: 'Wallet',
+        title: 'Transfer Tokens',
         component: SendScreen
       },
   ];

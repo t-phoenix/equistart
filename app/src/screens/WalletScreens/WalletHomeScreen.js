@@ -36,12 +36,12 @@ export default function WalletHomeScreen({ navigation }) {
         if (!connector.connected) {
             connector.connect().then((res) => {
                 console.log("Connector Result:", res);
-                if(res.chainId==44787){ 
-                    setUserData((x) => ({ ...x, network: 'alfajores',  address: res.accounts[0] }))
+                if (res.chainId == 44787) {
+                    setUserData((x) => ({ ...x, network: 'alfajores', address: res.accounts[0] }))
                     setConnected(true);
                 }
-                
-                
+
+
             })
         }
         else {
@@ -147,7 +147,12 @@ export default function WalletHomeScreen({ navigation }) {
             </ScrollView>
 
             <View style={commonStyles.rowButtonContainer}>
-                <Button style={commonStyles.doubleButton} onPress={() => navigation.navigate('SendScreen')}>
+                <Button style={commonStyles.doubleButton} onPress={() => {
+                    // navigation.reset({
+                    //     index: 0,
+                    //     routes: [{name: 'Wallet'}],
+                    //   });
+                    navigation.navigate('SendScreen', { data: {} })}}>
                     Transfer
                 </Button>
                 <Button style={commonStyles.doubleButton} >
@@ -160,20 +165,20 @@ export default function WalletHomeScreen({ navigation }) {
                     <EmptySpace space={50} />
                     <View style={commonStyles.outerCard}>
                         <View style={{ ...commonStyles.innerCard, backgroundColor: colorPairs[num].background }}>
-                            <View style={{ flexDirection: 'row', marginVertical: '5%', justifyContent:'flex-start' }}>
+                            <View style={{ flexDirection: 'row', marginVertical: '5%', justifyContent: 'flex-start' }}>
                                 <View>
                                     <Text style={{ color: colorPairs[num].text, ...styles.heading }}> Connect only </Text>
                                     <Text style={{ color: colorPairs[num].text, ...styles.heading }}> Alfajores Wallet</Text>
                                 </View>
-                                <Image
-                                    style={{
-                                        width: 180,
-                                        height: 100,
-                                        resizeMode: 'contain'
-                                    }}
-                                    source={require('../../../assets/images/wallet.png')}
-                                />
-                            </View>
+                                    <Image
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            resizeMode: 'center'
+                                        }}
+                                        source={require('../../../assets/images/wallet.png')}
+                                    />
+                                </View>
                             <Button style={commonStyles.button} onPress={() => handleConnect()}>
                                 Connect
                             </Button>
