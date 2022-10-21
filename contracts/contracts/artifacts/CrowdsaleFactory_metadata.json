@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.2+commit.661d1103"
+		"version": "0.8.17+commit.8df45f5f"
 	},
 	"language": "Solidity",
 	"output": {
@@ -154,14 +154,14 @@
 		"compilationTarget": {
 			"contracts/CrowdsaleFactory.sol": "CrowdsaleFactory"
 		},
-		"evmVersion": "istanbul",
+		"evmVersion": "london",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
-			"runs": 200
+			"enabled": true,
+			"runs": 1000000000
 		},
 		"remappings": []
 	},
@@ -223,11 +223,11 @@
 			]
 		},
 		"contracts/CrowdsaleFactory.sol": {
-			"keccak256": "0x8d8a5c58e9eeeec9f8b916ea003c44cc00d019e38e6c7f1e206d4667fee516f3",
+			"keccak256": "0x8e42a31be5ff6ae6861175a3798917f060b5fb536cdeafbcdadb5f6522221f86",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://a38616856bf9ecf3b547e97bf11482740834f72378babcd613d701e6a81ff8fc",
-				"dweb:/ipfs/QmZindgzCszPhaEXiKFLbKi8ip9XZfvQ2Mj13jhup7z3H1"
+				"bzz-raw://543447f597492d3053d845252529ea68a7cb003be33b2b63d9b80b91828de9ee",
+				"dweb:/ipfs/QmRBPPVLe8tPJpB7NuDkC22HQzSiovBXSEwPmPNcpmChmd"
 			]
 		}
 	},

@@ -14,7 +14,7 @@
 
 
 
-#### Ganache- A Local BlockChainn used to test the files.
+#### Ganache- A Local BlockChain used to test the files.
 #### Truffle- It provides a development environment to test our smart contracts with the help of EVM compatibility.
 #### Chai- A javaScript frame Work which helps us to check whether our contract is giving the same output as the required , required output can be custom codded.
 #### Mocha- A generic JavaScript testing framework.
@@ -25,7 +25,7 @@
 2. CrowdSale.sol- This is used to distribute all the tokens.
 3. CrowdSaleFactory.sol- It is used to create custom CrowdSale.
 4. MyGovernor.sol- It is used to vote on proposals and many more functions.
-5. GovernorFactory-
+
 
 
 ### Fork the project into ur git repo-

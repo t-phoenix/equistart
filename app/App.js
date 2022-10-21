@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, CommonActions, StackActions, NavigationActions } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
@@ -7,7 +7,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry, Layout } from '@ui-kitten/components';
 import { default as theme } from './custom-theme.json';
-import { DaoScreens, WalletScreens, InstructionScreens, TokenScreens, CrowdsaleScreens } from './src/navigation/StackConfig';
+import { DaoScreens, WalletScreens, InstructionScreens, TokenScreens, CrowdsaleScreens, GovernanceScreens } from './src/navigation/StackConfig';
 import Navigator from './src/navigation/Navigator';
 import CustomSideBarMenu from './src/components/CustomSideBarMenu';
 import { withWalletConnect } from '@walletconnect/react-native-dapp';
@@ -41,6 +41,10 @@ const App = () => {
     <Navigator screens={CrowdsaleScreens} navigation={navigation} /> 
   )
 
+  const GovernanceNavigator =({navigation}) => (
+    <Navigator screens={GovernanceScreens} navigation={navigation}/>
+  )
+
   return (
     // <WalletConnectProvider
     //   storageOptions={{
@@ -64,6 +68,13 @@ const App = () => {
       <ApplicationProvider {...eva} theme={{ ...eva.dark, ...theme }}>
         <NavigationContainer>
           <Drawer.Navigator
+            screenListeners={({navigation, route}) => ({
+              drawerItemPress: () => {
+                if(route.name === 'Wallet'){
+                  navigation.navigate('Wallet', {screen: 'WalletHomeScreen'});
+                }
+              }
+            })}
             screenOptions={{
               drawerStyle: {
                 backgroundColor: '#1d2023',
@@ -72,11 +83,15 @@ const App = () => {
               drawerActiveTintColor: '#E4C2A6',
               drawerItemStyle: {borderRadius: 30},
               drawerLabelStyle: {paddingLeft: 40},
-              drawerInactiveTintColor: '#FFFFFF',
+              drawerInactiveTintColor: '#FFFFFF'
             }}
-
             drawerContent={props => <CustomSideBarMenu {...props} />}
           >
+            <Drawer.Screen
+              name="Tokens"
+              component={TokenNavigator}
+              options={{ headerShown: false }}
+            />
             <Drawer.Screen
               name="Projects"
               component={DaoNavigator}
@@ -93,18 +108,15 @@ const App = () => {
               options={{ headerShown: false }}
             />
             <Drawer.Screen
-              name="Tokens"
-              component={TokenNavigator}
-              options={{ headerShown: false }}
-            />
-            <Drawer.Screen
               name="Crowdsale"
               component={CrowdsaleNavigator}
               options={{ headerShown: false }}
             />
-            {/* Add 2 new navigators
-            1. Crowdsale
-            2. Governance */}
+            <Drawer.Screen
+              name="Governance"
+              component={GovernanceNavigator}
+              options={{ headerShown: false }}
+            />
           </Drawer.Navigator>
         </NavigationContainer>
       </ApplicationProvider>

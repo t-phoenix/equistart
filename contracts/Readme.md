@@ -5,7 +5,7 @@
 1. Create **Token** with voting capibilities.
 2. Create **crowdsale** with token address. 
 3. Transfer token to be sold in mass.
-4. Create a **TimelockCOntroller** contract with **delay** and list of *proposers and executors*.
+4. Create a **TimelockController** contract with **delay** and list of *proposers and executors*.
 5. Create a **Governor** Contract with **Token Address** and **TimelocController Address**.
 6. Add **Governor** to **TimelockCOntroller** proposer. (Also can add as exeutor).
 7. Admin can *renownce* it's position to leave timelockController as self Admin and operate autonomously. 

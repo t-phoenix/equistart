@@ -20,6 +20,11 @@ import CreateCrowdsaleScreen from '../screens/CrowdsaleScreens/CreateCrowdsaleSc
 import CrowdsaleHomeScreen from '../screens/CrowdsaleScreens/CrowdsaleHomeScreen';
 
 
+import GovernorListScreen from '../screens/GovernanceScreens/GovernorListScreen';
+import CreateGovernorScreen from '../screens/GovernanceScreens/CreateGovernorScreen';
+import GovernorHomeScreen from '../screens/GovernanceScreens/GovernorHomeScreen';
+import CreateProposalScreen from '../screens/GovernanceScreens/CreateProposalScreen';
+
 export const DaoScreens = [
     {
       name: 'DaoList',
@@ -66,7 +71,7 @@ export const DaoScreens = [
       },
       {
         name: 'SendScreen',
-        title: 'Wallet',
+        title: 'Transfer Tokens',
         component: SendScreen
       },
   ];
@@ -114,6 +119,30 @@ export const DaoScreens = [
       component: CrowdsaleHomeScreen
     }
   ]
+
+  export const GovernanceScreens = [
+    {
+      name: 'GovernorListScreen',
+      title: 'Governance',
+      component: GovernorListScreen
+    },
+    {
+      name: 'CreateGovernor',
+      title: 'Create New Governor',
+      component: CreateGovernorScreen
+    },
+    {
+      name: 'GovernorHomeScreen',
+      title: 'Governor',
+      component:GovernorHomeScreen
+    },
+    {
+      name: 'CreateProposalScreen',
+      title: 'Create A New Proposal',
+      component: CreateProposalScreen
+    },
+
+  ] 
 
 
 //   export const RestoreScreens = [

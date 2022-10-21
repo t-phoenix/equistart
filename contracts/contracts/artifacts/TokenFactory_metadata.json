@@ -25,12 +25,6 @@
 						"internalType": "uint256",
 						"name": "amount",
 						"type": "uint256"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
-						"name": "contractAddr",
-						"type": "address"
 					}
 				],
 				"name": "NewTokenCreated",
@@ -174,7 +168,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/contracts/TokenFactory.sol": "TokenFactory"
+			"contracts/TokenFactory.sol": "TokenFactory"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -308,20 +302,20 @@
 				"dweb:/ipfs/QmUwxjtTUYB89ymeV46TZPmTsGnYrKNcgTHk7MQA1MG3hj"
 			]
 		},
-		"contracts/contracts/ERC20Token.sol": {
-			"keccak256": "0xddbd1fa7e280dec5337d48046873f9235660d323cc56dcad8f6fb11c8c887d6d",
+		"contracts/ERC20Token.sol": {
+			"keccak256": "0x1be29f537d5dc78825f86f33b1b44c6f3a61f489a99594feb644ff231a0543db",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://00a48c19bc14dec7c6995e126b0f8e2e587197e2852b83a35345785b81c394c8",
-				"dweb:/ipfs/QmZJ5qRxv4ECr71BvxiabdF2vRouANxqKEWjUXYGLGuL2J"
+				"bzz-raw://7b63226f6838417396fbbf24db66fbd78b88521a294b8e4858e18a75e1782596",
+				"dweb:/ipfs/QmYntjnx7hnYBhB32zZgmvWgDsx3RKzzEkZpS3FaheRaDt"
 			]
 		},
-		"contracts/contracts/TokenFactory.sol": {
-			"keccak256": "0x7cb9d55e5f2a6344a9b78206f6a86043bcd22357c3d439d6244b528e9cf56019",
+		"contracts/TokenFactory.sol": {
+			"keccak256": "0xea7fd21c6920a22e5b4059663c3352f37a8d2977f9b594da088fe2b9ef50df48",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://efb7865b2494c72235c9a1036e7a7dd52d5c9e0c77640f7c8492a2d1c75ec617",
-				"dweb:/ipfs/QmWXpapqV7XfywB42aTdf1hjSTpe7DFfoZSdiJYqe8Zraq"
+				"bzz-raw://9a389dd6af277d1bcd39009cf02e2ff5e372f7f3195d21a0b3eaae4cc844779e",
+				"dweb:/ipfs/QmdhVapRzfVgpjrDHZHmo8sswouWaoxbNvRWDY5HKV3qjp"
 			]
 		}
 	},

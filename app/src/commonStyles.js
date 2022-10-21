@@ -178,7 +178,7 @@ export default StyleSheet.create({
   },
   activeText: {
     textDecorationLine: 'underline',
-    color: 'blue',
+    color: '#008bdb',
   },
   tertiaryText: {
     fontSize: 15,
@@ -209,6 +209,12 @@ export default StyleSheet.create({
     color: '#E4C2A6',
   },
   secondaryTextOrange: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginVertical: 4,
+    color: '#E4C2A6',
+  },
+  tertiaryTextOrange: {
     fontSize: 12,
     color: '#E4C2A6',
   },

@@ -1,19 +1,32 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
-// import "@openzeppelin/contracts@4.7.1/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/governance/TimelockController.sol";
-import "@openzeppelin/contracts/governance/extensions/GovernorVotes.sol";
-import "./MyGovernor.sol";
 
 contract GovernorFactory is Ownable {
+    
+    uint numOfGovernors;
+    struct GovernorMeta {
+        address governor;
+        address timelock;
+        address token;
+    }
+    mapping(uint => GovernorMeta) private deployedContracts;
+    event newGovernorCreated(address governor);
 
-    function createTimelock(address[] calldata proposers, address[] calldata executors) public returns(address) {
-        return address(new TimelockController(3600, proposers, executors));
+    function addGovernorAddress(address _governor, address _timelock,address _token ) public {
+        uint governorId = numOfGovernors++;
+        GovernorMeta storage currentGovernor = deployedContracts[governorId];
+        currentGovernor.governor = _governor;
+        currentGovernor.timelock = _timelock;
+        currentGovernor.token = _token;
+        emit newGovernorCreated(_governor);
     }
 
-    function createGovernor(IVotes _token, TimelockController _timelock) public returns(address){
-        return address(new MyGovernor(_token, _timelock));
+    function getAllDeployedGovernor () public view returns (GovernorMeta[] memory props){
+        props = new GovernorMeta[](numOfGovernors);
+        for(uint256 index=0; index<numOfGovernors; index++){
+            props[index]= deployedContracts[index];
+        }
     }
 }
