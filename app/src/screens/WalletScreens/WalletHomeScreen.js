@@ -10,13 +10,11 @@ import { formatMobileNumber, formatAddress, formatTokenValue } from '../../servi
 //web3 imports
 import Web3 from 'web3';
 import { newKitFromWeb3 } from '@celo/contractkit';
-import { Factory_ABI, Project_ABI } from '../../ABI';
-import { getProjectList } from '../../services/FactoryServices';
-const contractAddress = "0x3c6A22D1ad76D38513C581B1cF2da8F247BeCdba";
 let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
 
 export default function WalletHomeScreen({ navigation }) {
     const [connected, setConnected] = React.useState(false);
+    const [confirmationPopup, setConfirmationPopup] = React.useState(false);
     const [userData, setUserData] = React.useState({ network: 'Alfajores', phone: '9999988888', address: '' });
     const [balance, setBalance] = React.useState({ "CELO": "0", "cEUR": "0", "cUSD": "0", "lockedCELO": "0", "pending": "0" });
     const [fetching, setFetching] = React.useState(false);
@@ -100,7 +98,7 @@ export default function WalletHomeScreen({ navigation }) {
                                 <Text style={{ ...commonStyles.primaryTextBlack, color: colorPairs[num].text }}>{userData.network}</Text>
                                 <View><Icon style={styles.icon} fill={colorPairs[num].text} name='link-2-outline' /></View>
                             </View>
-                            <Button style={commonStyles.button} size="small" status="danger" onPress={() => handleDisconnect()}>
+                            <Button style={commonStyles.button} size="small" status="danger" onPress={() => setConfirmationPopup(true)}>
                                 Disconnect
                             </Button>
                         </View>
@@ -147,12 +145,7 @@ export default function WalletHomeScreen({ navigation }) {
             </ScrollView>
 
             <View style={commonStyles.rowButtonContainer}>
-                <Button style={commonStyles.doubleButton} onPress={() => {
-                    // navigation.reset({
-                    //     index: 0,
-                    //     routes: [{name: 'Wallet'}],
-                    //   });
-                    navigation.navigate('SendScreen', { data: {} })}}>
+                <Button style={commonStyles.doubleButton} onPress={() => navigation.navigate('SendScreen', { data: {} })}>
                     Transfer
                 </Button>
                 <Button style={commonStyles.doubleButton} >
@@ -182,6 +175,25 @@ export default function WalletHomeScreen({ navigation }) {
                             <Button style={commonStyles.button} onPress={() => handleConnect()}>
                                 Connect
                             </Button>
+                        </View>
+                    </View>
+                </View>
+            }
+
+            {confirmationPopup &&
+                <View style={styles.overlay}>
+                    <EmptySpace space={50} />
+                    <View style={commonStyles.outerCard}>
+                        <View style={{ ...commonStyles.innerCard, backgroundColor: colorPairs[num].background }}>
+                            <Text style={{ color: colorPairs[num].text, ...styles.heading, textAlign: 'center' }}> Are You Sure? </Text>
+                            <View style={{ flexDirection: 'row', marginVertical: '5%', justifyContent: 'space-around' }}>
+                                <Button style={{...commonStyles.button, width: '35%'}} size="small" status="danger" onPress={() => handleDisconnect()}>
+                                    Disconnect
+                                </Button>
+                                <Button style={{...commonStyles.button, width: '35%'}} size="small" onPress={() => setConfirmationPopup(false)}>
+                                    Cancel
+                                </Button>
+                        </View>
                         </View>
                     </View>
                 </View>

@@ -9,7 +9,8 @@ import SendScreen from '../screens/WalletScreens/SendScreen';
 import CreateProposal from '../screens/DaoScreens/CreateProposal';
 import ProposalDetailsScreen from '../screens/DaoScreens/ProposalDetailsScreen';
 // import RestoreScreen from '../screens/RestoreScreen';
-import InstructionHomeScreen from '../screens/InstructionScreens/InstructionHomeScreen';
+import DAOSuiteInfo from '../screens/InstructionScreens/DAOSuiteInfo';
+import AlfajoresWalletInfo from '../screens/InstructionScreens/AlfajoresWalletInfo';
 
 import TokenListScreen from '../screens/TokenScreens/TokenListScreen';
 import CreateTokenScreen from '../screens/TokenScreens/CreateTokenScreen';
@@ -24,6 +25,8 @@ import GovernorListScreen from '../screens/GovernanceScreens/GovernorListScreen'
 import CreateGovernorScreen from '../screens/GovernanceScreens/CreateGovernorScreen';
 import GovernorHomeScreen from '../screens/GovernanceScreens/GovernorHomeScreen';
 import CreateProposalScreen from '../screens/GovernanceScreens/CreateProposalScreen';
+import TokenMintingInfo from '../screens/InstructionScreens/TokenMintingInfo';
+import CrowdsaleInfo from '../screens/InstructionScreens/CrowdsaleInfo';
 
 export const DaoScreens = [
     {
@@ -78,10 +81,25 @@ export const DaoScreens = [
 
   export const InstructionScreens = [
     {
-      name: 'InstructionHomeScreen',
+      name: 'Alfajores Wallet',
       title: 'Instructions',
-      component: InstructionHomeScreen
-    }
+      component: AlfajoresWalletInfo
+    },
+    {
+      name: 'DAO Suite',
+      title: 'Instructions',
+      component: DAOSuiteInfo
+    },
+    {
+      name: 'Token Minting',
+      title: 'Instructions',
+      component: TokenMintingInfo
+    },
+    {
+      name: 'Crowdsale ',
+      title: 'Instructions',
+      component: CrowdsaleInfo
+    },
   ]
 
   export const TokenScreens = [
