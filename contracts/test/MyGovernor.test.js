@@ -2,12 +2,15 @@ const {assert} = require("chai");
 const myGovernor = artifacts.require("MyGovernor");
 const ERC20Token = artifacts.require("ERC20Token");
 const Crowdsale = artifacts.require("Crowdsale");
+const Timelock = artifacts.require("TimelockController");
 contract("testing MyGovernor contract",(accounts)=>{
     let instance,erc,crowdsale,propose_res;
-    it("creating instance of MyGovernor,ERC20Token,CrowdSale contracts",async()=>{
+    it("creating instance of MyGovernor,ERC20Token,CrowdSale,timelock contracts",async()=>{
         instance =await myGovernor.deployed();
         erc= await ERC20Token.deployed()
-        crowdsale= await Crowdsale.deployed()
+        crowdsale= await Crowdsale.deployed();
+        timelock = await Timelock.deployed();
+        // console.log("CROWDSALE INSTANCE:", timelock.address);
         await erc.transfer(crowdsale.address,(await erc.totalSupply()).toString());//transfering all the tokens to crowdsale contract
     })
     it("Account 1,2,3,4 buy 1,2,3,4 tokens and delegates themselfs ",async()=>{
@@ -17,15 +20,37 @@ contract("testing MyGovernor contract",(accounts)=>{
             assert.equal(await erc.getVotes(accounts[i]),web3.utils.toWei(`${i}`, 'ether'),`Not all TokenHolders got delegated- issue:${i}`)
         }
     })
+    //DONE: Send ETH collected to Timelock and check balance
+    it("Should send 10 ETH to timelock Contract", async()=>{
+        // timelockAddr = await instance.timelock()
+        // console.log("Timelock Address:", timelockAddr);
+        transferFunds = await timelock.send(10, {from:accounts[0]});
+        timelockBalance = await web3.eth.getBalance(timelockAddr)
+        // console.log("TImelock ETH balance:", timelockBalance);
+        assert.equal(timelockBalance, 10, "Balance not 10 ETH");
+    })
+    //TODO: Create a real proposal transfering funds to some address
+    
     it("Creating a proposal using propose function",async()=>{
+        const target = [erc.address]
         propose_res=await instance.propose(["0x313aEB130dB7879212Ce6b19c5d3B3b173b53D52"],[1],[Buffer.from('hello','hex')],"discription",{from:accounts[1]})
         //dummy transaction 
         await instance.propose(["0x9CEE7AefA7Eda217F7880B6aA04625f5683f07a6"],[10],[Buffer.from('helllo','hex')],"discption",{from:accounts[1]})
+        // console.log("PROPOSAL LOG ", propose_res.logs, "Proposal ID:",propose_res.logs[0].args.proposalId.toString())
         assert.notEqual((propose_res.logs[0].args.proposalId).toString(),'0','proposal created')
     })
+
     it("sending a vote to a proposal using casteVote",async()=>{
         const castVote_res= await instance.castVote((propose_res.logs[0].args.proposalId).toString(),1);
+        // console.log("VOTE RESULT:", castVote_res)
         assert.equal((castVote_res.logs[0].args.support).toString(),1,"voted")
+    })
+    it("send multiple votes", async()=>{
+        const castVote2 = await instance.castVote((propose_res.logs[0].args.proposalId).toString(), 0, {from:accounts[2]});
+        const castVote3 = await instance.castVote((propose_res.logs[0].args.proposalId).toString(), 2, {from:accounts[3]});
+        const castVote4 = await instance.castVote((propose_res.logs[0].args.proposalId).toString(), 0, {from:accounts[4]});
+        const proposalVotes = await instance.proposalVotes((propose_res.logs[0].args.proposalId).toString());
+        console.log("PROPOSAL VOTES: ", proposalVotes.againstVotes.toString());
     })
 })
 

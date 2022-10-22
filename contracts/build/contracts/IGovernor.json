@@ -697,10 +697,10 @@
     "absolutePath": "@openzeppelin/contracts/governance/IGovernor.sol",
     "exportedSymbols": {
       "ERC165": [
-        7674
+        7649
       ],
       "IERC165": [
-        7686
+        7661
       ],
       "IGovernor": [
         2099
@@ -728,7 +728,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 2100,
-        "sourceUnit": 7675,
+        "sourceUnit": 7650,
         "src": "133:43:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -741,7 +741,7 @@
               "id": 1807,
               "name": "IERC165",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 7686,
+              "referencedDeclaration": 7661,
               "src": "289:7:4"
             },
             "id": 1808,
@@ -762,7 +762,7 @@
         "id": 2099,
         "linearizedBaseContracts": [
           2099,
-          7686
+          7661
         ],
         "name": "IGovernor",
         "nameLocation": "276:9:4",
@@ -4130,8 +4130,8 @@
     "version": "0.8.13+commit.abaa5c0e.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.4.7",
-  "updatedAt": "2022-09-09T13:44:47.229Z",
+  "schemaVersion": "3.4.9",
+  "updatedAt": "2022-10-21T20:23:07.159Z",
   "devdoc": {
     "details": "Interface of the {Governor} core. _Available since v4.3._",
     "events": {

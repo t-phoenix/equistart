@@ -6,7 +6,7 @@ import { backgrounds } from '../colors'
 import { formatAddress, formatNumber } from '../services/FormatterService'
 import EmptySpace from './EmptySpace';
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
-import { getTokenName } from '../services/TokenServices/ERC20TokenService'
+import { getTokenName, getUserVotes } from '../services/TokenServices/ERC20TokenService'
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-simple-toast';
 
@@ -14,6 +14,7 @@ const GovernorCardDetail = ({ cardData, navigation }) => {
     const [balance, setBalance] = React.useState('');
     const [fetching, setFetching] = React.useState(false);
     const [tokenName,setTokenName] = React.useState('');
+    const [votes, setVotes] = React.useState('');
     // const [decimal, setDecimal] = React.useState('');
     // const [fetchingDeci, setFetchingDeci] = React.useState(false);
     const connector = useWalletConnect();
@@ -21,6 +22,7 @@ const GovernorCardDetail = ({ cardData, navigation }) => {
     React.useEffect(() => {
         console.log("Governor CARD data: ",cardData);
         fetchTokenName(cardData);
+        fetchVotingPower(cardData);
         // fetchDecimal(cardData.address);
     }, []);
 
@@ -33,6 +35,16 @@ const GovernorCardDetail = ({ cardData, navigation }) => {
             console.log("ERORO while geting token Name", error);
         }
         
+    }
+
+    async function fetchVotingPower(data) {
+        try {
+            const result = await getUserVotes(data.token, connector.accounts[0]);
+            console.log("Voting Power:", result);
+            setVotes(result);
+        } catch (error) {
+            console.log("ERROR while geting voting Power", error);
+        }
     }
 
     const copyToClipboard = (address) => {
@@ -63,13 +75,14 @@ const GovernorCardDetail = ({ cardData, navigation }) => {
                     </View>
                     <View>
                         <Text style={commonStyles.secondaryTextGrey}>Token Addr: </Text>
-                        <TouchableOpacity onPress={() => copyToClipboard(cardData.governor)}>
+                        <TouchableOpacity onPress={() => copyToClipboard(cardData.token)}>
                             <Text style={commonStyles.activeText}>{formatAddress(cardData.token)}</Text>
                         </TouchableOpacity>
                         <Text style={commonStyles.secondaryTextGrey}>Your power: </Text>
+                        {/* <Text style={styles.text}>   {formatNumber(votes) || '---'} </Text> */}
 
                         {/* GET VOTING POWER */}
-                        {connector.connected && !fetching && <Text style={styles.text}>{formatNumber(balance)} </Text>}
+                        {connector.connected && !fetching && <Text style={styles.text}>{formatNumber(votes)} </Text>}
                         {connector.connected && fetching && <View style={{ marginTop: 4, marginLeft: 30 }}><Spinner size='tiny' status='info' /></View>}
                         {!connector.connected && <Button appearance='outline' size='tiny' style={{ ...commonStyles.button, width: 100 }} onPress={() => navigation.navigate('Wallet', { screen: 'WalletHomeScreen' })}>Connect Wallet</Button>}
                     </View>
@@ -91,7 +104,8 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#9C9DA0',
-        paddingLeft: 6
+        paddingLeft: 6,
+        fontWeight: 'bold'
     },
     headerText: {
         color: '#404248'

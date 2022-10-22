@@ -3,13 +3,14 @@ import {View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
 import {Button, Text, Icon, Spinner, Input} from '@ui-kitten/components';
 import {Dimensions} from 'react-native';
 import GovernorCardDetail from '../../components/GovernorCardDetail';
-import ProposalCardSummary from '../../components/ProposalCardSummary';
+import GovernorProposalSummary from '../../components/GovernorProposalSummary';
 import CardList from '../../components/CardList';
 import commonStyles from '../../commonStyles';
 import {backgrounds} from '../../colors';
 import {Platform} from 'react-native';
 import EmptySpace from '../../components/EmptySpace';
 import {transferTokens,getUserBalance } from '../../services/TokenServices/ERC20TokenService';
+import {getAllProposalList} from '../../services/GovernorServices/MyGovernorService';
 import {useWalletConnect} from '@walletconnect/react-native-dapp';
 import {formatNumber} from '../../services/FormatterService';
 import Toast from 'react-native-simple-toast';
@@ -17,15 +18,8 @@ import Toast from 'react-native-simple-toast';
 
 export default function GovernorHomeScreen({route, navigation}) {
   const connector = useWalletConnect();  
-  const [cardBackgrounds, setCardBackgrounds] = React.useState(Array.from({ length: 2 }).map(() => backgrounds[Math.floor(Math.random() * 100) % backgrounds.length]));
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [sendingAddress, setSendingAddress] = React.useState();
-  const [sendingAmount, setSendingAmount] = React.useState();
-  const [fetchinAddress, setFetchingAddress] = React.useState();
-  const [fetchedBalance, setFetchedBalance] = React.useState(0);
-  const [sending, setSending] = React.useState(false);
-  const [fetching, setFetching] = React.useState(false);
   const [isWalletConnected, setIsWalletConnected] = React.useState(
     connector.connected,
   );
@@ -35,35 +29,33 @@ export default function GovernorHomeScreen({route, navigation}) {
   React.useEffect(() => {
     setIsWalletConnected(connector.connected);
     console.log("Route data:", route.params.data);
+    loadProposalList();
   }, [connector.connected]);
 
-//   const sendTokens = async () => {
-//     setSending(true);
-//     console.log('contract address:', route.params.data.address);
-//     transferTokens(
-//       connector,
-//       route.params.data.address,
-//       sendingAddress,
-//       sendingAmount,
-//     ).then(success => {
-//       if (!success) {
-//         console.log('toast failed');
-//       } else {
-//         console.log(sendingAmount, ' tokens sent successfully');
-//       }
-//     });
-//     setSending(false);
-//   };
-
-
-//   const fetchBalance = async () => {
-//     setFetching(true);
-//     getUserBalance(route.params.data.address, fetchinAddress).then(result => {
-//       console.log("User Balance: ", result);
-//       setFetchedBalance(result);
-//     })
-//     setFetching(false);
-//   }  
+  const loadProposalList = async () => {
+    setIsLoading(true);
+    getAllProposalList(route.params.data.governor).then(result => {
+      console.log("proposal Result: ", result[0].returnValues);
+      let listOfObjects = [];
+      if (result.length > 0) {
+        for (let i = 0; i < result.length; i++) {
+          const prop = result[i];
+          listOfObjects.push({ 
+            key: i,
+            proposalId: prop.returnValues.proposalId, 
+            header: prop.blockHash,
+            transactionHash: prop.transactionHash, 
+            description: prop.returnValues.description, 
+            address: prop.returnValues.proposer,
+            votingStartDate: prop.returnValues.startBlock,
+            votingEndDate: prop.returnValues.endBlock, 
+            });
+        }
+        setData(listOfObjects);
+      }
+    })
+    setIsLoading(false);
+  }  
 
   return (
     
@@ -82,70 +74,20 @@ export default function GovernorHomeScreen({route, navigation}) {
             {/* Call propose functions with params (address[targets], uint256[values], bytes[calldata], description string) */}
         </View>
 
-        {/* <View
-          style={{
-            ...commonStyles.innerCard,
-            backgroundColor:cardBackgrounds[0]
-          }}>
-          <Text style={styles.headerText} category="h3">
-            Transfer Tokens
-          </Text>
-          <Input
-            style={commonStyles.input}
-            onChangeText={setSendingAddress}
-            onTouchEnd={() => scrollViewRef.current.scrollToEnd()}
-            value={sendingAddress}
-            placeholder="address"
-            // accessoryRight={renderIcon}
-            label={() => <Text style={styles.inputLabel}>Address</Text>}
-          />
-          <Input
-            style={commonStyles.input}
-            onChangeText={setSendingAmount}
-            onTouchEnd={() => scrollViewRef.current.scrollToEnd()}
-            value={sendingAmount}
-            placeholder="amount"
-            label={() => <Text style={styles.inputLabel}>Amount</Text>}
-            keyboardType="numeric"
-          />
-          <View style={commonStyles.rowButtonContainer}>
-            <Button style={commonStyles.doubleButton} onPress={sendTokens}>
-              {!sending && 'Send Tokens'}
-              {sending && <Spinner size="tiny" status="basic" />}
-            </Button>
-          </View>
+        {/* <View>
+          <Button style={commonStyles.button} onPress={loadProposalList} accessoryLeft={<Icon name='refresh-outline' />} status='warning' />
         </View> */}
 
         <EmptySpace space={12} />
-{/* 
-        <View
-          style={{
-            ...commonStyles.innerCard,
-            backgroundColor:cardBackgrounds[1],
-          }}>
-          <Text style={styles.headerText} category="h3">
-            User Balance
-          </Text>
-          <Input
-            style={commonStyles.input}
-            onChangeText={setFetchingAddress}
-            onTouchEnd={() => scrollViewRef.current.scrollToEnd()}
-            value={fetchinAddress}
-            placeholder="address"
-            // accessoryRight={renderIcon}
-            label={() => <Text style={styles.inputLabel}>Address</Text>}
-          />
-          <View style={commonStyles.rowButtonContainer}>
-            <Button style={commonStyles.doubleButton} onPress={fetchBalance}>
-              {!fetching && 'Get Balance'}
-              {fetching && <Spinner size="tiny" status="basic" />}
-            </Button>
-          </View>
-          <Text style={styles.inputLabel}>
-            Balance: {formatNumber(fetchedBalance)}
-          </Text>
-
-        </View> */}
+        <View style={{ ...commonStyles.row, marginHorizontal: 5 }}>
+          <Text style={commonStyles.secondaryTextGrey}> All Proposals </Text>
+          <Button style={commonStyles.button} onPress={loadProposalList} accessoryLeft={<Icon name='refresh-outline' />} status='warning' />
+        </View>
+        <View>
+          {!isLoading && <CardList cardListData={data} card={GovernorProposalSummary} navigation={navigation} />}
+          {!isLoading && !data.length && <View style={{ alignItems: 'center' }}><EmptySpace space={40} /><Text style={commonStyles.tertiaryTextGrey}>No Proposals</Text></View>}
+          {isLoading && <View style={{ alignItems: 'center' }}><EmptySpace space={50} /><Spinner status='basic' /></View>}
+        </View>
 
         <EmptySpace space={120} />
       </ScrollView>
@@ -157,7 +99,7 @@ export default function GovernorHomeScreen({route, navigation}) {
           status="warning">
           Back
         </Button>
-        <Button style={commonStyles.singleButton} onPress={() => { navigation.navigate('CreateProposalScreen') }}>
+        <Button style={commonStyles.singleButton} onPress={() => { navigation.navigate('CreateProposalScreen', { data: route }) }}>
           Create Prosposal
         </Button>
       </View>

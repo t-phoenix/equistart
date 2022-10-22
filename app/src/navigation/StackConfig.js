@@ -141,6 +141,11 @@ export const DaoScreens = [
       title: 'Create A New Proposal',
       component: CreateProposalScreen
     },
+    {
+      name: 'ProposalDetails',
+      title: 'Proposal Details',
+      component: ProposalDetailsScreen
+    }
 
   ] 
 

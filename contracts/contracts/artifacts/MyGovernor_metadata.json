@@ -1474,11 +1474,11 @@
 			]
 		},
 		"contracts/MyGovernor.sol": {
-			"keccak256": "0x33b330f5809abffe452e778f70341264ac2063110ac85982838a38794c9aae07",
+			"keccak256": "0x7031901eb8f60a2a3a8836935c85af62891f8a1da6d08d00f47d4526cf563df8",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://058fb6171a75daf0e407db0a72ee7cb19909405b659084a0e6492e5899750ae4",
-				"dweb:/ipfs/QmVnVSVp7stGkwvqmF6DpvGSX83Fsqg4tufV45bzuHY8Je"
+				"bzz-raw://120db911141b4852fddf9aa747539fe80f61aa3f6c459c9b1f755ee633eaf4b6",
+				"dweb:/ipfs/QmYZMkRt73v64UjxrWzjjn2kBw19Y1Z6e1UVnxQUBYJyrY"
 			]
 		}
 	},
