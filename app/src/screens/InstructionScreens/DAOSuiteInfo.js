@@ -15,7 +15,7 @@ import {Button} from '@ui-kitten/components';
 
 const windowHeight = Dimensions.get('window').height;
 
-export default function InstructionHomeScreen({navigation}) {
+export default function DAOSuiteInfo({navigation}) {
   return (
     <SafeAreaView style={commonStyles.pageView}>
       <ScrollView>

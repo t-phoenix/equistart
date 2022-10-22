@@ -5,14 +5,15 @@ import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider, IconRegistry, Layout } from '@ui-kitten/components';
+import { ApplicationProvider, IconRegistry, Layout, Tab } from '@ui-kitten/components';
 import { default as theme } from './custom-theme.json';
 import { DaoScreens, WalletScreens, InstructionScreens, TokenScreens, CrowdsaleScreens, GovernanceScreens } from './src/navigation/StackConfig';
-import Navigator from './src/navigation/Navigator';
+import Navigator, { navType } from './src/navigation/Navigator';
 import CustomSideBarMenu from './src/components/CustomSideBarMenu';
 import { withWalletConnect } from '@walletconnect/react-native-dapp';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LogBox } from 'react-native';
+
 
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();
@@ -30,7 +31,7 @@ const App = () => {
   );
 
   const InstructionNavigator = ({ navigation }) => (
-    <Navigator screens={InstructionScreens} navigation={navigation} /> 
+    <Navigator screens={InstructionScreens} navigation={navigation} type={navType.TAB} /> 
   );
 
   const TokenNavigator = ({ navigation }) => (
@@ -71,6 +72,12 @@ const App = () => {
             screenListeners={({navigation, route}) => ({
               drawerItemPress: () => {
                 if(route.name === 'Wallet'){
+                  navigation.dispatch(
+                    CommonActions.reset({
+                      index: 0,
+                      routes: [{ name: "Wallet" }],
+                    }),
+                  );
                   navigation.navigate('Wallet', {screen: 'WalletHomeScreen'});
                 }
               }
