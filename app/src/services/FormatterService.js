@@ -1,3 +1,6 @@
+import Web3 from 'web3';
+const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
+
 export const formatAddress = (addr) => {
     return addr.substring(0, 5) + '...' + addr.substring(addr.length - 4);
     //TODO: Use masking instead of hard coding the mask to enable touch and copy on screen
@@ -12,10 +15,7 @@ export const formatAddressLong = (addr) => {
 }
 
 export const formatTokenValue = (value) => {
-    let val = String(value);
-    let bd = val.slice(0, -18);
-    let ad = val.slice(bd.length, -15);
-    return bd + '.' + ad;
+    return web3.utils.fromWei(String(value)).slice(0, 4);
 }
 
 export const formatMobileNumber = (number) => {
