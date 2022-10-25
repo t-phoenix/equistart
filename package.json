@@ -12,7 +12,7 @@
     "@openzeppelin/contracts": "^4.7.2"
   },
   "devDependencies": {
-    "@openzeppelin/test-helpers": "^0.5.15",
+    "@openzeppelin/test-helpers": "^0.5.16",
     "chai": "^4.3.6",
     "husky": "^8.0.1"
   }

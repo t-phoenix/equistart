@@ -30763,12 +30763,12 @@
         }
       },
       "links": {},
-      "address": "0x27b08c77aF7c924b5984d321797B4F6aE27B3D8B",
-      "transactionHash": "0x05aeffd8cb891ae9350d69e2f8bc0131f6010b605444033bf6d29f560c156dce"
+      "address": "0xbf0Eb688Cab75fAE548808bbc77762668e850F98",
+      "transactionHash": "0x5f3ae45994f627c6e5d53c25b0cd16720561e79934fbe28f1f4fa84bc5e9b656"
     }
   },
   "schemaVersion": "3.4.9",
-  "updatedAt": "2022-10-22T14:18:38.021Z",
+  "updatedAt": "2022-10-25T20:38:09.165Z",
   "networkType": "ethereum",
   "devdoc": {
     "details": "Contract module which acts as a timelocked controller. When set as the owner of an `Ownable` smart contract, it enforces a timelock on all `onlyOwner` maintenance operations. This gives time for users of the controlled contract to exit before a potentially dangerous maintenance operation is applied. By default, this contract is self administered, meaning administration tasks have to go through the timelock process. The proposer (resp executor) role is in charge of proposing (resp executing) operations. A common use case is to position this {TimelockController} as the owner of a smart contract, with a multisig or a DAO as the sole proposer. _Available since v3.3._",

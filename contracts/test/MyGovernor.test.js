@@ -1,86 +1,199 @@
-const {assert} = require("chai");
+// import { BN, expectRevert, time } from '@openzeppelin/test-helpers';
+const {time} = require('@openzeppelin/test-helpers');
+const {assert} = require('chai');
 const myGovernor = artifacts.require("MyGovernor");
 const ERC20Token = artifacts.require("ERC20Token");
 const Crowdsale = artifacts.require("Crowdsale");
 const Timelock = artifacts.require("TimelockController");
-contract("testing MyGovernor contract",(accounts)=>{
-    let instance,erc,crowdsale,propose_res;
+
+contract("Setting MyGovernor contract",(accounts)=>{
+    let instance,erc,crowdsale,propose_res,timelock, govTimelock;
     it("creating instance of MyGovernor,ERC20Token,CrowdSale,timelock contracts",async()=>{
         instance =await myGovernor.deployed();
         erc= await ERC20Token.deployed()
         crowdsale= await Crowdsale.deployed();
         timelock = await Timelock.deployed();
-        // console.log("CROWDSALE INSTANCE:", timelock.address);
-        await erc.transfer(crowdsale.address,(await erc.totalSupply()).toString());//transfering all the tokens to crowdsale contract
+        govTimelock = await instance.timelock()
+        console.log("GOVERNOR Timelock", govTimelock)
+        assert.equal(govTimelock, timelock.address, "Timelock Address does NOT matches "  )
     })
+    it("should transfer tokens to crowdsale", async()=>{
+        let supply = await erc.totalSupply()
+        let decimals = await erc.decimals()
+        
+        amount = 50
+        newSupply = web3.utils.toWei(amount.toString(), 'ether')
+
+        console.log("ToTal Token Suppli is ", newSupply, "old supply:", supply);
+
+        await erc.transfer(crowdsale.address,newSupply);
+        crowdsaleBal = await erc.balanceOf(crowdsale.address);
+        account0Bal = await erc.balanceOf(accounts[0]);
+        console.log("Balance for Crowdsale: ", crowdsaleBal.toString());
+        console.log("Balance of Account0:", account0Bal.toString() );
+
+        await erc.transfer(timelock.address, 25);
+
+    })
+
     it("Account 1,2,3,4 buy 1,2,3,4 tokens and delegates themselfs ",async()=>{
         for (let i = 1; i < 5; i++) {
             await crowdsale.buyTokens(accounts[i],{from:accounts[i],value:web3.utils.toWei(`${i}`, 'ether')})
             await erc.delegate(accounts[i],{from:accounts[i]})
-            assert.equal(await erc.getVotes(accounts[i]),web3.utils.toWei(`${i}`, 'ether'),`Not all TokenHolders got delegated- issue:${i}`)
+            const votes = await erc.getVotes(accounts[i])
+            // console.log("Votes for account ", i, " = votes");
+            console.log("Votes for account ", i, " is ", votes.toString()," votes");
+            // assert.equal(await erc.getVotes(accounts[i]),web3.utils.toWei(`${i}`, 'ether'),`Not all TokenHolders got delegated- issue:${i}`)
         }
+    })
+    //TODO: Change timelock proposer to Governor contract.
+    it("should change the timelock proposer",async()=>{
+        
+        proposerRole = await timelock.PROPOSER_ROLE();
+        govPrevProp = await timelock.hasRole(proposerRole, instance.address);
+        grantRole = await timelock.grantRole(proposerRole, instance.address);
+        // console.log("Granting Proposer Role:", grantRole.logs[0].event);
+        // executorRole = await timelock.EXECUTOR_ROLE();
+        // console.log("EXECUTOR Role:", executorRole);
+        govNewProp = await timelock.hasRole(proposerRole, instance.address);
+        console.log("Now does governor have proposal Role:", govNewProp);
+        assert(govNewProp, true, "Govnor DOES NOT HAVE proposer role in Timelock")
     })
     //DONE: Send ETH collected to Timelock and check balance
     it("Should send 10 ETH to timelock Contract", async()=>{
         // timelockAddr = await instance.timelock()
         // console.log("Timelock Address:", timelockAddr);
         transferFunds = await timelock.send(10, {from:accounts[0]});
-        timelockBalance = await web3.eth.getBalance(timelockAddr)
-        // console.log("TImelock ETH balance:", timelockBalance);
+        timelockBalance = await web3.eth.getBalance(timelock.address)
+        console.log("Timelock ETH balance:", timelockBalance);
+
         assert.equal(timelockBalance, 10, "Balance not 10 ETH");
+
     })
-    //TODO: Create a real proposal transfering funds to some address
-    
+    it("should send tokens to Timelock Contract", async()=>{
+        
+        Acc0Bal = await erc.balanceOf(accounts[0]);
+        console.log("Balance Account 0:", Acc0Bal.toString());
+        await erc.transfer(timelock.address, 10, {from:accounts[0]});
+        timelockBal = await erc.balanceOf(timelock.address);
+        console.log("Balance Of Timelock:", timelockBalance, " tokens");
+    })
+    it("should create a proposal to fund 2 Token", async () => {
+        calldata = erc.contract.methods.transfer(accounts[5], 2).encodeABI()
+        // calldata = erc.interface.encodeFunctionData("transfer", [accounts[5],2]); for ethers and hardhat 
+        console.log("CALLDATA:", calldata);
+        bountyProposal = await instance.propose([erc.address], [0], [calldata], "Grant 2 Token to team account5 for his latest bug bounty. ", {from: accounts[2]});
+        bountyPropID = (await bountyProposal.logs[0].args.proposalId).toString();
+        // console.log("PROPOSAL LOG ", bountyProposal.logs)
+        console.log("Bounty Proposal ID:",bountyPropID)
+    })
     it("Creating a proposal using propose function",async()=>{
-        const target = [erc.address]
-        propose_res=await instance.propose(["0x313aEB130dB7879212Ce6b19c5d3B3b173b53D52"],[1],[Buffer.from('hello','hex')],"discription",{from:accounts[1]})
+        
+        threshold = await instance.proposalThreshold();
+        acc1tokenBalance = await erc.balanceOf(accounts[1]);
+        console.log("Account1 balance:",acc1tokenBalance.toString() )
+        // await erc.delegate(accounts[1])
+        account1VotingPow = await erc.getVotes(accounts[1]);
+
+        console.log("Threshold:",threshold.toString(), " Voting Power Account 1:", account1VotingPow.toString(), "Is account > threshold: ", account1VotingPow.toString()>threshold.toString());
+        propose_res = await instance.propose(["0x313aEB130dB7879212Ce6b19c5d3B3b173b53D52"],[1],[Buffer.from('hello','hex')],"discription",{from:accounts[4]})
         //dummy transaction 
-        await instance.propose(["0x9CEE7AefA7Eda217F7880B6aA04625f5683f07a6"],[10],[Buffer.from('helllo','hex')],"discption",{from:accounts[1]})
-        // console.log("PROPOSAL LOG ", propose_res.logs, "Proposal ID:",propose_res.logs[0].args.proposalId.toString())
-        assert.notEqual((propose_res.logs[0].args.proposalId).toString(),'0','proposal created')
+        propID = (await propose_res.logs[0].args.proposalId).toString();
+        console.log("Proposal ID:",propID)
+        
+        propose_res2 = await instance.propose(["0x9CEE7AefA7Eda217F7880B6aA04625f5683f07a6"],[10],[Buffer.from('helllo','hex')],"discption",{from:accounts[1]})
+
+        // assert.notEqual(bountyPropID,'0','proposal created')
+    })
+    it("should cast votes to pass the propsoal", async ()=>{
+        propState = await instance.state(bountyPropID);
+        console.log("Proposal State:", propState.toString());
+        await erc.transfer(accounts[2],1);
+        await erc.transfer(accounts[2],1);
+        await erc.transfer(accounts[2],1);
+        propState2 = await instance.state(bountyPropID);
+        console.log("Proposal State2:", propState2.toString());
+        
+        for (let i = 1; i < 5; i++) {
+            await time.increase(time.duration.seconds(5));
+            // await erc.transfer(accounts[2],1);
+            propState3 = await instance.state(bountyPropID);
+            console.log("Proposal State",i ,": ", propState3.toString());
+            const votes = await erc.getVotes(accounts[i])
+            console.log("Votes for account ", i, " is ", votes.toString()," votes");
+            vote1 = await instance.castVote(bountyPropID, 1, {from: accounts[i]});
+            // console.log("VoteCast:", vote1.logs[0])
+            // await vote1.wait(1);
+            // assert.equal(await erc.getVotes(accounts[i]),web3.utils.toWei(`${i}`, 'ether'),`Not all TokenHolders got delegated- issue:${i}`)
+        }
+        
+
+        propSnap = await instance.proposalSnapshot(bountyPropID);
+        console.log("Proposal Snapshot:", propSnap.toString());
+        // await time.increase(time.duration.weeks(2));
+        for (let i = 1; i < 50; i++) {
+            await time.advanceBlock()
+        }
+       
+
+        propState4 = await instance.state(bountyPropID);
+        console.log("Proposal State4: ", propState4.toString());
+    })
+    it("should queue the proposal", async()=>{
+        descriptionHash = web3.utils.keccak256("Grant 2 Token to team account5 for his latest bug bounty. ");
+        console.log("Description Hash:", descriptionHash);
+        // calldata = erc.contract.methods.transfer(accounts[5], 2).encodeABI()
+        // calldata = erc.interface.encodeFunctionData("transfer", [accounts[5],2]); for ethers and hardhat 
+        console.log("CALLDATA:", calldata);
+        proposalQueue = await instance.queue([erc.address], [0], [calldata], descriptionHash, {from: accounts[1]});
+        propState5 = await instance.state(bountyPropID);
+        console.log("Proposal State5: ", propState5.toString());
+    })
+    it("should execute the proposal", async()=>{
+        Acc5BalBefore = await erc.balanceOf(accounts[5])
+        console.log("Acc 5 balance before:", Acc5BalBefore.toString());
+        await time.increase(time.duration.seconds(10));
+        
+        proposalExecution = await instance.execute([erc.address], [0], [calldata], descriptionHash, {from: accounts[0]})
+        propState6 = await instance.state(bountyPropID);
+        console.log("Proposal State after execution: ", propState6.toString());
+        Acc5BalAfter = await erc.balanceOf(accounts[5])
+        console.log("Acc 5 balance after:", Acc5BalAfter.toString());
+        
     })
 
-    it("sending a vote to a proposal using casteVote",async()=>{
-        const castVote_res= await instance.castVote((propose_res.logs[0].args.proposalId).toString(),1);
-        // console.log("VOTE RESULT:", castVote_res)
-        assert.equal((castVote_res.logs[0].args.support).toString(),1,"voted")
-    })
-    it("send multiple votes", async()=>{
-        const castVote2 = await instance.castVote((propose_res.logs[0].args.proposalId).toString(), 0, {from:accounts[2]});
-        const castVote3 = await instance.castVote((propose_res.logs[0].args.proposalId).toString(), 2, {from:accounts[3]});
-        const castVote4 = await instance.castVote((propose_res.logs[0].args.proposalId).toString(), 0, {from:accounts[4]});
-        const proposalVotes = await instance.proposalVotes((propose_res.logs[0].args.proposalId).toString());
-        console.log("PROPOSAL VOTES: ", proposalVotes.againstVotes.toString());
-    })
+
+    
+
 })
 
 
+// Now the Governor Contract is setup
+// Account 1,2,3,4 is token holder and voting Power Holder.
+// Account 0 does not holds tokens, but is the timelock owner, proposer, and executor.
+// All the rest amount of tokens are held by crowdsale contract.
+// Timelock holds some ETH funds as Treasury
 
-//Deployments should be in 'before' not in 'it' functions
-//Also tests should be clubbed and to run different flows beforeEach function can be used to deploy afresh
+// TODO:
+// Send some tokens to Timelock as Treasury
+// Create Multiple proposals and follow Proposal lifecycle to automate the calldata functions.
+// 1. Simple ETH transfer to account5.
+// 2. Simple Token transfer to account6.
+// 3. Try changing Other Contract parameter, eg. Governor Threshold.
 
-//No mention on timelock and ERC20 token when deploying Governor?
-//DId the Governor contract even deployed correctly
-//Timelock contract has 3 Access controls:
-//Proposer: Governor Instance should be granted this role
-//Executor: anyone (address(0)), or Governor instance (incase it's time sensitive)
-//Admin: initially granted automatically to deployer and timelock itself. Deployer must renounce
 
-//Openzeppelin Ref: https://docs.openzeppelin.com/contracts/4.x/governance#timelock
+// Create usecases:
+// DAO tool - equistart
+// Hedge fund - pinulta
+// Developer Guild 
+// Media DAO - cryptoskool
+// Create examples of How Equistart could grow and complete the techinical flows.
 
-//Timelock contructor:
-//Proposer, Executor (Representation):  ["0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db"]  --> Address[]
-//Check using hasRole function: role: {TIMELOCK_ADMIN_ROLE, PROPOSER_ROLE, EXECUTOR_ROLE}, address --> returns bool
 
-//Deploy governor contract with timelock and ERC20.
-
-//Add Governor as proposer in timelock contract.
-//Transfer funds to Governor timelock (both our ERC20 and ETH).
-//Follow proposal Lifecycle:
-//Can create multiple bunch of test cases, considering diiferent flow for different proposals.
 //Example1: proposal to grant ERC20 token to a team/individual for some Marketing work (how the team address will divide funds?)
 //Example2: proposal to create a new crowdsale to raise more funds.
 //Refer doc: https://docs.openzeppelin.com/contracts/4.x/governance#proposal_lifecycle
+
 
 
 

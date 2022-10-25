@@ -21,7 +21,7 @@ contract MyGovernor is Governor, GovernorCountingSimple, GovernorVotes, Governor
     }
 
     function votingPeriod() public pure override returns (uint256) {
-        return 45818; // 1 week
+        return 50; // 1 week
     }
 
     // function proposalThreshold() public pure override returns (uint256) {
