@@ -1,5 +1,7 @@
 import Web3 from 'web3';
 const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
+import Clipboard from '@react-native-clipboard/clipboard';
+import Toast from 'react-native-simple-toast';
 
 export const formatAddress = (addr) => {
     return addr.substring(0, 5) + '...' + addr.substring(addr.length - 4);
@@ -42,4 +44,9 @@ export const formatNumWithDecimal = (num, decimal) => {
     let value = num/(10**decimal);
     let result = formatNumber(value);
     return result;
+}
+
+export const copyToClipboard = (address) => {
+    Clipboard.setString(address);
+    Toast.show('Address copied to clipboard!')
 }

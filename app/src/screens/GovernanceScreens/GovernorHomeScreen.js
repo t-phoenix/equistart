@@ -10,7 +10,7 @@ import {backgrounds} from '../../colors';
 import {Platform} from 'react-native';
 import EmptySpace from '../../components/EmptySpace';
 import {transferTokens,getUserBalance } from '../../services/TokenServices/ERC20TokenService';
-import {getAllProposalList} from '../../services/GovernorServices/MyGovernorService';
+import {getAllProposalList, getProposalState} from '../../services/GovernorServices/MyGovernorService';
 import {useWalletConnect} from '@walletconnect/react-native-dapp';
 import {formatNumber} from '../../services/FormatterService';
 import Toast from 'react-native-simple-toast';
@@ -34,28 +34,75 @@ export default function GovernorHomeScreen({route, navigation}) {
 
   const loadProposalList = async () => {
     setIsLoading(true);
-    getAllProposalList(route.params.data.governor).then(result => {
-      console.log("proposal Result: ", result[0].returnValues);
-      let listOfObjects = [];
-      if (result.length > 0) {
-        for (let i = 0; i < result.length; i++) {
-          const prop = result[i];
-          listOfObjects.push({ 
-            key: i,
-            proposalId: prop.returnValues.proposalId, 
-            header: prop.blockHash,
-            transactionHash: prop.transactionHash, 
-            description: prop.returnValues.description, 
-            address: prop.returnValues.proposer,
-            votingStartDate: prop.returnValues.startBlock,
-            votingEndDate: prop.returnValues.endBlock, 
-            });
-        }
-        setData(listOfObjects);
+    const propList = await getAllProposalList(route.params.data.governor)
+    console.log("proposal Result: ", propList[0].returnValues);
+    let listOfObjects = [];
+
+    if (propList.length > 0) {
+
+      for (let eachProp = 0; eachProp < propList.length; eachProp++) {
+        const proposal = propList[eachProp];
+        const proposalId = proposal.returnValues.proposalId;
+        console.log("Proposal Id: ", eachProp, "is", proposalId);
+        const proposalState = await getProposalState(route.params.data.governor, proposalId);
+        console.log("Proposal State:", proposalState);
+        listOfObjects.push({ 
+          key: eachProp,
+          proposalId: proposal.returnValues.proposalId, 
+          header: proposal.blockHash,
+          transactionHash: proposal.transactionHash, 
+          description: proposal.returnValues.description, 
+          address: proposal.returnValues.proposer,
+          votingStartDate: proposal.returnValues.startBlock,
+          votingEndDate: proposal.returnValues.endBlock, 
+          proposalState: proposalState
+        });
       }
-    })
+      console.log("LIST oF PROPOSALS:", listOfObjects)
+      setData(listOfObjects);
+      setIsLoading(false);
+
+    } else {
+      console.log("Prop List Empty");
+      setIsLoading(false);
+    }
+
     setIsLoading(false);
-  }  
+  } 
+    // .then(result => {
+      
+    //   let listOfObjects = [];
+    //   if (result.length > 0) {
+    //     for (let i = 0; i < result.length; i++) {
+    //       //TODO: GET THE STATE FOR PROPOSAL
+    //       console.log("Governor Address:", route.params.data.governor)
+    //       const prop = result[i];
+    //       getStateOfProposal(prop).then(response => {
+    //         listOfObjects.push({ 
+    //           key: i,
+    //           proposalId: prop.returnValues.proposalId, 
+    //           header: prop.blockHash,
+    //           transactionHash: prop.transactionHash, 
+    //           description: prop.returnValues.description, 
+    //           address: prop.returnValues.proposer,
+    //           votingStartDate: prop.returnValues.startBlock,
+    //           votingEndDate: prop.returnValues.endBlock, 
+    //           proposalState: response
+    //         });
+    //         console.log("LIST oF PROPOSALS:", listOfObjects)
+    //       });
+            
+    //     }
+    //     setData(()=>listOfObjects);
+    //   }
+    // })
+    
+  
+  // async function getStateOfProposal(proposalId){
+  //   state = await getProposalState(route.params.data.governor, proposalId);
+  //   console.log("STATE:", state);
+  //   return state;
+  // }
 
   return (
     

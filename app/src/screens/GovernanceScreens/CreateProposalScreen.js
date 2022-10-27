@@ -79,6 +79,7 @@ const CreateProposalScreen = ({ route, navigation }) => {
                         </View>
                     </View>
                 </View>
+                <Text>Add Inputs here --></Text>
                 <EmptySpace />
                 {/* <Input
                     style={commonStyles.input}

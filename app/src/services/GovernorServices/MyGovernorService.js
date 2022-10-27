@@ -27,9 +27,7 @@ export async function createNewProposal(
       tokenAddr,
     );
     // console.log('TOKEN:', tokenContract);
-    let transferCallData = tokenContract.methods
-      .transfer(receiversAddr, grantAmount)
-      .encodeABI();
+    let transferCallData = tokenContract.methods.transfer(receiversAddr, grantAmount).encodeABI();
     console.log('CALLDATA:', transferCallData);
     let proposal = govContract.methods.propose(
       [tokenAddr],
@@ -73,6 +71,21 @@ export async function getAllProposalList(governorAddr) {
   }
   console.log('PROPOSAL LIST:', proposalList);
   return proposalList;
+}
+
+
+export async function getProposalState(governorAddr, proposalId){
+  try {
+    let govContract = new kit.connection.web3.eth.Contract(
+      MyGovernorABI,
+      governorAddr,
+    );
+    let proposalState = await govContract.methods.state(proposalId).call();
+    console.log("Proposal State: ", proposalState);
+    return proposalState;
+  } catch (error) {
+    console.log("Error while fetching Proposal State:", error);
+  }
 }
 
 

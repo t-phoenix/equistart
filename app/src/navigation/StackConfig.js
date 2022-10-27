@@ -25,6 +25,8 @@ import GovernorListScreen from '../screens/GovernanceScreens/GovernorListScreen'
 import CreateGovernorScreen from '../screens/GovernanceScreens/CreateGovernorScreen';
 import GovernorHomeScreen from '../screens/GovernanceScreens/GovernorHomeScreen';
 import CreateProposalScreen from '../screens/GovernanceScreens/CreateProposalScreen';
+import GovernorProposalDetailsScreen from '../screens/GovernanceScreens/GovernorProposalDetails';
+
 import TokenMintingInfo from '../screens/InstructionScreens/TokenMintingInfo';
 import CrowdsaleInfo from '../screens/InstructionScreens/CrowdsaleInfo';
 
@@ -160,9 +162,9 @@ export const DaoScreens = [
       component: CreateProposalScreen
     },
     {
-      name: 'ProposalDetails',
+      name: 'GovernorProposalDetails',
       title: 'Proposal Details',
-      component: ProposalDetailsScreen
+      component: GovernorProposalDetailsScreen
     }
 
   ] 

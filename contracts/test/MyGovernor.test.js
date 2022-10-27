@@ -1,5 +1,6 @@
 // import { BN, expectRevert, time } from '@openzeppelin/test-helpers';
 const {time} = require('@openzeppelin/test-helpers');
+const { web3 } = require('@openzeppelin/test-helpers/src/setup');
 const {assert} = require('chai');
 const myGovernor = artifacts.require("MyGovernor");
 const ERC20Token = artifacts.require("ERC20Token");
@@ -87,58 +88,64 @@ contract("Setting MyGovernor contract",(accounts)=>{
         // console.log("PROPOSAL LOG ", bountyProposal.logs)
         console.log("Bounty Proposal ID:",bountyPropID)
     })
-    it("Creating a proposal using propose function",async()=>{
+    it("Creating a NEW PROPOSAL sending ETH to acc 6",async()=>{
         
-        threshold = await instance.proposalThreshold();
-        acc1tokenBalance = await erc.balanceOf(accounts[1]);
-        console.log("Account1 balance:",acc1tokenBalance.toString() )
-        // await erc.delegate(accounts[1])
-        account1VotingPow = await erc.getVotes(accounts[1]);
-
-        console.log("Threshold:",threshold.toString(), " Voting Power Account 1:", account1VotingPow.toString(), "Is account > threshold: ", account1VotingPow.toString()>threshold.toString());
-        propose_res = await instance.propose(["0x313aEB130dB7879212Ce6b19c5d3B3b173b53D52"],[1],[Buffer.from('hello','hex')],"discription",{from:accounts[4]})
-        //dummy transaction 
+        // functionCallData = await accounts[6].send(3).encodeABI();
+        // console.log("Call data to send :", functionCallData)
+        // threshold = await instance.proposalThreshold();
+        // acc1tokenBalance = await erc.balanceOf(accounts[1]);
+        // console.log("Account1 balance:",acc1tokenBalance.toString() )
+        // // await erc.delegate(accounts[1])
+        // account1VotingPow = await erc.getVotes(accounts[1]);
+        // console.log("Threshold:",threshold.toString(), " Voting Power Account 1:", account1VotingPow.toString(), "Is account > threshold: ", account1VotingPow.toString()>threshold.toString());
+        txnCalldata = web3.eth.sendTransaction({from: timelock.address, to: accounts[6], value:3}).encodeABI();
+        
+        propose_res = await instance.propose([timelock.address],[0],[txnCalldata],"Grant 3 ETH for marketing to Bob",{from:accounts[4]})
+   
         propID = (await propose_res.logs[0].args.proposalId).toString();
         console.log("Proposal ID:",propID)
         
-        propose_res2 = await instance.propose(["0x9CEE7AefA7Eda217F7880B6aA04625f5683f07a6"],[10],[Buffer.from('helllo','hex')],"discption",{from:accounts[1]})
-
+        // propose_res2 = await instance.propose(["0x9CEE7AefA7Eda217F7880B6aA04625f5683f07a6"],[10],[Buffer.from('helllo','hex')],"discption",{from:accounts[1]})
         // assert.notEqual(bountyPropID,'0','proposal created')
+        await time.advanceBlock();
     })
     it("should cast votes to pass the propsoal", async ()=>{
         propState = await instance.state(bountyPropID);
         console.log("Proposal State:", propState.toString());
-        await erc.transfer(accounts[2],1);
-        await erc.transfer(accounts[2],1);
-        await erc.transfer(accounts[2],1);
-        propState2 = await instance.state(bountyPropID);
-        console.log("Proposal State2:", propState2.toString());
         
         for (let i = 1; i < 5; i++) {
             await time.increase(time.duration.seconds(5));
-            // await erc.transfer(accounts[2],1);
-            propState3 = await instance.state(bountyPropID);
-            console.log("Proposal State",i ,": ", propState3.toString());
             const votes = await erc.getVotes(accounts[i])
             console.log("Votes for account ", i, " is ", votes.toString()," votes");
             vote1 = await instance.castVote(bountyPropID, 1, {from: accounts[i]});
-            // console.log("VoteCast:", vote1.logs[0])
-            // await vote1.wait(1);
-            // assert.equal(await erc.getVotes(accounts[i]),web3.utils.toWei(`${i}`, 'ether'),`Not all TokenHolders got delegated- issue:${i}`)
         }
         
-
-        propSnap = await instance.proposalSnapshot(bountyPropID);
-        console.log("Proposal Snapshot:", propSnap.toString());
-        // await time.increase(time.duration.weeks(2));
         for (let i = 1; i < 50; i++) {
             await time.advanceBlock()
         }
-       
 
         propState4 = await instance.state(bountyPropID);
         console.log("Proposal State4: ", propState4.toString());
     })
+
+    it("should cast vote to send 3 eth proposal", async () => {
+        propResState = await instance.state(propID);
+        console.log("State of Proposal: ", propResState.toString());
+
+        for (let i = 1; i < 5; i++) {
+            await time.increase(time.duration.seconds(5));
+            const votes = await erc.getVotes(accounts[i])
+            console.log("Votes for account ", i, " is ", votes.toString()," votes");
+            vote1 = await instance.castVote(propID, 1, {from: accounts[i]});
+        }
+
+        propState4 = await instance.state(bountyPropID);
+        console.log("Proposal State4: ", propState4.toString());
+        
+
+    })
+
+
     it("should queue the proposal", async()=>{
         descriptionHash = web3.utils.keccak256("Grant 2 Token to team account5 for his latest bug bounty. ");
         console.log("Description Hash:", descriptionHash);
@@ -151,15 +158,38 @@ contract("Setting MyGovernor contract",(accounts)=>{
     })
     it("should execute the proposal", async()=>{
         Acc5BalBefore = await erc.balanceOf(accounts[5])
-        console.log("Acc 5 balance before:", Acc5BalBefore.toString());
+        timelockBefore = await erc.balanceOf(timelock.address);
+        console.log("BEFORE - Acc 5 :", Acc5BalBefore.toString(), " TL:", timelockBefore.toString());
         await time.increase(time.duration.seconds(10));
         
         proposalExecution = await instance.execute([erc.address], [0], [calldata], descriptionHash, {from: accounts[0]})
         propState6 = await instance.state(bountyPropID);
         console.log("Proposal State after execution: ", propState6.toString());
         Acc5BalAfter = await erc.balanceOf(accounts[5])
-        console.log("Acc 5 balance after:", Acc5BalAfter.toString());
+        timelockAfter = await erc.balanceOf(timelock.address);
+        console.log("After - Acc 5:", Acc5BalAfter.toString(), " TL: ", timelockAfter.toString());
         
+    })
+
+    it("should queue the ETH proposal", async () => {
+        descHash = web3.utils.keccak256("Grant 3 ETH for marketing to Bob");
+        console.log("Description Hash:", descriptionHash);
+        propQueue = await instance.queue([accounts[6]], [3], [], descHash), {from: accounts[2]};
+        ethPropState = await instance.state(propID);
+        conaole.log("ETH proposal should queue:", ethPropState.toString());
+
+    })
+
+    it("should execute ETH proposal", async()=>{
+        acc6BalBefore = await web3.eth.getBalance(accounts[6]);
+        console.log("Account 6 Balace before:", acc6BalBefore.toString());
+
+        ethPropExec = await instance.execute([accounts[6]], [3], [], descHash, {from:accounts[6]});
+        ethPropState2 = await instance.state(propID);
+        console.log("ETH Prop should show exec state:", ethPropState2.toString());
+
+        acc6BalAfter = await web3.eth.getBalance(accounts[6]);
+        console.log("Account 6 Balance After:", acc6BalAfter.toString())
     })
 
 
