@@ -146,7 +146,7 @@ export default function GovernorHomeScreen({route, navigation}) {
           status="warning">
           Back
         </Button>
-        <Button style={commonStyles.singleButton} onPress={() => { navigation.navigate('CreateProposalScreen', { data: route }) }}>
+        <Button style={commonStyles.singleButton} onPress={() => { navigation.navigate('CreateProposalScreen', { data: route.params.data}) }}>
           Create Prosposal
         </Button>
       </View>

@@ -1,43 +1,72 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView, View, ScrollView} from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  View,
+  ScrollView,
+} from 'react-native';
 import commonStyles from '../../commonStyles';
 import ProposalCardDetail from '../../components/ProposalCardDetail';
 import EmptySpace from '../../components/EmptySpace';
 
-import { Button, Text, Layout, Card } from '@ui-kitten/components'
+import {Button, Text, Layout, Card} from '@ui-kitten/components';
 import Badge from '../../components/Badge';
 
-import { formatAddressLong, formatDate } from '../../services/FormatterService'
-import { castVote } from '../../services/ProjectServices'
-import { useWalletConnect } from '@walletconnect/react-native-dapp';
+import {
+  formatAddressLong,
+  formatDate,
+  formatAddress,
+} from '../../services/FormatterService';
+import {castVote} from '../../services/ProjectServices';
+import {useWalletConnect} from '@walletconnect/react-native-dapp';
+import Clipboard from '@react-native-clipboard/clipboard';
+import Toast from 'react-native-simple-toast';
+
+
 
 const GovernorProposalDetailsScreen = ({route, navigation}) => {
+  
+  const connector = useWalletConnect();
 
+  const [yesCount, setYesCount] = React.useState(
+    Number(route.params.cardData.yesCount),
+  );
+  const [noCount, setNoCount] = React.useState(
+    Number(route.params.cardData.noCount),
+  );
+  const [votingStatus, setVotingStatus] = React.useState(true);
+
+  console.log('Card Data: ', route.params.cardData);
+
+  React.useEffect(() => {
+    const state = route.params.cardData.proposalState
+    if(state == 1){
+        setVotingStatus(()=>false)
+    }
+  })
+
+  const handleVote = async (vote) => {
     
 
-    const connector = useWalletConnect();
-    // console.log("Card Data: ", cardData);
-
-
-    const handleVote = async (vote) => {
-        castVote(route.params.cardData.projectData.address, connector, route.params.cardData.key, vote).then(success => {
-            if (success) {
-                if (vote) {
-                    setYesCount(yesCount + 1);
-                }
-                else {
-                    setNoCount(noCount + 1);
-                }
-            }
-            else {
-                console.log('error');
-            }
-        })
-    };
-
-
     
-
+    // castVote(
+    //   route.params.cardData.projectData.address,
+    //   connector,
+    //   route.params.cardData.key,
+    //   vote,
+    // ).then(success => {
+    //   if (success) {
+    //     if (vote) {
+    //       setYesCount(yesCount + 1);
+    //     } else {
+    //       setNoCount(noCount + 1);
+    //     }
+    //   } else {
+    //     console.log('error');
+    //   }
+    // });
+  };
 
   return (
     <SafeAreaView style={commonStyles.pageView}>
@@ -48,11 +77,25 @@ const GovernorProposalDetailsScreen = ({route, navigation}) => {
         <View>
           <View style={{...commonStyles.innerCard, backgroundColor: '#F8F8F8'}}>
             <View style={styles.nameContainer}>
-              <Text category="h3" style={styles.header}>
+              {/* <Text category="h3" style={styles.header}>
                 {route.params.cardData.header}
-              </Text>
+              </Text> */}
+              <View>
+                <Text style={commonStyles.primaryTextOrange}>Proposal Id</Text>
+                <TouchableOpacity
+                  onPress={() =>
+                    copyToClipboard(route.params.cardData.address)
+                  }>
+                  <Text style={commonStyles.activeText}>
+                    {formatAddress(route.params.cardData.address)}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
               {/* <Badge status={cardData.isActive} /> */}
-              <Text>Status: {route.params.cardData.status}</Text>
+              <Text style={commonStyles.primaryTextBlack}>
+                Status: {route.params.cardData.proposalState}
+              </Text>
             </View>
             <EmptySpace />
             <Text style={commonStyles.primaryTextOrange}>Description</Text>
@@ -68,6 +111,15 @@ const GovernorProposalDetailsScreen = ({route, navigation}) => {
                 </Text>
               }
               <Text style={commonStyles.secondaryTextGrey}>
+                Voting Started At:{' '}
+              </Text>
+              {
+                <Text style={styles.text}>
+                  {' '}
+                  {formatDate(route.params.cardData.votingStartDate)}{' '}
+                </Text>
+              }
+              <Text style={commonStyles.secondaryTextGrey}>
                 Voting Ends At:{' '}
               </Text>
               {
@@ -77,8 +129,10 @@ const GovernorProposalDetailsScreen = ({route, navigation}) => {
                 </Text>
               }
             </View>
+
+
             <EmptySpace />
-            <Text style={commonStyles.primaryTextOrange}>Results</Text>
+            {/* <Text style={commonStyles.primaryTextOrange}>Results</Text> */}
             {/* <View style={styles.bottomSection}>
               <View style={{marginLeft: '10%'}}></View>
               <Text style={commonStyles.secondaryTextGrey}>
@@ -101,7 +155,7 @@ const GovernorProposalDetailsScreen = ({route, navigation}) => {
               )}
             </View> */}
 
-            {/* <View style={styles.bottomSection}>
+            <View style={styles.bottomSection}>
               <Button
                 style={commonStyles.doubleButton}
                 onPress={() => {
@@ -109,7 +163,7 @@ const GovernorProposalDetailsScreen = ({route, navigation}) => {
                 }}
                 status="success"
                 disabled={votingStatus}>
-                YES
+                FOR
               </Button>
               <Button
                 style={commonStyles.doubleButton}
@@ -118,9 +172,9 @@ const GovernorProposalDetailsScreen = ({route, navigation}) => {
                 }}
                 status="danger"
                 disabled={votingStatus}>
-                NO
+                AGAINST
               </Button>
-            </View> */}
+            </View>
           </View>
         </View>
         <EmptySpace space={30} />
@@ -140,32 +194,28 @@ const GovernorProposalDetailsScreen = ({route, navigation}) => {
 export default GovernorProposalDetailsScreen;
 
 const styles = StyleSheet.create({
-    card: {
-        // flex: 1,
-        margin: 4,
-    },
-    header: {
-        maxWidth: '80%',
-        color: '#404248'
-    },
-    nameContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-    },
-    bottomSection: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginHorizontal: '10%'
-    },
-    voteMessage: {
-        flexDirection: 'row'
-    },
-    text: {
-        color: '#9C9DA0',
-        paddingLeft: 6
-    },
-})
-
-
-
-
+  card: {
+    // flex: 1,
+    margin: 4,
+  },
+  header: {
+    maxWidth: '80%',
+    color: '#404248',
+  },
+  nameContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  bottomSection: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginHorizontal: '10%',
+  },
+  voteMessage: {
+    flexDirection: 'row',
+  },
+  text: {
+    color: '#9C9DA0',
+    paddingLeft: 6,
+  },
+});

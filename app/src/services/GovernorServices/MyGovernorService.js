@@ -78,11 +78,29 @@ export async function getProposalState(governorAddr, proposalId){
   try {
     let govContract = new kit.connection.web3.eth.Contract(
       MyGovernorABI,
-      governorAddr,
+      governorAddr
     );
     let proposalState = await govContract.methods.state(proposalId).call();
     console.log("Proposal State: ", proposalState);
     return proposalState;
+  } catch (error) {
+    console.log("Error while fetching Proposal State:", error);
+  }
+}
+
+export async function castVote(connector, governorAddr, proposalId, vote ){
+  try {
+    let govContract = new kit.connection.web3.eth.Contract(MyGovernorABI, governorAddr);
+    let castVote =  govContract.methods.castVote(proposalId, vote);
+    console.log('P', castVote);
+    const txObj = {
+      from: connector.accounts[0],
+      to: governorAddr,
+      data: castVote.encodeABI(),
+    };
+    const txn = await connector.sendTransaction(txObj);
+    console.log("Voting Trx:",txn);
+
   } catch (error) {
     console.log("Error while fetching Proposal State:", error);
   }
