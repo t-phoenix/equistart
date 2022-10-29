@@ -84,6 +84,21 @@ export async function getAllDeployedGovernors(){
     return allGovernorsList;
 }
 
+export async function grantProposerToGovernor (connector, governor, timelock){
+  const timelockContract = new kit.connection.web3.Contract(TimelockABI, timelock);
+  const proposerROLE = await timelockContract.methods.PROPOSER_ROLE().call();
+  console.log("Proposer Role: ", proposerROLE);
+  const grantProposer =  timelockContract.methods.grantRole(proposerROLE, governor);
+  const txObj = {
+    from: connector.accounts[0],
+    to: timelock,
+    data: grantProposer.encodeABI()
+  }
+  const trx = await connector.sendTransaction(txObj);
+  console.log("Grant Proposer role to Governor Contract:", trx);
+  return trx
+}
+
 //Valora behaves abnormally around this function.
 //Transactions get stuck, and does not show signing popup on valora.
 //Should close the application, and restart it to sign the transaction.

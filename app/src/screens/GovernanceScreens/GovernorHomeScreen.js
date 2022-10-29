@@ -43,14 +43,20 @@ export default function GovernorHomeScreen({ route, navigation }) {
       const proposalState = await getProposalState(route.params.data.governor, proposalId);
       listOfObjects.push({
         key: eachProp,
-        proposalId: proposal.returnValues.proposalId,
-        header: proposal.blockHash,
-        transactionHash: proposal.transactionHash,
-        description: proposal.returnValues.description,
-        address: proposal.returnValues.proposer,
-        votingStartDate: proposal.returnValues.startBlock,
-        votingEndDate: proposal.returnValues.endBlock,
-        proposalState: proposalState
+          governor:route.params.data.governor,
+          timelock: route.params.data.timelock,
+          token: route.params.data.token,
+          proposalId: proposal.returnValues.proposalId, 
+          header: proposal.blockHash,
+          transactionHash: proposal.transactionHash, 
+          description: proposal.returnValues.description, 
+          address: proposal.returnValues.proposer,
+          votingStartDate: proposal.returnValues.startBlock,
+          votingEndDate: proposal.returnValues.endBlock, 
+          proposalState: proposalState,
+          targets: proposal.returnValues.targets,
+          values: proposal.returnValues.values,
+          callDatas: proposal.returnValues.calldatas
       });
     }
     console.log("LIST oF PROPOSALS:", listOfObjects)
