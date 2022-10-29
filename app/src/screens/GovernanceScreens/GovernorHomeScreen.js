@@ -48,6 +48,9 @@ export default function GovernorHomeScreen({route, navigation}) {
         console.log("Proposal State:", proposalState);
         listOfObjects.push({ 
           key: eachProp,
+          governor:route.params.data.governor,
+          timelock: route.params.data.timelock,
+          token: route.params.data.token,
           proposalId: proposal.returnValues.proposalId, 
           header: proposal.blockHash,
           transactionHash: proposal.transactionHash, 
@@ -55,7 +58,10 @@ export default function GovernorHomeScreen({route, navigation}) {
           address: proposal.returnValues.proposer,
           votingStartDate: proposal.returnValues.startBlock,
           votingEndDate: proposal.returnValues.endBlock, 
-          proposalState: proposalState
+          proposalState: proposalState,
+          targets: proposal.returnValues.targets,
+          values: proposal.returnValues.values,
+          callDatas: proposal.returnValues.calldatas
         });
       }
       console.log("LIST oF PROPOSALS:", listOfObjects)
@@ -69,40 +75,6 @@ export default function GovernorHomeScreen({route, navigation}) {
 
     setIsLoading(false);
   } 
-    // .then(result => {
-      
-    //   let listOfObjects = [];
-    //   if (result.length > 0) {
-    //     for (let i = 0; i < result.length; i++) {
-    //       //TODO: GET THE STATE FOR PROPOSAL
-    //       console.log("Governor Address:", route.params.data.governor)
-    //       const prop = result[i];
-    //       getStateOfProposal(prop).then(response => {
-    //         listOfObjects.push({ 
-    //           key: i,
-    //           proposalId: prop.returnValues.proposalId, 
-    //           header: prop.blockHash,
-    //           transactionHash: prop.transactionHash, 
-    //           description: prop.returnValues.description, 
-    //           address: prop.returnValues.proposer,
-    //           votingStartDate: prop.returnValues.startBlock,
-    //           votingEndDate: prop.returnValues.endBlock, 
-    //           proposalState: response
-    //         });
-    //         console.log("LIST oF PROPOSALS:", listOfObjects)
-    //       });
-            
-    //     }
-    //     setData(()=>listOfObjects);
-    //   }
-    // })
-    
-  
-  // async function getStateOfProposal(proposalId){
-  //   state = await getProposalState(route.params.data.governor, proposalId);
-  //   console.log("STATE:", state);
-  //   return state;
-  // }
 
   return (
     
@@ -113,17 +85,6 @@ export default function GovernorHomeScreen({route, navigation}) {
         ref={scrollViewRef}>
 
         <GovernorCardDetail cardData={route.params.data} navigation={navigation} />
-        <View>
-            <Text>Instructions:</Text>
-            <Text>create a proposal</Text>
-            <Text>Ex. grant in ERC20 token from gov treasury</Text>
-            <Text>params: token --x tokenAddress, callData --x teamAddress, grantAmount</Text>
-            {/* Call propose functions with params (address[targets], uint256[values], bytes[calldata], description string) */}
-        </View>
-
-        {/* <View>
-          <Button style={commonStyles.button} onPress={loadProposalList} accessoryLeft={<Icon name='refresh-outline' />} status='warning' />
-        </View> */}
 
         <EmptySpace space={12} />
         <View style={{ ...commonStyles.row, marginHorizontal: 5 }}>
