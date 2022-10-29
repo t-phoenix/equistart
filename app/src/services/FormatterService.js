@@ -50,3 +50,8 @@ export const copyToClipboard = (address) => {
     Clipboard.setString(address);
     Toast.show('Address copied to clipboard!')
 }
+
+export const formatUnixTimeStamp = (timeStamp) => {
+    let date = new Date(timeStamp * 1000);
+    return date.toDateString();
+}

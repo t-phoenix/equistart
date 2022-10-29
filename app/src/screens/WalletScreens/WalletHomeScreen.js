@@ -165,9 +165,10 @@ export default function WalletHomeScreen({ navigation }) {
                                 </View>
                                     <Image
                                         style={{
-                                            width: '100%',
+                                            width: '50%',
                                             height: '100%',
-                                            resizeMode: 'center'
+                                            resizeMode: 'contain'
+
                                         }}
                                         source={require('../../../assets/images/wallet.png')}
                                     />

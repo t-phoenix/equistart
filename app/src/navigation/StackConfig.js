@@ -11,6 +11,7 @@ import ProposalDetailsScreen from '../screens/DaoScreens/ProposalDetailsScreen';
 // import RestoreScreen from '../screens/RestoreScreen';
 import DAOSuiteInfo from '../screens/InstructionScreens/DAOSuiteInfo';
 import AlfajoresWalletInfo from '../screens/InstructionScreens/AlfajoresWalletInfo';
+import GovernorInfo from '../screens/InstructionScreens/GovernorInfo';
 
 import TokenListScreen from '../screens/TokenScreens/TokenListScreen';
 import CreateTokenScreen from '../screens/TokenScreens/CreateTokenScreen';
@@ -98,10 +99,15 @@ export const DaoScreens = [
       component: TokenMintingInfo
     },
     {
-      name: 'Crowdsale ',
+      name: 'Crowdsale',
       title: 'Instructions',
       component: CrowdsaleInfo
     },
+    {
+      name: 'Governor',
+      title: 'Instructions',
+      component: GovernorInfo
+    }
   ]
 
   export const TokenScreens = [

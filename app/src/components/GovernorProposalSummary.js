@@ -3,7 +3,7 @@ import { StyleSheet, View, TouchableOpacity, ImageBackground } from 'react-nativ
 import { Button, Text, Layout, Card } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
 import Badge from './Badge'
-import { formatAddress, formatNumber, copyToClipboard } from '../services/FormatterService';
+import { formatAddress, formatUnixTimeStamp, copyToClipboard } from '../services/FormatterService';
 import { colorPairs } from '../colors'
 
 const GovernorProposalSummary = ({ cardData, navigation }) => {
@@ -14,7 +14,7 @@ const GovernorProposalSummary = ({ cardData, navigation }) => {
     return (
         <View style={commonStyles.outerCard}>
             <View style={{ ...commonStyles.innerCard, backgroundColor: colorPairs[num].background }}>
-                <ImageBackground source={require('../../assets/images/proposal.png')} style={{ height: 250, justifyContent: 'space-between' }}>
+                <ImageBackground source={require('../../assets/images/proposal.png')} style={{ height: 150, justifyContent: 'space-between' }} />
                     <View style={commonStyles.row}>
                         <Text style={commonStyles.secondaryTextGrey}>ID: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {Number(cardData.key) + 1} </Text>} </Text>
                         <Text style={commonStyles.secondaryTextGrey}>State: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {Number(cardData.proposalState)} </Text>} </Text>
@@ -32,9 +32,9 @@ const GovernorProposalSummary = ({ cardData, navigation }) => {
                         <View>
                             {/* <Text style={commonStyles.secondaryTextGrey}>Votes:</Text>
                             <View style={{ marginLeft: '10%' }}></View> */}
-                            <Text style={commonStyles.primaryTextGreen}> Start Date {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.votingStartDate} </Text>} </Text>
+                            <Text style={commonStyles.primaryTextGreen}> Start Date {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {formatUnixTimeStamp(cardData.votingStartDate)} </Text>} </Text>
                             <View style={{ marginLeft: '10%' }}></View>
-                            <Text style={commonStyles.primaryTextRed}> End Date {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.votingEndDate} </Text>} </Text>
+                            <Text style={commonStyles.primaryTextRed}> End Date {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {formatUnixTimeStamp(cardData.votingEndDate)} </Text>} </Text>
                         </View>
                         <View style={{marginLeft: 'auto', marginTop: 2}}>
                             <Button
@@ -46,7 +46,7 @@ const GovernorProposalSummary = ({ cardData, navigation }) => {
                             </Button>
                         </View>
                     </View>
-                </ImageBackground>
+                
             </View>
         </View>
     )

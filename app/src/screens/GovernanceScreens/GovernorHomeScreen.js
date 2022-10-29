@@ -1,23 +1,23 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView, SafeAreaView} from 'react-native';
-import {Button, Text, Icon, Spinner, Input} from '@ui-kitten/components';
-import {Dimensions} from 'react-native';
+import { View, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
+import { Button, Text, Icon, Spinner, Input } from '@ui-kitten/components';
+import { Dimensions } from 'react-native';
 import GovernorCardDetail from '../../components/GovernorCardDetail';
 import GovernorProposalSummary from '../../components/GovernorProposalSummary';
 import CardList from '../../components/CardList';
 import commonStyles from '../../commonStyles';
-import {backgrounds} from '../../colors';
-import {Platform} from 'react-native';
+import { backgrounds } from '../../colors';
+import { Platform } from 'react-native';
 import EmptySpace from '../../components/EmptySpace';
-import {transferTokens,getUserBalance } from '../../services/TokenServices/ERC20TokenService';
-import {getAllProposalList, getProposalState} from '../../services/GovernorServices/MyGovernorService';
-import {useWalletConnect} from '@walletconnect/react-native-dapp';
-import {formatNumber} from '../../services/FormatterService';
+import { transferTokens, getUserBalance } from '../../services/TokenServices/ERC20TokenService';
+import { getAllProposalList, getProposalState } from '../../services/GovernorServices/MyGovernorService';
+import { useWalletConnect } from '@walletconnect/react-native-dapp';
+import { formatNumber } from '../../services/FormatterService';
 import Toast from 'react-native-simple-toast';
 
 
-export default function GovernorHomeScreen({route, navigation}) {
-  const connector = useWalletConnect();  
+export default function GovernorHomeScreen({ route, navigation }) {
+  const connector = useWalletConnect();
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isWalletConnected, setIsWalletConnected] = React.useState(
@@ -37,98 +37,40 @@ export default function GovernorHomeScreen({route, navigation}) {
     const propList = await getAllProposalList(route.params.data.governor)
     console.log("proposal Result: ", propList[0].returnValues);
     let listOfObjects = [];
-
-    if (propList.length > 0) {
-
-      for (let eachProp = 0; eachProp < propList.length; eachProp++) {
-        const proposal = propList[eachProp];
-        const proposalId = proposal.returnValues.proposalId;
-        console.log("Proposal Id: ", eachProp, "is", proposalId);
-        const proposalState = await getProposalState(route.params.data.governor, proposalId);
-        console.log("Proposal State:", proposalState);
-        listOfObjects.push({ 
-          key: eachProp,
-          proposalId: proposal.returnValues.proposalId, 
-          header: proposal.blockHash,
-          transactionHash: proposal.transactionHash, 
-          description: proposal.returnValues.description, 
-          address: proposal.returnValues.proposer,
-          votingStartDate: proposal.returnValues.startBlock,
-          votingEndDate: proposal.returnValues.endBlock, 
-          proposalState: proposalState
-        });
-      }
-      console.log("LIST oF PROPOSALS:", listOfObjects)
-      setData(listOfObjects);
-      setIsLoading(false);
-
-    } else {
-      console.log("Prop List Empty");
-      setIsLoading(false);
+    for (let eachProp = 0; eachProp < propList.length; eachProp++) {
+      const proposal = propList[eachProp];
+      const proposalId = proposal.returnValues.proposalId;
+      const proposalState = await getProposalState(route.params.data.governor, proposalId);
+      listOfObjects.push({
+        key: eachProp,
+        proposalId: proposal.returnValues.proposalId,
+        header: proposal.blockHash,
+        transactionHash: proposal.transactionHash,
+        description: proposal.returnValues.description,
+        address: proposal.returnValues.proposer,
+        votingStartDate: proposal.returnValues.startBlock,
+        votingEndDate: proposal.returnValues.endBlock,
+        proposalState: proposalState
+      });
     }
-
+    console.log("LIST oF PROPOSALS:", listOfObjects)
+    setData(listOfObjects);
     setIsLoading(false);
-  } 
-    // .then(result => {
-      
-    //   let listOfObjects = [];
-    //   if (result.length > 0) {
-    //     for (let i = 0; i < result.length; i++) {
-    //       //TODO: GET THE STATE FOR PROPOSAL
-    //       console.log("Governor Address:", route.params.data.governor)
-    //       const prop = result[i];
-    //       getStateOfProposal(prop).then(response => {
-    //         listOfObjects.push({ 
-    //           key: i,
-    //           proposalId: prop.returnValues.proposalId, 
-    //           header: prop.blockHash,
-    //           transactionHash: prop.transactionHash, 
-    //           description: prop.returnValues.description, 
-    //           address: prop.returnValues.proposer,
-    //           votingStartDate: prop.returnValues.startBlock,
-    //           votingEndDate: prop.returnValues.endBlock, 
-    //           proposalState: response
-    //         });
-    //         console.log("LIST oF PROPOSALS:", listOfObjects)
-    //       });
-            
-    //     }
-    //     setData(()=>listOfObjects);
-    //   }
-    // })
-    
-  
-  // async function getStateOfProposal(proposalId){
-  //   state = await getProposalState(route.params.data.governor, proposalId);
-  //   console.log("STATE:", state);
-  //   return state;
-  // }
+  }
 
   return (
-    
+
     <SafeAreaView style={commonStyles.pageView}>
       <ScrollView
         style={commonStyles.pageContent}
         showsVerticalScrollIndicator={false}
         ref={scrollViewRef}>
-
         <GovernorCardDetail cardData={route.params.data} navigation={navigation} />
-        <View>
-            <Text>Instructions:</Text>
-            <Text>create a proposal</Text>
-            <Text>Ex. grant in ERC20 token from gov treasury</Text>
-            <Text>params: token --x tokenAddress, callData --x teamAddress, grantAmount</Text>
-            {/* Call propose functions with params (address[targets], uint256[values], bytes[calldata], description string) */}
-        </View>
-
-        {/* <View>
-          <Button style={commonStyles.button} onPress={loadProposalList} accessoryLeft={<Icon name='refresh-outline' />} status='warning' />
-        </View> */}
-
+        <Button size='tiny' style={styles.infoButton} onPress={() => navigation.navigate('Instructions', { screen: 'Governor' })} accessoryRight={<Icon name='alert-circle-outline' />} appearance='ghost' status='danger'>More Info</Button>
         <EmptySpace space={12} />
         <View style={{ ...commonStyles.row, marginHorizontal: 5 }}>
           <Text style={commonStyles.secondaryTextGrey}> All Proposals </Text>
-          <Button style={commonStyles.button} onPress={loadProposalList} accessoryLeft={<Icon name='refresh-outline' />} status='warning' />
+          <Button style={commonStyles.button} onPress={() => loadProposalList()} accessoryLeft={<Icon name='refresh-outline' />} status='warning' />
         </View>
         <View>
           {!isLoading && <CardList cardListData={data} card={GovernorProposalSummary} navigation={navigation} />}
@@ -146,11 +88,11 @@ export default function GovernorHomeScreen({route, navigation}) {
           status="warning">
           Back
         </Button>
-        <Button style={commonStyles.singleButton} onPress={() => { navigation.navigate('CreateProposalScreen', { data: route.params.data}) }}>
+        <Button style={commonStyles.singleButton} onPress={() => { navigation.navigate('CreateProposalScreen', { data: route.params.data }) }}>
           Create Prosposal
         </Button>
       </View>
-      
+
     </SafeAreaView>
   );
 }
@@ -163,4 +105,8 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
   },
+  infoButton: {
+    width: '20%',
+    marginHorizontal: '75%'
+  }
 });
