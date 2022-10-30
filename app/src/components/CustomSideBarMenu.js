@@ -24,7 +24,8 @@ import { Button, Icon } from '@ui-kitten/components';
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Toast from 'react-native-simple-toast';
-import { formatAddress_1 } from '../services/FormatterService'
+import { formatAddress_1 } from '../services/FormatterService';
+import TextToClipBoard from '../components/TextToClipBoard';
 
 const CustomSidebarMenu = props => {
   const connector = useWalletConnect();
@@ -50,9 +51,7 @@ const CustomSidebarMenu = props => {
         <Text style={commonStyles.secondaryTextOrange}>
           Wallet Address
         </Text>
-        <TouchableOpacity onPress={() => copyToClipboard(connector.accounts[0])}>
-            <Text style={commonStyles.activeText}>{formatAddress_1(connector.accounts[0])}</Text>
-        </TouchableOpacity>
+        <TextToClipBoard text={connector.accounts[0]} textFormatter={formatAddress_1} />
       </View>}
       <View style={commonStyles.rowButtonContainer}>
         <Button

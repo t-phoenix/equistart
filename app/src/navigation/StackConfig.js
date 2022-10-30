@@ -32,148 +32,148 @@ import TokenMintingInfo from '../screens/InstructionScreens/TokenMintingInfo';
 import CrowdsaleInfo from '../screens/InstructionScreens/CrowdsaleInfo';
 
 export const DaoScreens = [
-    {
-      name: 'DaoList',
-      title: 'Project List',
-      component: DaoListScreen
-    },
-    {
-      name: 'CreateDao',
-      title: 'Create your Project',
-      component: CreateDaoScreen
-    },
-    {
-      name: 'cofounderDetails',
-      title: 'Create your Project',
-      component: CofounderDetailsScreen
-    },
-    {
-      name: 'Review',
-      title: 'Review',
-      component: ReviewScreen
-    },
-    {
-      name: 'DaoHomeScreen',
-      title: 'Home',
-      component: DaoHomeScreen
-    },
-    {
-      name: 'CreateProposal',
-      title: 'Create Proposal',
-      component: CreateProposal
-    },
-    {
-      name: 'ProposalDetails',
-      title: 'Proposal Details',
-      component: ProposalDetailsScreen
-    }
-  ];
+  {
+    name: 'DaoList',
+    title: 'Project List',
+    component: DaoListScreen
+  },
+  {
+    name: 'CreateDao',
+    title: 'Create your Project',
+    component: CreateDaoScreen
+  },
+  {
+    name: 'cofounderDetails',
+    title: 'Create your Project',
+    component: CofounderDetailsScreen
+  },
+  {
+    name: 'Review',
+    title: 'Review',
+    component: ReviewScreen
+  },
+  {
+    name: 'DaoHomeScreen',
+    title: 'Home',
+    component: DaoHomeScreen
+  },
+  {
+    name: 'CreateProposal',
+    title: 'Create Proposal',
+    component: CreateProposal
+  },
+  {
+    name: 'ProposalDetails',
+    title: 'Proposal Details',
+    component: ProposalDetailsScreen
+  }
+];
 
-  export const WalletScreens = [
-    {
-        name: 'WalletHomeScreen',
-        title: 'Wallet',
-        component: WalletHomeScreen
-      },
-      {
-        name: 'SendScreen',
-        title: 'Transfer Tokens',
-        component: SendScreen
-      },
-  ];
+export const WalletScreens = [
+  {
+    name: 'WalletHomeScreen',
+    title: 'Wallet',
+    component: WalletHomeScreen
+  },
+  {
+    name: 'SendScreen',
+    title: 'Transfer Tokens',
+    component: SendScreen
+  },
+];
 
-  export const InstructionScreens = [
-    {
-      name: 'Alfajores Wallet',
-      title: 'Instructions',
-      component: AlfajoresWalletInfo
-    },
-    {
-      name: 'DAO Suite',
-      title: 'Instructions',
-      component: DAOSuiteInfo
-    },
-    {
-      name: 'Token Minting',
-      title: 'Instructions',
-      component: TokenMintingInfo
-    },
-    {
-      name: 'Crowdsale',
-      title: 'Instructions',
-      component: CrowdsaleInfo
-    },
-    {
-      name: 'Governor',
-      title: 'Instructions',
-      component: GovernorInfo
-    }
-  ]
+export const InstructionScreens = [
+  {
+    name: 'Alfajores Wallet',
+    title: 'Instructions',
+    component: AlfajoresWalletInfo
+  },
+  {
+    name: 'DAO Suite',
+    title: 'Instructions',
+    component: DAOSuiteInfo
+  },
+  {
+    name: 'Token Minting',
+    title: 'Instructions',
+    component: TokenMintingInfo
+  },
+  {
+    name: 'Crowdsale',
+    title: 'Instructions',
+    component: CrowdsaleInfo
+  },
+  {
+    name: 'Governor',
+    title: 'Instructions',
+    component: GovernorInfo
+  }
+]
 
-  export const TokenScreens = [
-    {
-      name: 'TokenListScreen',
-      title: 'ERC20Token',
-      component: TokenListScreen
-    },
-    {
-      name: 'CreateToken',
-      title: 'Create your token',
-      component: CreateTokenScreen
-    },
-    {
-      name: 'TokenHomeScreen',
-      title: 'ERC20 Token',
-      component: TokenHomeScreen
-    }
-  ]
+export const TokenScreens = [
+  {
+    name: 'TokenListScreen',
+    title: 'ERC20Token',
+    component: TokenListScreen
+  },
+  {
+    name: 'CreateToken',
+    title: 'Create your token',
+    component: CreateTokenScreen
+  },
+  {
+    name: 'TokenHomeScreen',
+    title: 'ERC20 Token',
+    component: TokenHomeScreen
+  }
+]
 
-  export const CrowdsaleScreens = [
-    {
-      name: 'CrowdsaleListScreen',
-      title: 'Token Sale',
-      component: CrowdsaleListScreen
-    },
-    {
-      name: 'CreateCrowdsale',
-      title: 'Create a Crowdsale',
-      component: CreateCrowdsaleScreen
-    },
-    {
-      name: "CrowdsaleHomeScreen",
-      title: 'Buy Tokens',
-      component: CrowdsaleHomeScreen
-    }
-  ]
+export const CrowdsaleScreens = [
+  {
+    name: 'CrowdsaleListScreen',
+    title: 'Token Sale',
+    component: CrowdsaleListScreen
+  },
+  {
+    name: 'CreateCrowdsale',
+    title: 'Create a Crowdsale',
+    component: CreateCrowdsaleScreen
+  },
+  {
+    name: "CrowdsaleHomeScreen",
+    title: 'Buy Tokens',
+    component: CrowdsaleHomeScreen
+  }
+]
 
-  export const GovernanceScreens = [
-    {
-      name: 'GovernorListScreen',
-      title: 'Governance',
-      component: GovernorListScreen
-    },
-    {
-      name: 'CreateGovernor',
-      title: 'Create New Governor',
-      component: CreateGovernorScreen
-    },
-    {
-      name: 'GovernorHomeScreen',
-      title: 'Governor',
-      component:GovernorHomeScreen
-    },
-    {
-      name: 'CreateProposalScreen',
-      title: 'Create A New Proposal',
-      component: CreateProposalScreen
-    },
-    {
-      name: 'GovernorProposalDetails',
-      title: 'Proposal Details',
-      component: GovernorProposalDetailsScreen
-    }
+export const GovernanceScreens = [
+  {
+    name: 'GovernorListScreen',
+    title: 'Governance',
+    component: GovernorListScreen
+  },
+  {
+    name: 'CreateGovernor',
+    title: 'Create New Governor',
+    component: CreateGovernorScreen
+  },
+  {
+    name: 'GovernorHomeScreen',
+    title: 'Governor',
+    component: GovernorHomeScreen
+  },
+  {
+    name: 'CreateProposalScreen',
+    title: 'Create A New Proposal',
+    component: CreateProposalScreen
+  },
+  {
+    name: 'GovernorProposalDetails',
+    title: 'Proposal Details',
+    component: GovernorProposalDetailsScreen
+  }
 
-  ] 
+]
 
 
 //   export const RestoreScreens = [
