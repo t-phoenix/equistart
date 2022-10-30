@@ -7,37 +7,35 @@ import EmptySpace from './EmptySpace'
 import { formatAddress, formatNumber } from '../services/FormatterService'
 import { getTokenName } from '../services/TokenServices/ERC20TokenService'
 
+// const color = backgrounds[(Math.floor((Math.random() * 100))) % backgrounds.length];
 const GovernorCardSummary = ({ cardData, navigation }) => {
 
-    const [tokenName,setTokenName] = React.useState('');
-
+    const [tokenName, setTokenName] = React.useState('');
+    const [color, setData] = React.useState(backgrounds[(Math.floor((Math.random() * 100))) % backgrounds.length]);
     React.useEffect(() => {
-        console.log("HERE WE ARE:")
         fetchTokenName(cardData);
     }, []);
 
     async function fetchTokenName(data) {
         try {
             const result = await getTokenName(data.token);
-            console.log("TokenName:", result);
-            setTokenName(()=>result);
+            setTokenName(() => result);
         } catch (error) {
-            console.log("ERORO while geting token Name", error);
+            console.log("ERROR while geting token Name", error);
         }
-        
-    }
 
+    }
 
     function openProject(data) {
         navigation.navigate('GovernorHomeScreen', { data: data })
     }
 
     return (
-        <View style={{ ...commonStyles.outerCard}}>
-            <View style={{ ...commonStyles.innerCard, backgroundColor: backgrounds[(Math.floor((Math.random() * 100))) % backgrounds.length] }}>
-                <ImageBackground source={require('../../assets/images/company.png')}>
-                    <View>
-                        <Text style={commonStyles.secondaryTextBlack}>{tokenName} Governance</Text>
+        <View style={{ ...commonStyles.outerCard }}>
+            <View style={{ ...commonStyles.innerCard, backgroundColor: color }}>
+                <ImageBackground source={require('../../assets/images/company1.png')}>
+                    <View style={styles.header}>
+                        <Text style={commonStyles.secondaryTextBlack}>{tokenName || '---'} Governance</Text>
                     </View>
                     <EmptySpace />
                     <Button
@@ -62,5 +60,9 @@ export default GovernorCardSummary;
 const styles = StyleSheet.create({
     bottomContainer: {
         padding: 10
+    },
+    header: {
+        maxWidth: '50%',
+        flex: 1
     }
 })

@@ -99,19 +99,14 @@ const App = () => {
               component={TokenNavigator}
               options={{ headerShown: false }}
             />
-            <Drawer.Screen
+            {/* <Drawer.Screen
               name="Projects"
               component={DaoNavigator}
               options={{ headerShown: false }}
-            />
+            /> */}
             <Drawer.Screen
               name="Wallet"
               component={WalletNavigator}
-              options={{ headerShown: false }}
-            />
-            <Drawer.Screen
-              name="Instructions"
-              component={InstructionNavigator}
               options={{ headerShown: false }}
             />
             <Drawer.Screen
@@ -122,6 +117,11 @@ const App = () => {
             <Drawer.Screen
               name="Governance"
               component={GovernanceNavigator}
+              options={{ headerShown: false }}
+            />
+            <Drawer.Screen
+              name="Instructions"
+              component={InstructionNavigator}
               options={{ headerShown: false }}
             />
           </Drawer.Navigator>
