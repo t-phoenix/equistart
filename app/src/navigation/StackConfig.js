@@ -27,6 +27,7 @@ import CreateGovernorScreen from '../screens/GovernanceScreens/CreateGovernorScr
 import GovernorHomeScreen from '../screens/GovernanceScreens/GovernorHomeScreen';
 import CreateProposalScreen from '../screens/GovernanceScreens/CreateProposalScreen';
 import GovernorProposalDetailsScreen from '../screens/GovernanceScreens/GovernorProposalDetails';
+import GovernorSettingScreen from '../screens/GovernanceScreens/GovernorSettingScreen';
 
 import TokenMintingInfo from '../screens/InstructionScreens/TokenMintingInfo';
 import CrowdsaleInfo from '../screens/InstructionScreens/CrowdsaleInfo';
@@ -171,6 +172,11 @@ export const GovernanceScreens = [
     name: 'GovernorProposalDetails',
     title: 'Proposal Details',
     component: GovernorProposalDetailsScreen
+  },
+  {
+    name: 'GovernorSettingScreen',
+    title: 'Timelock Settings',
+    component:GovernorSettingScreen
   }
 
 ]

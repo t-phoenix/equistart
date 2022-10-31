@@ -44,8 +44,8 @@ const GovernorProposalDetailsScreen = ({route, navigation}) => {
   const cardData = route.params.cardData;
   console.log("route to carddata: ", cardData);
 
-  console.log('Proposal Params, target: ', cardData.targets);
-  console.log('value:', cardData.values, " calldatas: ", cardData.callDatas, " description: ", cardData.description );
+  // console.log('Proposal Params, target: ', cardData.targets);
+  // console.log('value:', cardData.values, " calldatas: ", cardData.callDatas, " description: ", cardData.description );
 //   ProposalCreated(proposalId, proposer, targets, values, signatures, calldatas, startBlock, endBlock, description)
 
   React.useEffect(() => {

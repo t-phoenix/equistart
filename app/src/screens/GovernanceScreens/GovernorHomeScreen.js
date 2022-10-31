@@ -73,7 +73,7 @@ export default function GovernorHomeScreen({ route, navigation }) {
         ref={scrollViewRef}>
         <GovernorCardDetail cardData={route.params.data} navigation={navigation} />
         <Button size='tiny' style={styles.infoButton} onPress={() => navigation.navigate('Instructions', { screen: 'Governor' })} accessoryRight={<Icon name='alert-circle-outline' />} appearance='ghost' status='danger'>More Info</Button>
-        <EmptySpace space={12} />
+        <EmptySpace space={4} />
         <View style={{ ...commonStyles.row, marginHorizontal: 5 }}>
           <Text style={commonStyles.secondaryTextGrey}> All Proposals </Text>
           <Button style={commonStyles.button} onPress={() => loadProposalList()} accessoryLeft={<Icon name='refresh-outline' />} status='warning' />
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   infoButton: {
-    width: '20%',
-    marginHorizontal: '75%'
+    width: '30%',
+    marginLeft: '70%'
   }
 });

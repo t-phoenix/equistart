@@ -154,14 +154,25 @@ export async function queueProposal(
       MyGovernorABI,
       governorAddr,
     );
+    console.log('Proposal Params:');
+    console.log(
+      'targets: ',
+      targets,
+      'values:',
+      values,
+      ' calldatas: ',
+      calldatas,
+    );
     let descriptionHash = web3.utils.keccak256(description);
-    let queueProp = govContract.methods.propose(
+    console.log(' description: ', descriptionHash.toString());
+    console.log('Governor Addr:', governorAddr);
+    let queueProp = await govContract.methods.queue(
       targets,
       values,
       calldatas,
-      descriptionHash,
+      descriptionHash.toString(),
     );
-    console.log('QUEUE DATA', queueProp);
+    // console.log('QUEUE DATA', queueProp);
     const txObj = {
       from: connector.accounts[0],
       to: governorAddr,
@@ -171,7 +182,7 @@ export async function queueProposal(
     console.log('Transaction:', txn);
     return txn;
   } catch (error) {
-    console.log('Error while Queuing proposal');
+    console.log('Error while Queuing proposal', error);
   }
 }
 
@@ -189,7 +200,7 @@ export async function executeProposal(
       governorAddr,
     );
     let descriptionHash = web3.utils.keccak256(description);
-    let executeProp = govContract.methods.execute(
+    let executeProp = await govContract.methods.execute(
       targets,
       values,
       calldatas,
@@ -205,11 +216,81 @@ export async function executeProposal(
     console.log('Transaction:', txn);
     return txn;
   } catch (error) {
-    console.log('Error while Executing proposal');
+    console.log('Error while Executing proposal', error);
   }
 }
-
 
 //TODO: proposalVotes(proposalId): return for, against, abstain votes. --> Show final count on main screen
 //DONE: castVote(proposalId, support{uint8}):
 //TODO: castVoteWithParams
+
+export async function getProposerRole(timelockAddr) {
+  // try {
+  let timelockContract = new kit.connection.web3.eth.Contract(
+    TimelockABI,
+    timelockAddr,
+  );
+  let proposerRole = await timelockContract.methods.PROPOSER_ROLE().call();
+  console.log('PROPSER ROLE ADDR:', proposerRole);
+  return proposerRole;
+  // } catch (error) {
+  //   console.log("Eror while getting proposer role:", error);
+  //   return error;
+  // }
+}
+export async function getTokenName(tokenAddr) {
+  let contract = new kit.connection.web3.eth.Contract(ERC20TokenABI, tokenAddr);
+  let name = await contract.methods.name().call();
+  return name;
+}
+
+export async function getExecutorRole(timelockAddr) {
+  let timelockContract = new kit.connection.web3.eth.Contract(
+    TimelockABI,
+    timelockAddr,
+  );
+  let executorRole = await timelockContract.methods.EXECUTOR_ROLE().call();
+  console.log('EXECUTOR ROLE ADDR:', executorRole);
+  return executorRole;
+}
+
+export async function getAdminRole(timelockAddr) {
+  let timelockContract = new kit.connection.web3.eth.Contract(
+    TimelockABI,
+    timelockAddr,
+  );
+  let adminRole = await timelockContract.methods.TIMELOCK_ADMIN_ROLE().call();
+  console.log('ADMIN ROLE ADDR:', adminRole);
+  return adminRole;
+}
+
+export async function checkHasRole(timelockAddr, role, user) {
+  let timelock = new kit.connection.web3.eth.Contract(
+    TimelockABI,
+    timelockAddr,
+  );
+  let hasRole = await timelock.methods.hasRole(role, user).call();
+  console.log('User:', user, 'has role:', role, 'result:', hasRole);
+  return hasRole;
+}
+
+export async function grantTimelockRole(connector, timelockAddr, role, user) {
+  try {
+    let timelock = new kit.connection.web3.eth.Contract(
+      TimelockABI,
+      timelockAddr,
+    );
+    let grantRole = await timelock.methods.grantRole(role, user);
+    const txObj = {
+      from: connector.accounts[0],
+      to: timelockAddr,
+      data: grantRole.encodeABI(),
+    };
+    const txn = await connector.sendTransaction(txObj);
+    console.log('Transaction:', txn);
+    return txn;
+  } catch (error) {
+    console.log("Eror while granting role:", error);
+    return error;
+  }
+}

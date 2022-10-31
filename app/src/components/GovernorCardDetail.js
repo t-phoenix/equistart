@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Button, Text, Spinner } from '@ui-kitten/components'
+import { Button, Text, Spinner, Icon } from '@ui-kitten/components'
 import commonStyles from '../commonStyles';
 import { formatAddress, formatNumber } from '../services/FormatterService'
 import EmptySpace from './EmptySpace';
@@ -45,6 +45,7 @@ const GovernorCardDetail = ({ cardData, navigation }) => {
             <View style={{ ...commonStyles.innerCard, backgroundColor: '#F8F8F8' }}>
                 <View style={styles.nameContainer}>
                     <Text style={styles.headerText} category='h3'>{tokenName}</Text>
+                    <Button style={commonStyles.button} onPress={() => { navigation.navigate('GovernorSettingScreen', { data: cardData }) }} accessoryLeft={<Text>⚙️</Text>} status='warning' />
                     {/* <Text style={styles.text} category='s1'>({cardData.timelock})</Text> */}
                 </View>
                 <Text style={commonStyles.primaryTextOrange}>About</Text>
@@ -76,8 +77,9 @@ export default GovernorCardDetail;
 const styles = StyleSheet.create({
     nameContainer: {
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: '4%'
     },
     text: {
         color: '#9C9DA0',

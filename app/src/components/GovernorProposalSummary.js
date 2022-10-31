@@ -28,9 +28,9 @@ const GovernorProposalSummary = ({ cardData, navigation }) => {
                     {/* <Text style={commonStyles.secondaryTextGrey}>ProposalId: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.proposalId} </Text>} </Text> */}
                     {/* <View style={styles.container}> */}
                     <View>
-                        <Text style={commonStyles.primaryTextGreen}> Start Date {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.votingStartDate} </Text>} </Text>
+                        <Text style={commonStyles.primaryTextGreen}> Start Block {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.votingStartDate} </Text>} </Text>
                         <View style={{ marginLeft: '10%' }}></View>
-                        <Text style={commonStyles.primaryTextRed}> End Date {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.votingEndDate} </Text>} </Text>
+                        <Text style={commonStyles.primaryTextRed}> End Block {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.votingEndDate} </Text>} </Text>
                     </View>
                     <View style={{ marginLeft: 'auto', marginTop: 2 }}>
                         <Button
