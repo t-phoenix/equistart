@@ -21,130 +21,39 @@ export default function CrowdsaleInfo({navigation}) {
       <ScrollView>
         <View>
           <View style={styles.contentBox}>
-            <Text style={styles.headerText}>Aim</Text>
+            <Text style={styles.headerText}>Crowdsale</Text>
             <Text style={styles.descriptionText}>
-              This application helps a group of users make their project ownable
-              and managable on a public blockchain using ERC-20 token standard.
+              Token Sale is a very complex mechanism and need to consider many variables.{'\n'}
+              But to simulate we bought up a very primitive crowdsale mechanism
             </Text>
           </View>
 
           <View style={styles.contentBox}>
-            <Text style={styles.headerText}>How to use?</Text>
+            <Text style={styles.headerText}>Host a Sale</Text>
             <Text style={styles.descriptionText}>
-              - This is a pure dApp, connected only with alfajores test network
-            </Text>
-            <Text style={styles.descriptionText}>
-              {' '}
-              - Alfajores is the testnet for celo blockchain, used in
-              development and testing.
-            </Text>
-            <Text style={styles.descriptionText}>
-              {' '}
-              - Alfajores team also maintains a cryptowallet named alfajores on
-              playstore.
-            </Text>
-          </View>
-          <View style={styles.buttonBox}>
-            <Button
-              style={commonStyles.singleButton}
-              onPress={() =>
-                Linking.openURL(
-                  'https://play.google.com/store/apps/details?id=org.celo.mobile.alfajores',
-                )
-              }>
-              Alfajores Playstore
-            </Button>
-          </View>
-
-          <View style={styles.contentBox}>
-            <Text style={styles.descriptionText}>
-              {' '}
-              - download this wallet, setup it, and fund it using alfajores
-              faucet.
-            </Text>
-          </View>
-
-          <View style={styles.buttonBox}>
-            <Button
-              style={commonStyles.singleButton}
-              onPress={() =>
-                Linking.openURL('https://celo.org/developers/faucet')
-              }>
-              Alfajores Faucet
-            </Button>
-          </View>
-          <View style={{height: 20}} />
-
-          <TouchableOpacity
-            style={styles.buttonBox}
-            onPress={() =>
-              Linking.openURL('https://www.youtube.com/watch?v=y-wXijAadiU')
-            }>
-            <Text style={styles.hyperlinkBtn}>
-              Use this Youtube link if you need more help(works similiar to
-              celo)
-            </Text>
-          </TouchableOpacity>
-
-          <View style={{height: 10}} />
-
-          <View style={styles.contentBox}>
-            <Text style={styles.headerText}>What to do ?</Text>
-            <Text style={styles.descriptionText}>
-              Connect this dApp (Equistart) with alfajores wallet using connect
-              button on Wallet Screen.
-            </Text>
-            <View style={{height: 12}} />
-            <Text style={styles.descriptionText}>
-              {' '}
-              - You can create a new ERC20 token for your project.
-            </Text>
-            <Text style={styles.descriptionText}>
-              {' '}
-              - You can share/ transfer those project token to your co-founders,
-              investors and other stakeholders as equity.
-            </Text>
-            <Text style={styles.descriptionText}>
-              {' '}
-              - If a user hold {'>'} 5% of total project tokens, user has
-              special privileges under that project.
-            </Text>
-            <Text style={styles.descriptionText}>
-              {' '}
-              - These special users can create new proposal for their project.{' '}
-            </Text>
-            <Text style={styles.descriptionText}>
-              {' '}
-              - These special users can vote on those proposal.{' '}
+              - Create New Token Sale{'\n'}
+              - Use previously created Token Contract Address. {'\n'}
+              - Mention Beneficiary address to collect the raised funds.{'\n'}
+              - Set the rate at which you want to sale the tokens.{'\n'}
+              - Rate is set in wei: i.e if rate == 2, then 1 wei will get you 2 tokens.{'\n'}
+              - 1ETH == 10**18 wei.{'\n'}
             </Text>
           </View>
 
           <View style={styles.contentBox}>
-            <Text style={styles.headerText}>Future Work</Text>
+            <Text style={styles.headerText}>Sale Scren</Text>
             <Text style={styles.descriptionText}>
-              {' '}
-              {'=>'} Next version will have the functionality of managing funds
-              for your projects
-            </Text>
-            <Text style={styles.descriptionText}> - deposit </Text>
-            <Text style={styles.descriptionText}> - withdraw </Text>
-            <Text style={styles.descriptionText}> - sale </Text>
-            <Text style={styles.descriptionText}> - escrow </Text>
-            <Text style={styles.descriptionText}> - payments </Text>
-            <Text style={styles.descriptionText}>
-              {' '}
-              {'=>'} More customisable variables.
-            </Text>
-            <Text style={styles.descriptionText}>
-              {' '}
-              {'=>'} Integrating multiple blockchains.
+              - Interested investors can buy tokens from this sale.{'\n'}
+              - Contract Information and Balances are displayed automatically. {'\n'} 
+              - Transfer these funds to the DAO treasury, i.e. timelock Contract.{'\n'}
+              - Use the Governor to govern the use of these funds. {'\n'}
+              - NOTE: Your project token can also be kept in treasury.{'\n'}
             </Text>
           </View>
 
-          <View style={styles.contentBox}>
-            <Text style={styles.specialText}>If your are interested to fund/ Join the project, please contact the developers.</Text>
-            <Text style={styles.specialText}>Thank You !</Text>
-          </View>
+        
+
+         
         </View>
       </ScrollView>
     </SafeAreaView>

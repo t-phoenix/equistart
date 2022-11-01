@@ -23,7 +23,7 @@ export default function AlfajoresWalletInfo({navigation}) {
           <View style={styles.contentBox}>
             <Text style={commonStyles.primaryTextWhite}>Alfajores Wallet</Text>
             <Text style={styles.descriptionText}>
-              - This is a pure dApp, connected only with alfajores test network{"\n"}
+              - Equistart is a pure dApp, connected only with alfajores test network{"\n"}
               - Alfajores is the testnet for celo blockchain, used in
                 development and testing.{"\n"}
               - Alfajores team also maintains a cryptowallet named alfajores on
@@ -45,8 +45,8 @@ export default function AlfajoresWalletInfo({navigation}) {
           <View style={styles.contentBox}>
             <Text style={styles.descriptionText}>
               {' '}
-              - download this wallet, setup it, and fund it using alfajores
-              faucet.
+              - download this wallet, setup it, and fund it using alfajores{'\n'}
+              - you just need to copy your wallet address from alfajores and paste it in the faucet to add funds.{'\n'}
             </Text>
           </View>
 
