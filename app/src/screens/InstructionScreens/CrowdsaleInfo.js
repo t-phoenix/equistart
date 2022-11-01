@@ -48,6 +48,9 @@ export default function CrowdsaleInfo({navigation}) {
               - Transfer these funds to the DAO treasury, i.e. timelock Contract.{'\n'}
               - Use the Governor to govern the use of these funds. {'\n'}
               - NOTE: Your project token can also be kept in treasury.{'\n'}
+              {'\n'}
+              {'\n'}
+              NOTE: Admins may send tokens to the timelock address, which acts as the treasury for Governor{'\n'}
             </Text>
           </View>
 

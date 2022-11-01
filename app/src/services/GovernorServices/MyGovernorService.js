@@ -204,7 +204,7 @@ export async function executeProposal(
       targets,
       values,
       calldatas,
-      descriptionHash,
+      descriptionHash.toString(),
     );
     console.log('Execute DATA', executeProp);
     const txObj = {
