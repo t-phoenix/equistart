@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, View, ImageBackground } from 'react-native'
 import { Button, Text } from '@ui-kitten/components'
 import commonStyles from '../commonStyles'
-import { formatAddress, formatUnixTimeStamp } from '../services/FormatterService';
+import Badge from './Badge';
 import { colorPairs } from '../colors'
 import TextToClipBoard from '../components/TextToClipBoard';
 
@@ -25,19 +25,12 @@ const GovernorProposalSummary = ({ cardData, navigation }) => {
     return (
         <View style={commonStyles.outerCard}>
             <View style={{ ...commonStyles.innerCard, backgroundColor: colorPairs[num].background }}>
-                <ImageBackground source={require('../../assets/images/proposal.png')} style={{ height: 150, justifyContent: 'space-between' }} />
-                <View style={commonStyles.row}>
-                    <Text style={commonStyles.secondaryTextGrey}>ID: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {Number(cardData.key) + 1} </Text>} </Text>
-                    <Text style={commonStyles.secondaryTextGrey}>State: {<Text style={{ color: stateMap[cardData.proposalState].color, fontWeight: 'bold' }}> { stateMap[cardData.proposalState].name} </Text>} </Text>
-
-                    {/* <Badge status={cardData.isActive} /> */}
-                </View>
-
+                <ImageBackground source={require('../../assets/images/proposal.png')} style={{ height: 150, justifyContent: 'space-between' }}>
+                <Badge status={true} text={stateMap[cardData.proposalState].name} color={stateMap[cardData.proposalState].color} />
+                </ImageBackground>
                 <View>
                     <Text style={commonStyles.secondaryTextGrey}>Proposal Id </Text>
                     <TextToClipBoard text={cardData.proposalId} />
-                    {/* <Text style={commonStyles.secondaryTextGrey}>ProposalId: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.proposalId} </Text>} </Text> */}
-                    {/* <View style={styles.container}> */}
                     <View>
                         <Text style={commonStyles.primaryTextGreen}> Start Block {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {cardData.votingStartDate} </Text>} </Text>
                         <View style={{ marginLeft: '10%' }}></View>

@@ -4,16 +4,10 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
-  TouchableOpacity,
 } from 'react-native';
-import {Button, Text, Icon, Spinner, Input} from '@ui-kitten/components';
-import {Dimensions} from 'react-native';
-import GovernorCardDetail from '../../components/GovernorCardDetail';
-import GovernorProposalSummary from '../../components/GovernorProposalSummary';
-import CardList from '../../components/CardList';
+import { Button, Text, Icon, Spinner, Input } from '@ui-kitten/components';
 import commonStyles from '../../commonStyles';
-import {backgrounds, COLORS} from '../../colors';
-import {Platform} from 'react-native';
+import { COLORS } from '../../colors';
 import EmptySpace from '../../components/EmptySpace';
 
 import {
@@ -23,16 +17,13 @@ import {
   checkHasRole,
   grantTimelockRole,
 } from '../../services/GovernorServices/MyGovernorService';
-import {useWalletConnect} from '@walletconnect/react-native-dapp';
-import {
-  formatNumber,
-  formatAddress,
-  copyToClipboard,
-} from '../../services/FormatterService';
-import Toast from 'react-native-simple-toast';
+import { useWalletConnect } from '@walletconnect/react-native-dapp';
+import { formatAddress } from '../../services/FormatterService';
+import TextToClipBoard from '../../components/TextToClipBoard';
 
-export default function GovernorSettingScreen({route, navigation}) {
+export default function GovernorSettingScreen({ route, navigation }) {
   const connector = useWalletConnect();
+  const [fetching, setFetching] = React.useState(false);
   const [roles, setRoles] = React.useState({
     proposer: '0x0000000000000000000000000000000000000000',
     executor: '0x0000000000000000000000000000000000000000',
@@ -47,8 +38,8 @@ export default function GovernorSettingScreen({route, navigation}) {
 
   const [roleAddr, setRoleAddr] = React.useState('');
   const [userAddr, setUserAddr] = React.useState('');
-  const [roleResult, setRoleResult] = React.useState('bool');
-  const [grantResult, setGrantResult] = React.useState('txn');
+  const [roleResult, setRoleResult] = React.useState('---');
+  const [grantResult, setGrantResult] = React.useState('---');
   //   const [treasuryBal, setTreasuryBal] = React.useState('Enter token address');
 
   const scrollViewRef = React.useRef();
@@ -62,6 +53,7 @@ export default function GovernorSettingScreen({route, navigation}) {
   }, [connector.connected]);
 
   async function getRoleAddresses() {
+    setFetching(true);
     // try {
     console.log('Hello');
     let propROLE = await getProposerRole(governorData.timelock);
@@ -82,6 +74,7 @@ export default function GovernorSettingScreen({route, navigation}) {
       admin: adminROLE,
     };
     setRoles(() => allRoles);
+    setFetching(false);
   }
 
   async function checkRole() {
@@ -109,45 +102,30 @@ export default function GovernorSettingScreen({route, navigation}) {
         showsVerticalScrollIndicator={false}
         ref={scrollViewRef}>
         <View>
-          <Text>This is Settings Screen</Text>
           {/* //TODO: print copyable role Addresses: admin, governor, executor
             //TODO: function to check 'hasRole'
             //TODO: function to 'grantRole'
             //TODO: function to 'renounceRole' */}
-          <Button
-            style={commonStyles.button}
-            onPress={() => getRoleAddresses(governorData)}
-            accessoryLeft={<Icon name="refresh-outline" />}
-            status="warning"
-          />
-          <EmptySpace />
-
+          <EmptySpace space={15} />
           <View>
-            <View style={commonStyles.rowButtonContainer}>
+            <View style={styles.infoRow}>
               <Text>PROPOSER: </Text>
-              <TouchableOpacity onPress={() => copyToClipboard(roles.proposer)}>
-                <Text style={commonStyles.activeText}>
-                  {formatAddress(roles.proposer)}
-                </Text>
-              </TouchableOpacity>
+              <TextToClipBoard text={roles.proposer} textFormatter={formatAddress} />
+              <Button style={{ ...commonStyles.button, marginLeft: 'auto' }} size='small'
+                onPress={() => getRoleAddresses(governorData)} disabled={!connector.connected} status="info">
+                {fetching && <Spinner size='tiny' status='basic' />}
+                {!fetching && "Refresh"}
+              </Button>
             </View>
-            <EmptySpace />
-            <View style={commonStyles.rowButtonContainer}>
+            <EmptySpace space={10} />
+            <View style={styles.infoRow}>
               <Text>EXECUTOR: </Text>
-              <TouchableOpacity onPress={() => copyToClipboard(roles.executor)}>
-                <Text style={commonStyles.activeText}>
-                  {formatAddress(roles.executor)}
-                </Text>
-              </TouchableOpacity>
+              <TextToClipBoard text={roles.executor} textFormatter={formatAddress} />
             </View>
-            <EmptySpace />
-            <View style={commonStyles.rowButtonContainer}>
+            <EmptySpace space={15} />
+            <View style={styles.infoRow}>
               <Text>TIMELOCK_ADMIN: </Text>
-              <TouchableOpacity onPress={() => copyToClipboard(roles.admin)}>
-                <Text style={commonStyles.activeText}>
-                  {formatAddress(roles.admin)}
-                </Text>
-              </TouchableOpacity>
+              <TextToClipBoard text={roles.admin} textFormatter={formatAddress} />
             </View>
           </View>
 
@@ -173,26 +151,26 @@ export default function GovernorSettingScreen({route, navigation}) {
             )}
           />
           <View>
+            <Text style={{ ...commonStyles.tertiaryTextGrey, marginLeft: 'auto' }}>Has Role : {roleResult}</Text>
+            <EmptySpace style={{ marginLeft: 'auto' }} />
             <Button
-              style={styles.smallButton}
-              onPress={checkRole}
-              status="warning">
+              style={{ ...commonStyles.doubleButton, marginLeft: 'auto' }}
+              onPress={checkRole} status='primary' appearance='outline'>
               Check Role
             </Button>
-            <EmptySpace />
-            <Text style={styles.smallText}>Has Role : {roleResult}</Text>
           </View>
           <EmptySpace space={12} />
-          <View>
-            <Text>Grant Role only works for Admin</Text>
+          <View style={styles.container}>
+            <Text style={styles.smallText}>Note: Grant Role only works for Admin</Text>
+            <EmptySpace space={2} />
             <Button
-              style={styles.smallButton}
+              style={{ ...commonStyles.singleButton }}
               onPress={grantRole}
-              status="warning">
+              status="primary">
               Grant Role
             </Button>
-            <EmptySpace />
-            <Text style={styles.smallText}>Grant Role : {grantResult}</Text>
+            <EmptySpace space={15} />
+            <Text style={styles.mediumText}>Grant Role : {grantResult}</Text>
           </View>
           <EmptySpace space={18} />
         </View>
@@ -232,8 +210,17 @@ const styles = StyleSheet.create({
     marginLeft: '70%',
   },
   smallText: {
-    fontSize: 12,
-    color: COLORS.secondaryWhite,
+    fontSize: 10,
+    color: 'grey',
+  },
+  mediumText: {
+    fontSize: 12
   },
   smallButton: {},
+  infoRow: {
+    flexDirection: 'row',
+  },
+  container: {
+    alignItems: "center",
+  },
 });
