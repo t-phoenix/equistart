@@ -25,8 +25,7 @@ import {
   executeProposal
 } from '../../services/GovernorServices/MyGovernorService';
 import {useWalletConnect} from '@walletconnect/react-native-dapp';
-import Clipboard from '@react-native-clipboard/clipboard';
-import Toast from 'react-native-simple-toast';
+import {stateMap} from '../../components/GovernorProposalSummary';
 
 const GovernorProposalDetailsScreen = ({route, navigation}) => {
   const connector = useWalletConnect();
@@ -133,7 +132,7 @@ const GovernorProposalDetailsScreen = ({route, navigation}) => {
 
             {/* <Badge status={cardData.isActive} /> */}
             <Text style={commonStyles.primaryTextBlack}>
-              Status: {route.params.cardData.proposalState}
+              Status: <Text style={{color: stateMap[route.params.cardData.proposalState].color}}> {stateMap[route.params.cardData.proposalState].name} </Text>
             </Text>
           </View>
           <EmptySpace />
