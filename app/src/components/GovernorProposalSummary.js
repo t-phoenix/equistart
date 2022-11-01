@@ -6,6 +6,17 @@ import { formatAddress, formatUnixTimeStamp } from '../services/FormatterService
 import { colorPairs } from '../colors'
 import TextToClipBoard from '../components/TextToClipBoard';
 
+export const stateMap = {
+    0: { name: 'Pending', color: 'darkorange' },
+    1: { name: 'Active', color: 'green' },
+    2: { name: 'Cancelled', color: 'red' },
+    3: { name: 'Defeated', color: 'red' },
+    4: { name: 'Succeded', color: 'green' },
+    5: { name: 'Queued', color: 'darkorange' },
+    6: { name: 'Expired', color: 'red' },
+    7: { name: 'Executed', color: 'green' },
+}
+
 const GovernorProposalSummary = ({ cardData, navigation }) => {
     let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
     console.log("SHOULD GET DATA:", cardData)
@@ -17,7 +28,7 @@ const GovernorProposalSummary = ({ cardData, navigation }) => {
                 <ImageBackground source={require('../../assets/images/proposal.png')} style={{ height: 150, justifyContent: 'space-between' }} />
                 <View style={commonStyles.row}>
                     <Text style={commonStyles.secondaryTextGrey}>ID: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {Number(cardData.key) + 1} </Text>} </Text>
-                    <Text style={commonStyles.secondaryTextGrey}>State: {<Text style={{ color: colorPairs[num].text, fontWeight: 'bold' }}> {Number(cardData.proposalState)} </Text>} </Text>
+                    <Text style={commonStyles.secondaryTextGrey}>State: {<Text style={{ color: stateMap[cardData.proposalState].color, fontWeight: 'bold' }}> { stateMap[cardData.proposalState].name} </Text>} </Text>
 
                     {/* <Badge status={cardData.isActive} /> */}
                 </View>

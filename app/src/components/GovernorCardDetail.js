@@ -45,7 +45,7 @@ const GovernorCardDetail = ({ cardData, navigation }) => {
             <View style={{ ...commonStyles.innerCard, backgroundColor: '#F8F8F8' }}>
                 <View style={styles.nameContainer}>
                     <Text style={styles.headerText} category='h3'>{tokenName}</Text>
-                    <Button style={commonStyles.button} onPress={() => { navigation.navigate('GovernorSettingScreen', { data: cardData }) }} accessoryLeft={<Text>⚙️</Text>} status='warning' />
+                    <Button style={commonStyles.button} size='small' onPress={() => { navigation.navigate('GovernorSettingScreen', { data: cardData }) }} accessoryLeft={<Icon name='settings-2-outline' />} status='warning' />
                     {/* <Text style={styles.text} category='s1'>({cardData.timelock})</Text> */}
                 </View>
                 <Text style={commonStyles.primaryTextOrange}>About</Text>
