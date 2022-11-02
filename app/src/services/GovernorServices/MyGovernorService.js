@@ -112,6 +112,13 @@ export async function castVote(connector, governorAddr, proposalId, vote) {
   }
 }
 
+export async function getVoteCount(governorAddr, proposalId){
+  let govContract = new kit.connection.web3.eth.Contract(MyGovernorABI, governorAddr);
+  let voteCounts = await govContract.methods.proposalVotes(proposalId).call();
+  console.log("Vote COUNT:", voteCounts);
+  return voteCounts
+}
+
 export async function getVoteList(governorAddr, proposalId) {
   let govContract = new kit.connection.web3.eth.Contract(
     MyGovernorABI,
