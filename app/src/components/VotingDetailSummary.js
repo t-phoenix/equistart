@@ -4,7 +4,7 @@ import {Button, Text, Layout, Card} from '@ui-kitten/components';
 import commonStyles from '../commonStyles';
 import {backgrounds} from '../colors';
 import EmptySpace from './EmptySpace';
-import {formatAddress, formatNumber} from '../services/FormatterService';
+import {formatAddress, formatNumber, formatNumWithDecimal, voteDecision} from '../services/FormatterService';
 
 const VotingDetailSummary = ({cardData, navigation}) => {
   function openProject(data) {
@@ -30,7 +30,7 @@ const VotingDetailSummary = ({cardData, navigation}) => {
           
       </View>
       <View style={styles.bottomContainer}>
-        <Text style={commonStyles.tertiaryTextGrey}>Weight: {cardData.weight}</Text>
+        <Text style={commonStyles.tertiaryTextGrey}>Weight: {formatNumWithDecimal(cardData.weight, 18)}</Text>
         <Text style={commonStyles.tertiaryTextGrey}>Decision: {cardData.decision}</Text>
       </View>
     </View>

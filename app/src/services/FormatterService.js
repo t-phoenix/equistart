@@ -55,3 +55,11 @@ export const formatUnixTimeStamp = (timeStamp) => {
     let date = new Date(timeStamp * 1000);
     return date.toDateString();
 }
+
+export const voteDecision = (number)=> {
+    if (number ==0){
+        return "AGAINST";
+    }else if (number == 1){
+        return "FOR";
+    }
+}

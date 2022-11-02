@@ -1,4 +1,5 @@
 import {MyGovernorABI, myGovernorFactoryABI, myGovernorBYTE_CODE} from '../../ABIs/GovernorABI';
+import {testGovernorBYTE_CODE} from '../../ABIs/GovernorAB';
 import {TimelockABI, timelockBYTE_CODE} from '../../ABIs/TimelockABI';
 // import { projectContractBytecode } from "../bytecode";
 import Web3 from 'web3';
@@ -37,7 +38,7 @@ export async function deployGovernor(connector, timelock, token){
     try {
         let governorContract = new kit.connection.web3.eth.Contract(MyGovernorABI);
         const bytecodeWithParams = governorContract.deploy({
-            data: myGovernorBYTE_CODE.object,
+            data: testGovernorBYTE_CODE.object,
             arguments: [token, timelock]
         });
         let txObj = {

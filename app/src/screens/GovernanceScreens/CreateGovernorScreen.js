@@ -74,16 +74,16 @@ export default function CreateGovernorScreen({navigation}) {
       });
   }
 
-  async function grantRoleInTimelock() {
-    grantProposerToGovernor(connector, governorAddr, timelockAddr)
-      .then(result => {
-        console.log('Granting Proposer to Governor. Transaction: ', result);
-        navigation.goBack();
-      })
-      .error(err => {
-        console.log('Error while updating TImelock Settings:', err);
-      });
-  }
+  // async function grantRoleInTimelock() {
+  //   grantProposerToGovernor(connector, governorAddr, timelockAddr)
+  //     .then(result => {
+  //       console.log('Granting Proposer to Governor. Transaction: ', result);
+  //       navigation.goBack();
+  //     })
+  //     .error(err => {
+  //       console.log('Error while updating TImelock Settings:', err);
+  //     });
+  // }
 
   return (
     <SafeAreaView style={commonStyles.pageView}>
@@ -185,7 +185,7 @@ export default function CreateGovernorScreen({navigation}) {
           ) : (
             <></>
           )}
-          {buttonSwitch == 3 ? (
+          {/* {buttonSwitch == 3 ? (
             <Button
               style={commonStyles.singleButton}
               onPress={grantRoleInTimelock}>
@@ -193,7 +193,7 @@ export default function CreateGovernorScreen({navigation}) {
             </Button>
           ) : (
             <></>
-          )}
+          )} */}
         </>
       </View>
     </SafeAreaView>

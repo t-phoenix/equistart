@@ -18,6 +18,7 @@ import {
   formatDate,
   formatAddress,
   formatNumber,
+  formatNumWithDecimal
 } from '../../services/FormatterService';
 import {
   castVote,
@@ -34,12 +35,8 @@ const GovernorProposalDetailsScreen = ({route, navigation}) => {
   const [votedList, setVotedList] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const [yesCount, setYesCount] = React.useState(
-    Number(route.params.cardData.yesCount),
-  );
-  const [noCount, setNoCount] = React.useState(
-    Number(route.params.cardData.noCount),
-  );
+  const [yesCount, setYesCount] = React.useState(0);
+  const [noCount, setNoCount] = React.useState(0);
   const [votingStatus, setVotingStatus] = React.useState(true);
 
   const cardData = route.params.cardData;
@@ -190,11 +187,11 @@ const GovernorProposalDetailsScreen = ({route, navigation}) => {
           <View style={styles.bottomSection}>
               <View style={{marginLeft: '10%'}}></View>
               <Text style={commonStyles.secondaryTextGrey}>
-                Yes {<Text style={styles.text}> {yesCount} </Text>}{' '}
+                Yes {<Text style={styles.text}> {formatNumWithDecimal(yesCount, 18)} </Text>}{' '}
               </Text>
               <View style={{marginLeft: '10%'}}></View>
               <Text style={commonStyles.secondaryTextGrey}>
-                No {<Text style={styles.text}> {noCount} </Text>}{' '}
+                No {<Text style={styles.text}> {formatNumWithDecimal(noCount, 18)} </Text>}{' '}
               </Text>
             </View>
           <EmptySpace />
