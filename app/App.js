@@ -105,11 +105,6 @@ const App = () => {
               options={{ headerShown: false }}
             /> */}
             <Drawer.Screen
-              name="Wallet"
-              component={WalletNavigator}
-              options={{ headerShown: false }}
-            />
-            <Drawer.Screen
               name="Crowdsale"
               component={CrowdsaleNavigator}
               options={{ headerShown: false }}
@@ -117,6 +112,11 @@ const App = () => {
             <Drawer.Screen
               name="Governance"
               component={GovernanceNavigator}
+              options={{ headerShown: false }}
+            />
+            <Drawer.Screen
+              name="Wallet"
+              component={WalletNavigator}
               options={{ headerShown: false }}
             />
             <Drawer.Screen
