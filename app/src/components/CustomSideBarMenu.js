@@ -68,7 +68,7 @@ const CustomSidebarMenu = props => {
         <Button
           style={commonStyles.doubleButton}
           status="warning"
-          onPress={() => Linking.openURL('https://alfajores-blockscout.celo-testnet.org/address/0x0f9Dd41f1c1b1b72808f791A83518dDF0c1aC17f/transactions')}>
+          onPress={() => Linking.openURL('https://explorer.celo.org/alfajores/')}>
           Explorer
           <Icon
             style={styles.icon}

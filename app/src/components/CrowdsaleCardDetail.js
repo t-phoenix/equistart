@@ -91,13 +91,13 @@ const CrowdsaleCardDetail = ({ cardData, navigation }) => {
                             <Text style={commonStyles.activeText}>{formatAddress(cardData.beneficiaryAddr)} </Text>
                         </TouchableOpacity>
                         {/* add total number of tokens */}
-                        <Text style={commonStyles.secondaryTextGrey}>Total Token Supply </Text>
+                        <Text style={commonStyles.secondaryTextGrey}>Token Supply </Text>
                         {!fetching && <Text style={styles.text}>   {formatNumber(tokenSupply)} </Text>}
                         {fetching && <View style={{ marginTop: 4, marginLeft: 30 }}><Spinner size='tiny' status='info' /></View>}
                     </View>
                     <View>
                         <Text style={commonStyles.secondaryTextGrey}>Rate </Text>
-                        <Text style={styles.text}> {cardData.rate} tokens/wei</Text>
+                        <Text style={styles.text}> {cardData.rate} Token/Celo</Text>
                         <Text style={commonStyles.secondaryTextGrey}>Amount Raised </Text>
                         {connector.connected && !fetching && <Text style={styles.text}>   {formatNumber(balance)} </Text>}
                         {connector.connected && fetching && <View style={{ marginTop: 4, marginLeft: 30 }}><Spinner size='tiny' status='info' /></View>}

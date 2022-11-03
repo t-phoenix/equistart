@@ -85,17 +85,17 @@ export const WalletScreens = [
 
 export const InstructionScreens = [
   {
-    name: 'Alfajores Wallet',
+    name: 'Wallet',
     title: 'Instructions',
     component: AlfajoresWalletInfo
   },
   {
-    name: 'DAO Suite',
+    name: 'Equistart',
     title: 'Instructions',
     component: DAOSuiteInfo
   },
   {
-    name: 'Token Minting',
+    name: 'Minting',
     title: 'Instructions',
     component: TokenMintingInfo
   },

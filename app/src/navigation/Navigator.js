@@ -50,13 +50,14 @@ export default function Navigator({ screens, navigation, type = navType.STACK })
           tabBarStyle: styles.tabBar,
           swipeEnabled: true,
           tabBarScrollEnabled: true,
-          tabBarActiveTintColor: 'white',
+          tabBarActiveTintColor: 'orange',
           tabBarLabelPosition: 'beside-icon',
           tabBarLabelStyle: {
             fontSize: 12,
-            marginLeft: -5,
+            marginLeft: 0,
           },
           tabBarIconStyle: { display: "none" },
+          tabBarItemStyle: styles.ItemStyle
         }}
       >
         {screens.map(screen => (
@@ -94,4 +95,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
   },
+  ItemStyle: {
+    marginHorizontal: 4,
+    marginVertical: 8,
+    paddingHorizontal:2,
+    backgroundColor: 'rgba(41,164,126,0.1)',
+    borderRadius: 18
+  }
 });

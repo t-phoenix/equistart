@@ -53,6 +53,7 @@ export default function WalletHomeScreen({ navigation }) {
         setUserData({ network: '', phone: '', address: '' });
         setBalance({ "CELO": "0", "cEUR": "0", "cUSD": "0", "lockedCELO": "0", "pending": "0" });
         setConnected(false);
+        setConfirmationPopup(false);
     }
 
     const fetchBalance = async () => {
@@ -188,10 +189,10 @@ export default function WalletHomeScreen({ navigation }) {
                         <View style={{ ...commonStyles.innerCard, backgroundColor: colorPairs[num].background }}>
                             <Text style={{ color: colorPairs[num].text, ...styles.heading, textAlign: 'center' }}> Are You Sure? </Text>
                             <View style={{ flexDirection: 'row', marginVertical: '5%', justifyContent: 'space-around' }}>
-                                <Button style={{...commonStyles.button, width: '35%'}} size="small" status="danger" onPress={() => handleDisconnect()}>
+                                <Button style={{...commonStyles.button, width: '44%'}} size="small" status="danger" onPress={() => handleDisconnect()}>
                                     Disconnect
                                 </Button>
-                                <Button style={{...commonStyles.button, width: '35%'}} size="small" onPress={() => setConfirmationPopup(false)}>
+                                <Button style={{...commonStyles.button, width: '30%'}} size="small" onPress={() => setConfirmationPopup(false)}>
                                     Cancel
                                 </Button>
                         </View>
