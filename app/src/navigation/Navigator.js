@@ -48,7 +48,15 @@ export default function Navigator({ screens, navigation, type = navType.STACK })
       <Tab.Navigator
         screenOptions={{
           tabBarStyle: styles.tabBar,
-          tabBarActiveTintColor: 'white'
+          swipeEnabled: true,
+          tabBarScrollEnabled: true,
+          tabBarActiveTintColor: 'white',
+          tabBarLabelPosition: 'beside-icon',
+          tabBarLabelStyle: {
+            fontSize: 12,
+            marginLeft: -5,
+          },
+          tabBarIconStyle: { display: "none" },
         }}
       >
         {screens.map(screen => (
@@ -76,8 +84,6 @@ export default function Navigator({ screens, navigation, type = navType.STACK })
 const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: '#1d2023',
-    paddingBottom: '1%',
-    height: '7%'
   },
   controlContainer: {
     borderRadius: 4,
