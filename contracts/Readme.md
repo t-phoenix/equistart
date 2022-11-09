@@ -1,4 +1,4 @@
-# A brief description to run these test cases.
+# Smart Contract (Solidity)
 ###  pre-learned technologies required
 1. JavaScripts
 2. Solidity 
@@ -20,7 +20,7 @@
 #### Mocha- A generic JavaScript testing framework.
 #### Web3.js - A javascript framework helps us to communicate between Smart Contract and our frontend.And many more functionality.
 
-## Contract we will be dealing with-
+## Contract we will be dealing with
 1. ERC20Token.sol- This is used to create custom tokens.
 2. CrowdSale.sol- This is used to distribute all the tokens.
 3. CrowdSaleFactory.sol- It is used to create custom CrowdSale.
@@ -28,10 +28,10 @@
 
 
 
-### Fork the project into ur git repo-
+### Fork the project into ur git repo
 1. [Fork_from](https://github.com/t-phoenix/equistart)
 
-### Start locla blockchain in ur laptop.
+### Start local blockchain in your laptop.
 1. open **Ganache**
 2. select **QUICKSTART ETHEREUM** option. 
 *This will start a local blockchain in ur lap*
@@ -40,7 +40,7 @@
 
 
 
-### Clone the project from git-
+### Clone the project from git
 1. Go to the direactory in which you want ur project 
 2. create a **new blank folder** in that directory
 3. open terminal for the folder.
@@ -61,7 +61,7 @@
 #### If you want to test all the test case at once
 - type `truffle test` and hit enter.
 
-#### If u want to test all the test case individually 
+#### To test every test-case individually 
 *code- `turffle test <FILE NAME>`*
 1. for *crowdsale* type `truffle test crowdsale.test.js` and hit *enter*
 2. for *CrowdSaleFactory* type `truffle test CrowdSaleFactory.test.js` and hit *enter*

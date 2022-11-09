@@ -54,3 +54,15 @@ if (Platform.OS === 'android') {
 } 
 ```
 
+
+## Technologies Adopted
+
+1. ReactNative CLI
+2. Web3js
+3. celo/contractkit
+4. lfajores Wallet
+5. Alfajores Testnet
+6. Wallet Connect v1
+
+
+
