@@ -57,12 +57,12 @@ if (Platform.OS === 'android') {
 
 ## Technologies Adopted
 
-1. ReactNative CLI
-2. Web3js
-3. celo/contractkit
-4. lfajores Wallet
-5. Alfajores Testnet
-6. Wallet Connect v1
+1. [ReactNative CLI](https://reactnative.dev/)
+2. [Web3.js](https://web3js.readthedocs.io/en/v1.8.0/getting-started.html#adding-web3)
+3. [celo/contractkit](https://docs.celo.org/developer/contractkit)
+4. [Alfajores Wallet](https://play.google.com/store/apps/details?id=org.celo.mobile.alfajores&hl=en_IN&gl=US)
+5. [Alfajores Testnet](https://alfajores.celoscan.io/)
+6. [Wallet Connect v1](https://docs.walletconnect.com/1.0/)
 
 
 
