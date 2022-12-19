@@ -25,7 +25,7 @@ contract("TokenFactory", (accounts) =>   {
 
     it('should check the correct parameters', async function (){
         const result = await instance.getProjectById(0);
-        // console.log("Project Deets:", result);
+        console.log("Project Deets:", result);
         assert.equal(result.projectName, name);
         assert.equal(result.symbol, symbol);
         assert.equal(result.initialSupply, amount);

@@ -1,18 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { Button, Text, Icon, Spinner, Input } from '@ui-kitten/components';
-import { Dimensions } from 'react-native';
 import TokenCardDetail from '../../components/TokenCardDetail';
-import ProposalCardSummary from '../../components/ProposalCardSummary';
-import CardList from '../../components/CardList';
 import commonStyles from '../../commonStyles';
 import { backgrounds } from '../../colors';
-import { Platform } from 'react-native';
 import EmptySpace from '../../components/EmptySpace';
 import { transferTokens, getUserBalance, getUserVotes, delegateUser } from '../../services/TokenServices/ERC20TokenService';
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
 import { formatNumber } from '../../services/FormatterService';
-import Toast from 'react-native-simple-toast';
 
 
 export default function TokenHomeScreen({ route, navigation }) {

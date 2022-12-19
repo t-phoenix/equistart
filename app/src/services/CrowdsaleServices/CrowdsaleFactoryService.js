@@ -38,5 +38,10 @@ export async function createNewCrowdsale (connector, tokenAddr, beneficiaryAddr,
 
 
 // rate == number of Tokens for 1 wei
-// eg: rate ==3000, and user send 2 wei, he'll get 6000 tokens.
+// eg: rate ==3000 , and user send 2 wei, he'll get 6000 tokens.
 // tokens received = rate * value sent
+
+// eg: rate = 3 tokens/wei;
+
+// Buy --> 3000wei --> 9000 tokens with decimal 
+// Buy --> 1ETH --> 3Tokens 

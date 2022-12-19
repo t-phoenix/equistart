@@ -1,3 +1,8 @@
+import Web3 from 'web3';
+const web3 = new Web3("https://alfajores-forno.celo-testnet.org");
+import Clipboard from '@react-native-clipboard/clipboard';
+import Toast from 'react-native-simple-toast';
+
 export const formatAddress = (addr) => {
     return addr.substring(0, 5) + '...' + addr.substring(addr.length - 4);
     //TODO: Use masking instead of hard coding the mask to enable touch and copy on screen
@@ -12,10 +17,7 @@ export const formatAddressLong = (addr) => {
 }
 
 export const formatTokenValue = (value) => {
-    let val = String(value);
-    let bd = val.slice(0, -18);
-    let ad = val.slice(bd.length, -15);
-    return bd + '.' + ad;
+    return web3.utils.fromWei(String(value)).slice(0, 4);
 }
 
 export const formatMobileNumber = (number) => {
@@ -24,7 +26,7 @@ export const formatMobileNumber = (number) => {
 
 export const formatNumber = (value) => {
     if(value/1000 < 1){
-        return value;
+        return value
     }
     if(value/1000000 < 1) {
         return String(value/1000) + ' K';
@@ -42,4 +44,22 @@ export const formatNumWithDecimal = (num, decimal) => {
     let value = num/(10**decimal);
     let result = formatNumber(value);
     return result;
+}
+
+export const copyToClipboard = (address) => {
+    Clipboard.setString(address);
+    Toast.show('Address copied to clipboard!')
+}
+
+export const formatUnixTimeStamp = (timeStamp) => {
+    let date = new Date(timeStamp * 1000);
+    return date.toDateString();
+}
+
+export const voteDecision = (number)=> {
+    if (number ==0){
+        return "AGAINST";
+    }else if (number == 1){
+        return "FOR";
+    }
 }

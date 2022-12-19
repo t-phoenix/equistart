@@ -1,55 +1,73 @@
-# Equistart
+# Equistart - The Dao Suite
 
 #### Impact Sector: 
-Early Stage Startups
+Decentralised Communities and Organisations
 
 #### Startup Stage:
 Prototype on celo testnet-alfajores
 
-## Inspiration:
-"Early Stage Startups" find it hectic, expensive and time consuming process to register as a "company" with state authorities at the time.
-Traditionally there are no concrete alternatives to manage your project equity in a trustless manner, no option to manage finances without trust, and no verifiable logs of important decisions.
-Facebook or Apple's co-founder spat at the time of scaling can be deemed as an example.
+<br />
 
-## Solution:
-ERC-20 tokens on a public distributed ledger (blockchain) can be created uniquely to symbolise your project Equity. 
-This provides a trustless management of distribution with functionalities like on-chain voting for payments, fundraising, or other important decisions.
-On chain payment escrow and contract treasury account will help in managing the funds transparently.
+## Project Description
+Equistart - The DAO Suite aims at creating a full stack DAO suite for a community to create their Decentralised Autonomous Organization with no code and mobile support. Creating a DAO is a tedious task with no single application providing an end-to-end solution and Information. With our dapp, users can easily mint their tokens, raise funds by selling parts of tokens, manage the raised funds (Treasury Management/ AMM), and finally Govern the project bound by tokens in a decentralized and autonomous fashion.
 
-## Product:
-A simple smart contract framework with the essential to manage the project equity on a public blockchain. 
-Any team (including non-tech) can easily create their ERC20 project token through a mobile Dapp.
-Stakeholders can back their project token with other widely accepted crypto (like BTC, ETH, CELO, cUSD, USDT), 
-transfer their tokens and also log their finances by using the tokens for onchain voting.
-
+<br />
 
 ### Summary:
 Internet unlocked a vast universe of new Applications over the past decades and now blockchain is 
 revolutionising how we can manage our financial assets over the network of computers in a decentralised manner.
+This idea can be extrapolated and can be used to build the future together in a cooperative DAO model.
 
-This summary explains how we can edge on public blockchains to create an ERC-20 token representing equity for founders, 
-investors and other stakeholders in an Early Stage Startup Project. We aim in creating a generic smart contract template 
-which will help "any" startup team to:
-- create their project token(ERC20)
-- transfer these project tokens(equity)
-- manage your finances (escrow, accounts, treasury, etc.)
-- vote on important decisions.
-
-This Dapp can save hours of time and pile of money while building trust among the team members.
-
-<!-- The project can be scaled into a decentralised entity to comply with most jurisdictions or they can choose to migrate
-to traditional methods upon necessity. Blockchain projects can use the application till they manage to develop their platform. -->
-#### Download the App from Play Store
-[Play Store Link](https://play.google.com/store/apps/details?id=com.app.equistart)
-
-#### How to use our prototype DApp
-[Demo Link](https://www.youtube.com/watch?v=GbPaw_7Wvio)
+DAO's vs Traditional Organisations
 
 
-### This Repository
-**app** folder contains code for react-native application, tested on android devices.
+|             | Traditional | DAO |
+| ----------- | ----------- | ----------- |
+| Permission | Granted by State | Permissionless |
+| Assets | Custodied by Banks | Crypto |
+|Property Rights | Enforced by Police | Tracked on Blockchain |
+| Ownership & Governance | Intermediated by Lawyers | Managed through Software |
+| Disputes | Settled by courts | Arbitration Networks |
 
-**contract** folder contains the solidity code which is compiled and deployed on alfajores-testnet for now.
+
+
+<br />
+
+### Installation
+
+This repository contains 2 subfolders important for the appication
+1. **app** - This folder hosts the code for React-Native Mobile Application
+2. **contract** - All the smart contracts can be found here.
+
+Follow the Readme.md in the respective folder for installation instructions. 
+
+<br />
+
+### Links
+
+#### Download the Previous Version of this App from Play Store (new version coming soon) -> [Play Store Link](https://play.google.com/store/apps/details?id=com.app.equistart)
+
+#### Demo App (New) -> [APK](https://drive.google.com/file/d/1LvkUhvC86YYecpzMNLLasAQ79MGVRocc/view?usp=sharing)
+
+#### How to use our prototype DApp -> [Youtube](https://youtu.be/oBbx7qXQLxY)
+
+#### Presentation -> [Equistart](https://he-s3.s3.amazonaws.com/media/sprint/celo-hackathon/team/1566405/517ec97equistart_ppt.pdf)
+
+
+
+
+
+### Future
+This dapp is under constant development iteration to bring forward the best of technology in the easiest way for the millenials to form their DAO.
+We are heavily working on:
+- Research
+- Smart Contract Developmet
+- UI/UX Development
+- Business, Strategy and Roadmap
+- Legality
+
+
+
 
 
 

@@ -3,18 +3,29 @@ import { ScrollView, StyleSheet, View, Image, TouchableOpacity, SafeAreaView } f
 import commonStyles from '../../commonStyles'
 import { Button, Text, Layout, Card, Icon, Input, Datepicker, Spinner } from '@ui-kitten/components'
 import EmptySpace from '../../components/EmptySpace';
-import { colorPairs } from '../../colors'
-import { createProposal } from '../../services/ProjectServices';
+import { colorPairs, COLORS } from '../../colors'
+import { createNewProposal } from '../../services/GovernorServices/MyGovernorService';
 import { useWalletConnect } from '@walletconnect/react-native-dapp';
-
+import { formatAddress, formatNumber, copyToClipboard } from '../../services/FormatterService';
+import {getUserBalance} from '../../services/TokenServices/ERC20TokenService';
 
 let num = (Math.floor((Math.random() * 100))) % colorPairs.length;
 
 const CreateProposalScreen = ({ route, navigation }) => {
-    const [description, setDescription] = React.useState('');
-    const [header, setHeader] = React.useState('');
-    const [sending, setSending] = React.useState(false);
     const connector = useWalletConnect();
+
+    console.log("DATA FOR:", route.params.data.timelock);
+    const [description, setDescription] = React.useState('');
+    const [tokenAddr, setTokenAddr] = React.useState('');
+    const [receiverAddr, setReceiverAddr] = React.useState('');
+    const [amount, setAmount] = React.useState('');
+    const [treasuryBal, setTreasuryBal] = React.useState('Enter token address');
+    //HUMANS TOKEN
+    // let tokenAddr = "0x7D0834ef50fcb367F675159e100E1b3620Aa9698";
+    // let receiverAddr = "0x2F15F9c7C7100698E10A48E3EA22b582FA4fB859";
+    // let amount = 3;
+    // let description = "test propsosal";
+    const [sending, setSending] = React.useState(false);
     const [isWalletConnected, setIsWalletConnected] = React.useState(connector.connected);
     const scrollViewRef = React.useRef();
 
@@ -30,8 +41,9 @@ const CreateProposalScreen = ({ route, navigation }) => {
     );
 
     const addProposal = async () => {
-        setSending(true);
-        createProposal(route.params.data.address, header, description, connector).then(success => {
+        // setSending(true);
+        // console.log("COMMON DUdE, CODE UP:", route );
+        createNewProposal(connector, route.params.data.governor, tokenAddr, receiverAddr, amount, description).then(success => {
             setSending(false);
             if (success) {
                 console.log("refresh to view proposal");
@@ -39,8 +51,17 @@ const CreateProposalScreen = ({ route, navigation }) => {
             }
             else
                 console.log("request failed");
+        }).error(err=>{
+            console.log("Error while crating prop:", err)
         });
     }
+
+    const getTreasuryBalance = async () => {
+        const balance = await getUserBalance(tokenAddr, route.params.data.timelock);
+        console.log("Treasury Balance:", balance);
+        setTreasuryBal(()=>balance);
+    }
+
     return (
         <SafeAreaView style={commonStyles.pageView}>
             {!isWalletConnected && <View style={commonStyles.warningContainer}>
@@ -54,6 +75,13 @@ const CreateProposalScreen = ({ route, navigation }) => {
                         <View>
                             <Text style={{ color: colorPairs[num].text, ...styles.heading }}> Enter Proposal </Text>
                             <Text style={{ color: colorPairs[num].text, ...styles.heading }}>  Details</Text>
+                            <Text style={commonStyles.tertiaryTextBlack}>Use Timelock contract</Text> 
+                            <Text style={commonStyles.tertiaryTextBlack}>as treasury Address</Text>
+                            
+                            {/* <Text>{route.params.data.timelock}</Text> */}
+                            <TouchableOpacity onPress={() => copyToClipboard(route.params.data.timelock)}>
+                                <Text style={commonStyles.activeText}>{formatAddress(route.params.data.timelock)}</Text>
+                            </TouchableOpacity>
                         </View>
                         <View>
                             <Image
@@ -67,32 +95,38 @@ const CreateProposalScreen = ({ route, navigation }) => {
                         </View>
                     </View>
                 </View>
+                
                 <EmptySpace />
                 <Input
                     style={commonStyles.input}
-                    value={header}
-                    onChangeText={header => setHeader(header)}
+                    value={tokenAddr}
+                    onChangeText={val => setTokenAddr(val)}
                     placeholder="address"
                     label={() => <Text style={commonStyles.inputLabel}> Token Address </Text>}
                 />
+                <View>
+                    <Button
+                        style={styles.smallButton}
+                        onPress={getTreasuryBalance}
+                        status='warning'>
+                        Get Treasury Balance
+                    </Button>
+                    <Text style={styles.smallText}>{treasuryBal}</Text>
+                </View>
                 <Input
                     style={commonStyles.input}
-                    value={header}
-                    onChangeText={header => setHeader(header)}
-                    placeholder="address[]"
+                    value={receiverAddr}
+                    onChangeText={val => setReceiverAddr(val)}
+                    placeholder="address"
                     label={() => <Text style={commonStyles.inputLabel}> Receivers Address </Text>}
                 />
                 <Input
                     style={commonStyles.input}
-                    value={header}
-                    onChangeText={header => setHeader(header)}
+                    value={amount}
+                    onChangeText={val => setAmount(val)}
                     placeholder="uint256[]"
                     label={() => <Text style={commonStyles.inputLabel}> Amount/Value </Text>}
                 />
-                {/* 3 inputs:
-                receiving token Address
-                list of value each Receiving
-                token Address, teamAddress, grantAmount */}
                 <Input
                     style={commonStyles.input}
                     onChangeText={setDescription}
@@ -103,28 +137,6 @@ const CreateProposalScreen = ({ route, navigation }) => {
                     multiline
                     numberOfLines={4}
                 />
-                {/* <View style={styles.datePickerContainer}>
-                    <Datepicker
-                        controlStyle={commonStyles.input}
-                        min={today}
-                        date={startDate}
-                        label={() => <Text style={commonStyles.inputLabel}> Start date  </Text>}
-                        onSelect={nextStartDate => { setStartDate(nextStartDate); setEndDate('') }}
-                        accessoryRight={CalendarIcon}
-                        backdropStyle={styles.backdrop}
-                    />
-                    <Text style={{ ...styles.toText, ...commonStyles.secondaryTextGrey }}> To </Text>
-                    <Datepicker
-                        controlStyle={commonStyles.input}
-                        min={startDate}
-                        date={endDate}
-                        label={() => <Text style={commonStyles.inputLabel}> End date  </Text>}
-                        onSelect={nextEndDate => setEndDate(nextEndDate)}
-                        accessoryRight={CalendarIcon}
-                        placement={PopoverPlacements.BOTTOM_END}
-                        backdropStyle={styles.backdrop}
-                    />
-                </View> */}
                 <EmptySpace space={120} />
             </ScrollView>
             <View style={commonStyles.rowButtonContainer}>
@@ -139,7 +151,7 @@ const CreateProposalScreen = ({ route, navigation }) => {
                     onPress={addProposal}
                     disabled={!isWalletConnected}
                 >
-                    {!sending && "Publish"}
+                    {!sending && "Send"}
                     {sending && <Spinner size='tiny' status='basic' />}
                 </Button>
             </View>
@@ -174,5 +186,10 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: 20,
         fontWeight: 'bold',
+    },
+    smallText:{
+        fontSize: 12,
+        color: COLORS.secondaryWhite
     }
+    
 })

@@ -1,4 +1,5 @@
 import {MyGovernorABI, myGovernorFactoryABI, myGovernorBYTE_CODE} from '../../ABIs/GovernorABI';
+import {testGovernorBYTE_CODE} from '../../ABIs/GovernorAB';
 import {TimelockABI, timelockBYTE_CODE} from '../../ABIs/TimelockABI';
 // import { projectContractBytecode } from "../bytecode";
 import Web3 from 'web3';
@@ -37,7 +38,7 @@ export async function deployGovernor(connector, timelock, token){
     try {
         let governorContract = new kit.connection.web3.eth.Contract(MyGovernorABI);
         const bytecodeWithParams = governorContract.deploy({
-            data: myGovernorBYTE_CODE.object,
+            data: testGovernorBYTE_CODE.object,
             arguments: [token, timelock]
         });
         let txObj = {
@@ -82,6 +83,21 @@ export async function updateGovernorFactory(connector, governor, timelock, token
 export async function getAllDeployedGovernors(){
     const allGovernorsList = await factoryContract.methods.getAllDeployedGovernor().call();
     return allGovernorsList;
+}
+
+export async function grantProposerToGovernor (connector, governor, timelock){
+  const timelockContract = new kit.connection.web3.Contract(TimelockABI, timelock);
+  const proposerROLE = await timelockContract.methods.PROPOSER_ROLE().call();
+  console.log("Proposer Role: ", proposerROLE);
+  const grantProposer =  timelockContract.methods.grantRole(proposerROLE, governor);
+  const txObj = {
+    from: connector.accounts[0],
+    to: timelock,
+    data: grantProposer.encodeABI()
+  }
+  const trx = await connector.sendTransaction(txObj);
+  console.log("Grant Proposer role to Governor Contract:", trx);
+  return trx
 }
 
 //Valora behaves abnormally around this function.

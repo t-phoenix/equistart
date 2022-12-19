@@ -1243,7 +1243,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/MyGovernor.sol": "MyGovernor"
+			"MyGovernor.sol": "MyGovernor"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -1252,7 +1252,7 @@
 		},
 		"optimizer": {
 			"enabled": true,
-			"runs": 200
+			"runs": 1000000000
 		},
 		"remappings": []
 	},
@@ -1473,12 +1473,12 @@
 				"dweb:/ipfs/QmZSXpAvoXWkxQ4U2GJ4juWvmn4Fd7zeH9wXZq6wKUbfi6"
 			]
 		},
-		"contracts/MyGovernor.sol": {
-			"keccak256": "0x33b330f5809abffe452e778f70341264ac2063110ac85982838a38794c9aae07",
+		"MyGovernor.sol": {
+			"keccak256": "0x81220ea920a4f71febd7458ab0ac13f64b2313828f0d6b2bbd7d9874f99f81ff",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://058fb6171a75daf0e407db0a72ee7cb19909405b659084a0e6492e5899750ae4",
-				"dweb:/ipfs/QmVnVSVp7stGkwvqmF6DpvGSX83Fsqg4tufV45bzuHY8Je"
+				"bzz-raw://481ba99f2d4d4168245bab2708a3d4803485d41af0c2025c616a0ae085550d18",
+				"dweb:/ipfs/QmXZocd6NUP6ojP6Vk2NwCeLf9FMSgSEt4h8L7v2JDsdKW"
 			]
 		}
 	},

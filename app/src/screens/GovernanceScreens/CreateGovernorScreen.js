@@ -27,26 +27,24 @@ const num = Math.floor(Math.random() * 100) % colorPairs.length;
 export default function CreateGovernorScreen({navigation}) {
   const connector = useWalletConnect();
   const [tokenAddr, setTokenAddr] = React.useState('');
+  const [delay, setDelay] = React.useState('');
   const [timelockAddr, setTimelockAddr] = React.useState('');
   const [governorAddr, setGovernorAddr] = React.useState('');
   const [buttonSwitch, setButtonSwitch] = React.useState(0);
 
   async function createTimelock() {
     //TODO: CREATE input for these parameters
-    const delay = 3600;
+    // const delay = 3600;
     //WARNING:
-    //EDIT
-    //EDIT
-    //Developers can ADD their current mobile testing wallet while creating governor
-    const proposers = ['0xe2c7618d0f07578cad8de5c05d5cbc3382b04fcd'];
-    const executors = ['0xe2c7618d0f07578cad8de5c05d5cbc3382b04fcd'];
-    // const tokenAdrr = "0xe2c7618d0f07578cad8de5c05d5cbc3382b04fcd";
+
+    const proposers = [];
+    const executors = ['0x0000000000000000000000000000000000000000'];
 
     deployTimelock(connector, delay, proposers, executors)
       .then(result => {
         console.log('Deploying TIMELOCK:', result);
-        setTimelockAddr(()=>result);
-        setButtonSwitch(()=>1);
+        setTimelockAddr(() => result);
+        setButtonSwitch(() => 1);
       })
       .error(err => {
         console.error('Erroe while deploying Timelock', err);
@@ -57,8 +55,8 @@ export default function CreateGovernorScreen({navigation}) {
     deployGovernor(connector, timelockAddr, tokenAddr)
       .then(result => {
         console.log('Governor Deployed:', result);
-        setGovernorAddr(()=>result);
-        setButtonSwitch(()=>2);
+        setGovernorAddr(() => result);
+        setButtonSwitch(() => 2);
       })
       .error(err => {
         console.log('Error while deploying Governor:', err);
@@ -69,12 +67,23 @@ export default function CreateGovernorScreen({navigation}) {
     updateGovernorFactory(connector, governorAddr, timelockAddr, tokenAddr)
       .then(result => {
         console.log('Updating Factory:', result);
-        navigation.goBack();
+        setButtonSwitch(() => 3);
       })
       .error(err => {
         console.log('Error while updating Governor Factory:', err);
       });
   }
+
+  // async function grantRoleInTimelock() {
+  //   grantProposerToGovernor(connector, governorAddr, timelockAddr)
+  //     .then(result => {
+  //       console.log('Granting Proposer to Governor. Transaction: ', result);
+  //       navigation.goBack();
+  //     })
+  //     .error(err => {
+  //       console.log('Error while updating TImelock Settings:', err);
+  //     });
+  // }
 
   return (
     <SafeAreaView style={commonStyles.pageView}>
@@ -111,20 +120,32 @@ export default function CreateGovernorScreen({navigation}) {
               />
             </View>
           </View>
+          <View style={{margin: 8}}>
+            <Text>Enter Token Address</Text>
+            <Text>1st Deploy Timelock</Text>
+            <Text>Timelock: {timelockAddr}</Text>
+            <Text>2nd Deploy Governor</Text>
+            <Text>Governor: {governorAddr}</Text>
+            <Text>3rd Add To The App Governor List</Text>
+            <Text>4th Grant Proposer Role to Governor</Text>
+            <Text>Governor is Proposer</Text>
+          </View>
         </View>
         {/* Add List Code Here */}
         <EmptySpace />
-        <View>
-          <Text>Enter Token Address</Text>
-          <Text>1st Deploy Timelock</Text>
-          <Text>Timelock: {timelockAddr}</Text>
-          <Text>2nd Deplot Governor</Text>
-          <Text>Governor: {governorAddr}</Text>
-          <Text>3rd Add To The App Governor List</Text>
-        </View>        
+
         {/* CREATE 3 MORE FIELDS
         TO REPLACE THE HARDCODED DATA in createGovernor */}
         <EmptySpace />
+        <Input
+          style={commonStyles.input}
+          onChangeText={setDelay}
+          value={delay}
+          label={() => (
+            <Text style={commonStyles.inputLabel}>Timelock Delay</Text>
+          )}
+          placeholder={'(seconds) Delay b/w Queue and Execution '}
+        />
         <Input
           style={commonStyles.input}
           onChangeText={setTokenAddr}
@@ -134,8 +155,6 @@ export default function CreateGovernorScreen({navigation}) {
           )}
           placeholder={'ERC20 Token Address'}
         />
-        
-        
       </ScrollView>
       <View style={commonStyles.rowButtonContainer}>
         <Button
@@ -150,22 +169,31 @@ export default function CreateGovernorScreen({navigation}) {
               Create Timelock
             </Button>
           ) : (
-            <>
-              {buttonSwitch == 1 ? (
-                <Button
-                  style={commonStyles.singleButton}
-                  onPress={createGovernor}>
-                  Create Governor
-                </Button>
-              ) : (
-                <Button
-                  style={commonStyles.singleButton}
-                  onPress={updateFactory}>
-                  Update List
-                </Button>
-              )}
-            </>
+            <></>
           )}
+          {buttonSwitch == 1 ? (
+            <Button style={commonStyles.singleButton} onPress={createGovernor}>
+              Create Governor
+            </Button>
+          ) : (
+            <></>
+          )}
+          {buttonSwitch == 2 ? (
+            <Button style={commonStyles.singleButton} onPress={updateFactory}>
+              Update List
+            </Button>
+          ) : (
+            <></>
+          )}
+          {/* {buttonSwitch == 3 ? (
+            <Button
+              style={commonStyles.singleButton}
+              onPress={grantRoleInTimelock}>
+              Grant Timelock Role
+            </Button>
+          ) : (
+            <></>
+          )} */}
         </>
       </View>
     </SafeAreaView>

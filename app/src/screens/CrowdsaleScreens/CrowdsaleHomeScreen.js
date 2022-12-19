@@ -96,7 +96,7 @@ export default function CrowdsaleHomeScreen({route, navigation}) {
             onTouchEnd={() => scrollViewRef.current.scrollToEnd()}
             value={buyingAmount}
             placeholder="amount"
-            label={() => <Text style={styles.inputLabel}>Amount (wei)</Text>}
+            label={() => <Text style={styles.inputLabel}>Amount (CELO)</Text>}
             keyboardType="numeric"
           />
           <Text style={styles.inputLabel}>Tokens to receive: {route.params.data.rate * buyingAmount}</Text>
