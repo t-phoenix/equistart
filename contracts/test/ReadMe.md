@@ -31,7 +31,7 @@
 ### Fork the project into ur git repo-
 1. [Fork_from](https://github.com/t-phoenix/equistart)
 
-### Start locla blockchain in ur laptop.
+### Start local blockchain in ur laptop.
 1. open **Ganache**
 2. select **QUICKSTART ETHEREUM** option. 
 *This will start a local blockchain in ur lap*

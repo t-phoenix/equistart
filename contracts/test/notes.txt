@@ -110,3 +110,13 @@ This function is used to vote and create proposals and many more
   NOTE- more than 1 support can be given
 
  NOTE- In MyGovernor.sol file proposalThreshold() should be changed to 1e18 from 100e18 because while testing ganache dont give 400eth so with changing it to 1e18 we can check the function is success or not.
+
+
+ IMPORTENT FOR voting
+
+ * There are 2 standard keys: `support` and `quorum`.
+     *
+     * - `support=bravo` refers to the vote options 0 = Against, 1 = For, 2 = Abstain, as in `GovernorBravo`.
+     * - `quorum=bravo` means that only For votes are counted towards quorum.
+     * - `quorum=for,abstain` means that both For and Abstain votes are counted towards quorum.
+     *

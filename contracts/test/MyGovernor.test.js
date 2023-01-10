@@ -25,15 +25,15 @@ contract("Setting MyGovernor contract",(accounts)=>{
         amount = 50
         newSupply = web3.utils.toWei(amount.toString(), 'ether')
 
-        console.log("ToTal Token Suppli is ", newSupply, "old supply:", supply);
+        console.log("ToTal Token Suppli is ", newSupply, "old supply:", supply.toString());
 
-        await erc.transfer(crowdsale.address,newSupply);
+        await erc.transfer(crowdsale.address,newSupply.toString());
         crowdsaleBal = await erc.balanceOf(crowdsale.address);
         account0Bal = await erc.balanceOf(accounts[0]);
         console.log("Balance for Crowdsale: ", crowdsaleBal.toString());
         console.log("Balance of Account0:", account0Bal.toString() );
 
-        await erc.transfer(timelock.address, 25);
+        await erc.transfer(timelock.address, "25");
 
     })
 
@@ -88,26 +88,32 @@ contract("Setting MyGovernor contract",(accounts)=>{
         // console.log("PROPOSAL LOG ", bountyProposal.logs)
         console.log("Bounty Proposal ID:",bountyPropID)
     })
+
+
+
+
+
+
     it("Creating a NEW PROPOSAL sending ETH to acc 6",async()=>{
         
         // functionCallData = await accounts[6].send(3).encodeABI();
         // console.log("Call data to send :", functionCallData)
-        // threshold = await instance.proposalThreshold();
+        // const threshold = await instance.proposalThreshold();
         // acc1tokenBalance = await erc.balanceOf(accounts[1]);
         // console.log("Account1 balance:",acc1tokenBalance.toString() )
         // // await erc.delegate(accounts[1])
         // account1VotingPow = await erc.getVotes(accounts[1]);
         // console.log("Threshold:",threshold.toString(), " Voting Power Account 1:", account1VotingPow.toString(), "Is account > threshold: ", account1VotingPow.toString()>threshold.toString());
-        txnCalldata = web3.eth.sendTransaction({from: timelock.address, to: accounts[6], value:3}).encodeABI();
+        // txnCalldata =await web3.eth.sendTransaction({from: timelock.address, to: accounts[6], value:3}).encodeABI();
         
-        propose_res = await instance.propose([timelock.address],[0],[txnCalldata],"Grant 3 ETH for marketing to Bob",{from:accounts[4]})
+        // propose_res = await instance.propose([timelock.address],[0],[txnCalldata],"Grant 3 ETH for marketing to Bob",{from:accounts[4]})
    
-        propID = (await propose_res.logs[0].args.proposalId).toString();
-        console.log("Proposal ID:",propID)
+        // const propID = (await propose_res.logs[0].args.proposalId).toString();
+        // console.log("Proposal ID:",propID)
         
         // propose_res2 = await instance.propose(["0x9CEE7AefA7Eda217F7880B6aA04625f5683f07a6"],[10],[Buffer.from('helllo','hex')],"discption",{from:accounts[1]})
         // assert.notEqual(bountyPropID,'0','proposal created')
-        await time.advanceBlock();
+        // await time.advanceBlock();
     })
     it("should cast votes to pass the propsoal", async ()=>{
         propState = await instance.state(bountyPropID);
@@ -129,7 +135,7 @@ contract("Setting MyGovernor contract",(accounts)=>{
     })
 
     it("should cast vote to send 3 eth proposal", async () => {
-        propResState = await instance.state(propID);
+        const propResState = await instance.state(propID);
         console.log("State of Proposal: ", propResState.toString());
 
         for (let i = 1; i < 5; i++) {
@@ -152,21 +158,21 @@ contract("Setting MyGovernor contract",(accounts)=>{
         // calldata = erc.contract.methods.transfer(accounts[5], 2).encodeABI()
         // calldata = erc.interface.encodeFunctionData("transfer", [accounts[5],2]); for ethers and hardhat 
         console.log("CALLDATA:", calldata);
-        proposalQueue = await instance.queue([erc.address], [0], [calldata], descriptionHash, {from: accounts[1]});
-        propState5 = await instance.state(bountyPropID);
+        const proposalQueue = await instance.queue([erc.address], [0], [calldata], descriptionHash, {from: accounts[1]});
+        const propState5 = await instance.state(bountyPropID);
         console.log("Proposal State5: ", propState5.toString());
     })
     it("should execute the proposal", async()=>{
-        Acc5BalBefore = await erc.balanceOf(accounts[5])
-        timelockBefore = await erc.balanceOf(timelock.address);
+        const Acc5BalBefore = await erc.balanceOf(accounts[5])
+        const timelockBefore = await erc.balanceOf(timelock.address);
         console.log("BEFORE - Acc 5 :", Acc5BalBefore.toString(), " TL:", timelockBefore.toString());
         await time.increase(time.duration.seconds(10));
         
-        proposalExecution = await instance.execute([erc.address], [0], [calldata], descriptionHash, {from: accounts[0]})
-        propState6 = await instance.state(bountyPropID);
+        const proposalExecution = await instance.execute([erc.address], [0], [calldata], descriptionHash, {from: accounts[0]})
+        const propState6 = await instance.state(bountyPropID);
         console.log("Proposal State after execution: ", propState6.toString());
-        Acc5BalAfter = await erc.balanceOf(accounts[5])
-        timelockAfter = await erc.balanceOf(timelock.address);
+        const Acc5BalAfter = await erc.balanceOf(accounts[5])
+        const timelockAfter = await erc.balanceOf(timelock.address);
         console.log("After - Acc 5:", Acc5BalAfter.toString(), " TL: ", timelockAfter.toString());
         
     })

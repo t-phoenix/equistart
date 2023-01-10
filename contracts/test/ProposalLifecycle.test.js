@@ -20,15 +20,15 @@ contract("Proposal Lifecycle 1", (accounts)=>{
     it("Creating a proposal using propose function",async()=>{
         
         threshold = await instance.proposalThreshold();
-        acc1tokenBalance = erc.balanceOf(accounts[1]);
-        console.log("Account1 balance:",acc1tokenBalance )
-        await erc.delegate(accounts[1])
+        acc1tokenBalance =await erc.balanceOf(accounts[1]);
+        console.log("Account1 balance:",acc1tokenBalance.toString() )
+        await erc.delegate(accounts[1],{from:accounts[1]})
         account1VotingPow = await erc.getVotes(accounts[1]);
 
         console.log("Threshold:",threshold.toString(), " Voting Power Account 1:", account1VotingPow.toString(), "Is account > threshold: ", threshold.toString()>account1VotingPow.toString());
         propose_res = await instance.propose(["0x313aEB130dB7879212Ce6b19c5d3B3b173b53D52"],[1],[Buffer.from('hello','hex')],"discription",{from:accounts[4]})
         //dummy transaction 
-        propID = (await propose_res.logs[0].args.proposalId).toString();
+        const propID = (await propose_res.logs[0].args.proposalId).toString();
         console.log("PROPOSAL LOG ", propose_res.logs, "Proposal ID:",propID)
         
         propose_res2 = await instance.propose(["0x9CEE7AefA7Eda217F7880B6aA04625f5683f07a6"],[10],[Buffer.from('helllo','hex')],"discption",{from:accounts[1]})

@@ -4,9 +4,9 @@ const crowdsale = artifacts.require("Crowdsale");
 const crowdsaleFactory = artifacts.require("CrowdsaleFactory");
 const timelockController=artifacts.require("TimelockController");
 const mygo=artifacts.require("MyGovernor");
-const proposers= ["0x47a5BB2400E753CB313266D87bE3dAF6A7f8e504"];
-const executors= ["0x0000000000000000000000000000000000000000"];
-const owner="0x47a5BB2400E753CB313266D87bE3dAF6A7f8e504"
+const proposers= ["0xE7dD7322a076D4f80f4B3f67216ce1ac8dd3624f"];
+const executors= ["0x9ea7223751CCeB92eF6b62c0187517120Da7a79E"];
+const owner="0x9ea7223751CCeB92eF6b62c0187517120Da7a79E"
 
 
 module.exports =  (deployer)=> {

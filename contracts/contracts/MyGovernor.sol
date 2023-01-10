@@ -21,13 +21,16 @@ contract MyGovernor is Governor, GovernorCountingSimple, GovernorVotes, Governor
     }
 
     function votingPeriod() public pure override returns (uint256) {
-        return 300; // 5min approx 45818 //1Week
+        // return 300; // 5min approx 45818 //1Week
+        return 4;
     }
 
     // function proposalThreshold() public pure override returns (uint256) {
     //     return 100e18;
     // }
     // TODO 100 eth is not required for our project
+    // user token balalnce should be equal or greater than proposalThreshold 
+    // to propose  
     function proposalThreshold() public pure override returns (uint256) {
         return 1e18;
     }
