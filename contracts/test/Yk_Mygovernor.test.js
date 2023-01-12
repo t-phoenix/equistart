@@ -5,8 +5,7 @@
 // Goal-2
 // try creating a proposal to send some ETH to another address ---
 // goal-3
-// change threshold ---
-// And change Quorum threshold
+// change threshold and quorum DONE
 // goal-4
 // add many functions in proposals ---
 

@@ -83,11 +83,12 @@ contract("Setting MyGovernor to send ETH from timelock to account5", (accounts) 
     // Tokens transfer to account 5 proposals
     // TODO: change proposals to send ETH
     it("should create a proposal to fund 10 ETH to timelock contract", async () => {
-        calldataRaw = web3.eth.sendTransaction({from:accounts[0],to:accounts[3],value:10000000});
-        calldata = web3.utils.toHex(calldataRaw);
-        console.log("yes");
+        // calldataRaw = web3.eth.sendTransaction({from:accounts[0],to:accounts[3],value:10000000});
+        // calldata = web3.utils.toHex(calldataRaw);
+        calldata="0x776562332e6574682e73656e645472616e73616374696f6e287b66726f6d3a6163636f756e74735b305d2c746f3a6163636f756e74735b335d2c76616c75653a31303030303030307d29"
+        console.log(calldata);
         // Number(web3.utils.toWei("5", 'ether'))
-        bountyProposal = await instance.propose([accounts[3]], [10000000], [0x00], "Grant 2 Token to team account5 for his latest bug bounty. ", { from: accounts[2] });
+        bountyProposal = await instance.propose([accounts[0]], [10000000], [0x00], "Transfer funds", { from: accounts[2] });
         bountyPropID = (await bountyProposal.logs[0].args.proposalId).toString();
         console.log("Bounty Proposal ID:", bountyPropID)
         // dummy transaction
@@ -115,12 +116,14 @@ contract("Setting MyGovernor to send ETH from timelock to account5", (accounts) 
     })
 
     it("Queue proposal and change time", async () => {
-        descriptionHash = web3.utils.keccak256("Grant 2 Token to team account5 for his latest bug bounty. ");
-        calldataRaw = web3.eth.sendTransaction({ from: accounts[0], to: accounts[3], value: 10000000 });
-        calldata = web3.utils.toHex(calldataRaw);
+        descriptionHash = web3.utils.keccak256("Transfer funds");
+        // calldataRaw = web3.eth.sendTransaction({ from: accounts[0], to: accounts[3], value: 10000000 });
+        // calldata = web3.utils.toHex(calldataRaw);
+        calldata="0x776562332e6574682e73656e645472616e73616374696f6e287b66726f6d3a6163636f756e74735b305d2c746f3a6163636f756e74735b335d2c76616c75653a31303030303030307d29"
+
         console.log("yes");
         // Queue
-        bountyQueue = await instance.queue([accounts[3]], [10000000], [0x00], descriptionHash, { from: accounts[2] });
+        bountyQueue = await instance.queue([accounts[0]], [10000000], [0x00], descriptionHash, { from: accounts[2] });
         bountyQueue = (await bountyProposal.logs[0].args.proposalId).toString();
         console.log("bounty Queue:", bountyQueue);
 
@@ -130,26 +133,27 @@ contract("Setting MyGovernor to send ETH from timelock to account5", (accounts) 
         await time.increase(time.duration.seconds(10));
     })
     it("Execute proposal", async () => {
-        descriptionHash = web3.utils.keccak256("Grant 2 Token to team account5 for his latest bug bounty. ");
-        // calldata = send.ether(accounts[0],accounts[3],"1000000").encodeABI();
-        // Check balance before Execution
-        await web3.eth.getBalance(accounts[3], function(error, result) {
-            console.log("Bal of account 5 before Execution", result.toString());
-        });
+        // descriptionHash = web3.utils.keccak256("Grant 2 Token to team account5 for his latest bug bounty. ");
+        // // calldata = send.ether(accounts[0],accounts[3],"1000000").encodeABI();
+        // // Check balance before Execution
+        // await web3.eth.getBalance(accounts[3], function(error, result) {
+        //     console.log("Bal of account 5 before Execution", result.toString());
+        // });
 
 
-        calldataRaw = web3.eth.sendTransaction({ from: accounts[0], to: accounts[3], value: 10000000 });
-        calldata = web3.utils.toHex(calldataRaw);
-        // Execution
-        bountyExecute = await instance.execute([accounts[3]], [10000000], [0x00], descriptionHash, { from: accounts[2] });
-        bountyExecuteID = (await bountyProposal.logs[0].args.proposalId).toString();
-        console.log("Bounty Execute:", bountyExecuteID);
+        // // calldataRaw = web3.eth.sendTransaction({ from: accounts[0], to: accounts[3], value: 10000000 });
+        // // calldata = web3.utils.toHex(calldataRaw);
+        // calldata="0x776562332e6574682e73656e645472616e73616374696f6e287b66726f6d3a6163636f756e74735b305d2c746f3a6163636f756e74735b335d2c76616c75653a31303030303030307d29"
+        // // Execution
+        // bountyExecute = await instance.execute([accounts[0]], [10000000], [0x00], descriptionHash, { from: accounts[2] });
+        // bountyExecuteID = (await bountyProposal.logs[0].args.proposalId).toString();
+        // console.log("Bounty Execute:", bountyExecuteID);
 
-        await web3.eth.getBalance(accounts[3], function(error, result) {
-            console.log("Bal of account 5 after Execution", result.toString());
-        });
-        state = await instance.state(bountyPropID);
-        console.log("state after execution", state.toString());
+        // await web3.eth.getBalance(accounts[3], function(error, result) {
+        //     console.log("Bal of account 5 after Execution", result.toString());
+        // });
+        // state = await instance.state(bountyPropID);
+        // console.log("state after execution", state.toString());
 
     })
 })
