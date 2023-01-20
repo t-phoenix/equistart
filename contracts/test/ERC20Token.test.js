@@ -26,6 +26,20 @@ contract("ERC20Token testing", function(accounts){
         const res=await token.decreaseAllowance(accounts[1],5,{from:accounts[0]});
         assert.equal(await token.allowance(accounts[0],accounts[1]),10,"allowance decresed by 5 tokens")
     })
+    it("Burn some tokens from account 0",async()=>{
+        beforeBal=await token.balanceOf(accounts[0]);
+        console.log("afterBal",beforeBal.toString());
+        await token.burn(accounts[0],web3.utils.toWei("10", 'ether'));
+        afterBal=await token.balanceOf(accounts[0]);
+        console.log("afterBal",afterBal.toString());
+    })
+    it("mint some tokens from account 0",async()=>{
+        beforeBal=await token.balanceOf(accounts[0]);
+        console.log("afterBal",beforeBal.toString());
+        await token.mint(accounts[0],web3.utils.toWei("10", 'ether'));
+        afterBal=await token.balanceOf(accounts[0]);
+        console.log("afterBal",afterBal.toString());
+    })
 
     // ERC20 done
 })
